@@ -1,51 +1,13 @@
+import logging
 from os import system
 from utils.input_utils import simple_prompt, input_feedback_body
 from utils.ticket_utils import tid_is_valid, input_ticket, print_ticket_details, tickets_menu
 from DBUtils.connection.database_connection import DatabaseConnection
 from DBUtils.ticket.ticketDAO import TicketDAO
 from DBUtils.customer.feedbackdao import FeedbackDAO
+from ticket.customer_section.config.customer_ticket_config_loader import CustomerTicketConfig
 
-
-TICKET_RAISE_WELCOME_MESSAGE = "Please enter the following details so that we can raise your ticket: "
-VIEW_IN_PROGRESS_TICKETS_WELCOME = "Here are your in-progress tickets: "
-NO_TICKETS_YET = "No tickets yet, please stay tuned"
-CLOSED_TICKETS_WELCOME = "Here are your closed tickets"
-UNRESOLVED_TICKETS_WELCOME = "Here are your unresolved tickets"
-EMPTY_CLOSED_TICKETS = "There are no closed tickets"
-END_OF_TICKETS = "---------------------------That's all the tickets we have---------------------------"
-CLOSED_TICKETS_PROMPT = """
-Press:
-'d': view ticket in detail
-'f': give feedback
-'n': next page
-'q': back
-"""
-IN_PROGRESS_TICKETS_PROMPT = """
-Press:
-'d': view ticket in detail
-'n': next page
-'q': back   
-"""
-UNRESOLVED_TICKETS_PROMPT = """
-Press:
-'d': view ticket in detail
-'n': next page
-'q': back 
-Your choice: """
-UNRESOLVED_TICKETS_CONTINUE_PROMPT = "Do you want to see the unresolved tickets again?(y/n): "
-CLOSED_TICKETS_CONTINUE_PROMPT = "Do you want to see the closed tickets again?(y/n): "
-FEEDBACK_TICKET_PROMPT = "Please enter the ticket_id of the ticket you want to close: "
-TRY_AGAIN = "Do you want to try again?(y/n)"
-FEEDBACK_LOGO = "---------------------------Feedback-------------------------------"
-NO_IN_PROG_TICKETS = "There are no in-progress tickets"
-NO_UNRESOLVED_TICKETS = "No Unresolved tickets yet."
-SUCCESS_FEEDBACK = "Feedback submitted."
-TICKET_DETAIL_PROMPT = """
-Press:
-'f': give feedback
-'q': back
-Your choice: """
-IN_PROGRESS_CONTINUE_PROMPT = "Do you want to see the in-progress tickets again?(y/n): "
+logger = logging.getLogger('main.customer_ticket_section')
 
 
 class CustomerTicketSection:
@@ -53,7 +15,7 @@ class CustomerTicketSection:
         self.customer = customer
 
     def raise_ticket(self):
-        print(TICKET_RAISE_WELCOME_MESSAGE)
+        print(CustomerTicketConfig.TICKET_RAISE_WELCOME_MESSAGE)
         department, title, description = input_ticket()
         with DatabaseConnection() as conn:
             t_dao = TicketDAO(conn)
@@ -66,7 +28,7 @@ class CustomerTicketSection:
 
         if len(all_tickets) == 0:
             system('cls')
-            print(NO_IN_PROG_TICKETS)
+            print(CustomerTicketConfig.NO_IN_PROG_TICKETS)
             return
 
         in_progress_ticket_functionalities = {
@@ -75,10 +37,10 @@ class CustomerTicketSection:
 
         tickets_menu(
             tickets=all_tickets,
-            main_prompt=VIEW_IN_PROGRESS_TICKETS_WELCOME,
-            continue_prompt=IN_PROGRESS_CONTINUE_PROMPT,
+            main_prompt=CustomerTicketConfig.VIEW_IN_PROGRESS_TICKETS_WELCOME,
+            continue_prompt=CustomerTicketConfig.IN_PROGRESS_CONTINUE_PROMPT,
             functionalities=in_progress_ticket_functionalities,
-            functionalities_prompt=IN_PROGRESS_TICKETS_PROMPT
+            functionalities_prompt=CustomerTicketConfig.IN_PROGRESS_TICKETS_PROMPT
         )
         system('cls')
 
@@ -88,7 +50,7 @@ class CustomerTicketSection:
             all_tickets = t_dao.view_closed_tickets(self.customer.c_id)
 
         if len(all_tickets) == 0:
-            print(EMPTY_CLOSED_TICKETS)
+            print(CustomerTicketConfig.EMPTY_CLOSED_TICKETS)
             return
 
         closed_ticket_functionalities = {
@@ -98,10 +60,10 @@ class CustomerTicketSection:
 
         tickets_menu(
             tickets=all_tickets,
-            main_prompt=CLOSED_TICKETS_WELCOME,
-            continue_prompt=CLOSED_TICKETS_CONTINUE_PROMPT,
+            main_prompt=CustomerTicketConfig.CLOSED_TICKETS_WELCOME,
+            continue_prompt=CustomerTicketConfig.CLOSED_TICKETS_CONTINUE_PROMPT,
             functionalities=closed_ticket_functionalities,
-            functionalities_prompt=CLOSED_TICKETS_PROMPT
+            functionalities_prompt=CustomerTicketConfig.CLOSED_TICKETS_PROMPT
         )
         system('cls')
 
@@ -111,7 +73,7 @@ class CustomerTicketSection:
             all_tickets = t_dao.view_raised_tickets(self.customer.c_id)
 
         if len(all_tickets) == 0:
-            print(NO_UNRESOLVED_TICKETS)
+            print(CustomerTicketConfig.NO_UNRESOLVED_TICKETS)
             return
 
         unresolved_tickets_functionalities = {
@@ -120,18 +82,18 @@ class CustomerTicketSection:
 
         tickets_menu(
             tickets=all_tickets,
-            main_prompt=UNRESOLVED_TICKETS_WELCOME,
-            continue_prompt=UNRESOLVED_TICKETS_CONTINUE_PROMPT,
+            main_prompt=CustomerTicketConfig.UNRESOLVED_TICKETS_WELCOME,
+            continue_prompt=CustomerTicketConfig.UNRESOLVED_TICKETS_CONTINUE_PROMPT,
             functionalities=unresolved_tickets_functionalities,
-            functionalities_prompt=UNRESOLVED_TICKETS_PROMPT,
+            functionalities_prompt=CustomerTicketConfig.UNRESOLVED_TICKETS_PROMPT,
         )
         system('cls')
 
     def give_feedback_handler(self, all_tickets):
-        t_id = input('Enter the ticket id of ticket you want to see in detail or press q to go back: ')
+        t_id = input(CustomerTicketConfig.FEEDBACK_TICKET_ID_PROMPT)
 
         while not tid_is_valid(t_id, all_tickets) and t_id != 'q':
-            t_id = input('Enter valid ticket id or press q to go back: ')
+            t_id = input(CustomerTicketConfig.INVALID_T_ID_PROMPT)
 
         if t_id == 'q':
             return
@@ -139,10 +101,10 @@ class CustomerTicketSection:
         self.register_feedback(t_id)
 
     def view_ticket_detail_handler(self, all_tickets):
-        t_id = input('Enter the ticket id of ticket you want to see in detail: ')
+        t_id = input(CustomerTicketConfig.DETAIL_TICKET_ID_PROMPT)
 
         while not tid_is_valid(t_id, all_tickets) and t_id != 'q':
-            t_id = input('Enter valid ticket id or press q to go back: ')
+            t_id = input(CustomerTicketConfig.INVALID_T_ID_PROMPT)
 
         if t_id == 'q':
             return
@@ -151,21 +113,21 @@ class CustomerTicketSection:
         print_ticket_details(found_ticket[0])
 
         if found_ticket[0].status == 'closed':
-            user_choice = simple_prompt(TICKET_DETAIL_PROMPT, allowed=('f', 'q'))
+            user_choice = simple_prompt(CustomerTicketConfig.TICKET_DETAIL_PROMPT, allowed=('f', 'q'))
             if user_choice == 'f':
                 self.register_feedback(t_id)
             else:
                 return
         else:
-            _ = simple_prompt('Press q to go back: ', allowed=['q'])
+            _ = simple_prompt(CustomerTicketConfig.GO_BACK_PROMPT, allowed=('q',))
             return
 
-    @staticmethod
-    def register_feedback(t_id):
-        print(FEEDBACK_LOGO)
+    def register_feedback(self, t_id):
+        print(CustomerTicketConfig.FEEDBACK_LOGO)
         stars, desc = input_feedback_body()
         with DatabaseConnection() as conn:
             f_dao = FeedbackDAO(conn)
             f_dao.add_feedback(stars, desc, t_id)
+        logger.info(f'Feedback generated for ticket_id:{t_id} by {self.customer.c_id}')
         system('cls')
-        print(SUCCESS_FEEDBACK)
+        print(CustomerTicketConfig.SUCCESS_FEEDBACK)

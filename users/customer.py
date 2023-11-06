@@ -1,17 +1,10 @@
+import logging
 from os import system
 from utils.input_utils import menu
 from ticket.customer_section.customer_ticket_section import CustomerTicketSection
-COMPANY_LOGO = '----------------------------------ABC Customer Service Portal----------------------------------'
-CUSTOMER_WELCOME_MENU = "Welcome {} how can we help you?"
-CUSTOMER_MENU = """
-Press:
-'r': for raising a ticket or complaint
-'p': for viewing your existing in-progress tickets
-'u': for viewing unresolved/raised tickets
-'c': for viewing requests that have been closed by our representatives
-'q': logout
-Your Choice: """
-TICKET_RAISED_SUCCESS = "Ticket raised successfully"
+from users.config.users_config_loader import UsersConfig
+
+logger = logging.getLogger('main.customer')
 
 
 class Customer:
@@ -31,9 +24,9 @@ class Customer:
             'c': self.closed_tickets_handler
         }
         system('cls')
-        print(COMPANY_LOGO)
-        print(CUSTOMER_WELCOME_MENU.format(self.name))
-        m = menu(CUSTOMER_MENU, allowed=('r', 'p', 'c', 'u'))
+        print(UsersConfig.COMPANY_LOGO)
+        print(UsersConfig.CUSTOMER_WELCOME_MENU.format(self.name))
+        m = menu(UsersConfig.CUSTOMER_MENU, allowed=('r', 'p', 'c', 'u'))
         for user_choice in m:
             customer_function = customer_functionalities.get(user_choice)
             system('cls')
@@ -41,7 +34,8 @@ class Customer:
 
     def ticket_raising_handler(self):
         self.ticket_section.raise_ticket()
-        print(TICKET_RAISED_SUCCESS)
+        logger.info(f'Customer:{self.c_id} is trying to raise a ticket')
+        print(UsersConfig.TICKET_RAISED_SUCCESS)
 
     def in_progress_tickets_handler(self):
         self.ticket_section.view_in_progress_tickets()

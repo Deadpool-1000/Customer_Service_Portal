@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 shortuuid = "*"
+pyyaml = "*"
+maskpass = "*"
 
 [dev-packages]
 

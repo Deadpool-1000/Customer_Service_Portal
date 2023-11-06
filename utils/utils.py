@@ -1,9 +1,5 @@
-from utils.ticket_utils import TICKET_ID, STATUS, TITLE, DESC, LINE_BREAK, STARS, MESSAGE_FROM_HELPDESK, RAISED_ON, \
-    format_date
-
-DEFAULT_MESSAGE = "We will get back to you soon."
-HELPDESK_MEMBER_ASSIGNED = "Helpdesk member assigned: "
-CUSTOMER_ID = "Customer ID: "
+from datetime import datetime
+from utils.config.utils_config_loader import UtilsConfig
 
 
 def view_list_generator(lst):
@@ -26,21 +22,26 @@ def view_list_generator(lst):
 
 def print_feedbacks_formatted(feedbacks) -> None:
     for feedback in feedbacks:
-        print(TICKET_ID, feedback.t_id)
-        print(STARS, '* ' * feedback.stars)
-        print(DESC, feedback.desc)
-        print(LINE_BREAK)
+        print(UtilsConfig.TICKET_ID, feedback.t_id)
+        print(UtilsConfig.STARS, '* ' * feedback.stars)
+        print(UtilsConfig.DESC, feedback.desc)
+        print(UtilsConfig.LINE_BREAK)
 
 
 def print_managers_view(tickets):
-    print(LINE_BREAK)
+    print(UtilsConfig.LINE_BREAK)
     for ticket in tickets:
-        print(TICKET_ID, ticket.t_id)
-        print(CUSTOMER_ID, ticket.c_id)
-        print(HELPDESK_MEMBER_ASSIGNED, ticket.repr_id if ticket.repr_id is not None else "Yet to be assigned")
-        print(TITLE, ticket.title)
-        print(DESC, ticket.description)
-        print(STATUS, ticket.status)
-        print(MESSAGE_FROM_HELPDESK, DEFAULT_MESSAGE if ticket.message is None else ticket.message)
-        print(RAISED_ON, format_date(ticket.created_on))
-        print(LINE_BREAK)
+        print(UtilsConfig.TICKET_ID, ticket.t_id)
+        print(UtilsConfig.CUSTOMER_ID, ticket.c_id)
+        print(UtilsConfig.HELPDESK_MEMBER_ASSIGNED, ticket.repr_id if ticket.repr_id is not None else "Yet to be assigned")
+        print(UtilsConfig.TITLE, ticket.title)
+        print(UtilsConfig.DESC, ticket.description)
+        print(UtilsConfig.STATUS, ticket.status)
+        print(UtilsConfig.MESSAGE_FROM_HELPDESK, UtilsConfig.DEFAULT_MESSAGE if ticket.message is None else ticket.message)
+        print(UtilsConfig.RAISED_ON, format_date(ticket.created_on))
+        print(UtilsConfig.LINE_BREAK)
+
+
+def format_date(date: str) -> str:
+    date = datetime.strptime(date, UtilsConfig.DATE_FORMAT)
+    return f"{date.day}/{date.month}/{date.year} at {date.hour}:{date.minute}"

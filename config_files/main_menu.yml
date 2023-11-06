@@ -1,0 +1,23 @@
+COMPANY_LOGO : '----------------------------------ABC Customer Service Portal----------------------------------'
+MAIN_PROMPT : |
+  Press 
+  'e': if you are an employee
+  'c': if you are a customer,
+  'q': quit
+  Your Choice:
+EMPLOYEE_MAIN_MENU : "Hi there welcome, remember our moto 'Customer satisfaction is our priority'"
+CUSTOMER_WELCOME_MESSAGE : "Hi there welcome, please tell us what do you want to do?"
+CUSTOMER_MAIN_MENU : |
+  Press
+  'l': login
+  's': signup
+  'q': quit
+  Your Choice:
+SIGNUP_TO_LOGIN_PROMPT : "Successfully Signed up, Please Login to continue to our service portal"
+PLEASE_TRY_AGAIN : "Please Try Again"
+CUSTOMER_SIGNUP_WELCOME_MESSAGE : "Welcome to signup, Please enter the following details, so that we can get you started with our services"
+CUSTOMER_LOGIN_WELCOME_MESSAGE : "For Login enter the following details:"
+SOME_PROBLEM : "There was some problem, please try again later"
+TRY_AGAIN_OR_QUIT : 'Do you want to try again?(y/n): '
+HELPDESK : 'helpdesk'
+MANAGER : 'manager'

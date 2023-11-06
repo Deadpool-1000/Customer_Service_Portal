@@ -1,15 +1,7 @@
 from utils.input_utils import menu
 from ticket.helpdesk_section.helpdesk_ticket_section import HelpDeskTicketSection
 from os import system
-
-COMPANY_LOGO = '----------------------------------ABC Company Service Portal----------------------------------'
-HELPDESK_PROMPT = """
-Press: 
-'t': tickets section
-'m': message box
-'q': logout
-Your Choice: """
-WELCOME_MESSAGE = "Hey {}"
+from users.config.users_config_loader import UsersConfig
 
 
 class Helpdesk:
@@ -28,9 +20,9 @@ class Helpdesk:
             'm': self.message_box_handler,
         }
         system('cls')
-        print(COMPANY_LOGO)
-        print(WELCOME_MESSAGE.format(self.name))
-        m = menu(HELPDESK_PROMPT, allowed=['t', 'm'])
+        print(UsersConfig.COMPANY_LOGO)
+        print(UsersConfig.WELCOME_MESSAGE.format(self.name))
+        m = menu(UsersConfig.HELPDESK_PROMPT, allowed=['t', 'm'])
         for user_choice in m:
             helpdesk_function = helpdesk_functionalities.get(user_choice)
             system('cls')
@@ -40,4 +32,5 @@ class Helpdesk:
         self.ticket_section.menu()
 
     def message_box_handler(self):
-        pass
+        raise NotImplementedError('Not implemented yet stay tuned')
+

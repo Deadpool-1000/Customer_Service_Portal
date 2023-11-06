@@ -1,0 +1,45 @@
+
+TICKET_RAISE_WELCOME_MESSAGE : "Please enter the following details so that we can raise your ticket: "
+VIEW_IN_PROGRESS_TICKETS_WELCOME : "Here are your in-progress tickets: "
+NO_TICKETS_YET : "No tickets yet, please stay tuned"
+CLOSED_TICKETS_WELCOME : "Here are your closed tickets"
+UNRESOLVED_TICKETS_WELCOME : "Here are your unresolved tickets"
+EMPTY_CLOSED_TICKETS : "There are no closed tickets"
+END_OF_TICKETS : "---------------------------That's all the tickets we have---------------------------"
+CLOSED_TICKETS_PROMPT : |
+  Press:
+  'd': view ticket in detail
+  'f': give feedback
+  'n': next page
+  'q': back
+  Your choice:
+IN_PROGRESS_TICKETS_PROMPT : |
+  Press:
+  'd': view ticket in detail
+  'n': next page
+  'q': back   
+  Your choice:
+UNRESOLVED_TICKETS_PROMPT : |
+  Press:
+  'd': view ticket in detail
+  'n': next page
+  'q': back 
+  Your choice:
+UNRESOLVED_TICKETS_CONTINUE_PROMPT : "Do you want to see the unresolved tickets again?(y/n): "
+CLOSED_TICKETS_CONTINUE_PROMPT : "Do you want to see the closed tickets again?(y/n): "
+FEEDBACK_TICKET_PROMPT : "Please enter the ticket_id of the ticket you want to close: "
+TRY_AGAIN : "Do you want to try again?(y/n)"
+FEEDBACK_LOGO : "---------------------------Feedback-------------------------------"
+NO_IN_PROG_TICKETS : "There are no in-progress tickets"
+NO_UNRESOLVED_TICKETS : "No Unresolved tickets yet."
+SUCCESS_FEEDBACK : "Feedback submitted."
+TICKET_DETAIL_PROMPT : |
+  Press:
+  'f': give feedback
+  'q': back
+  Your choice:
+IN_PROGRESS_CONTINUE_PROMPT : "Do you want to see the in-progress tickets again?(y/n): "
+GO_BACK_PROMPT : "Press q to go back: "
+DETAIL_TICKET_ID_PROMPT: "Enter the ticket id of ticket you want to see in detail: "
+INVALID_T_ID_PROMPT : "Enter valid ticket id or press q to go back: "
+FEEDBACK_TICKET_ID_PROMPT: "Enter the ticket id of ticket you want to give feedback to:  "
