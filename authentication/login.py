@@ -1,4 +1,6 @@
 import logging
+import sqlite3
+
 from DBUtils.auth.authdao import AuthDAO
 from utils.input_utils import input_email_password
 from utils.named_tuples import Customer, Employee
@@ -30,14 +32,19 @@ class Login:
         except InvalidUsernameOrPasswordException as ie:
             logger.error(f'[Employee]: {ie} with email:{email} and password:{password}')
             print(ie)
-            return None
+            return False
         except InvalidEmployeeIDException as ei:
             logger.error(f'{ei} with email:{email} and password:{password}')
             print(ei)
-            return None
+            return False
         except InvalidDepartmentIDException as idi:
             logger.error(f'{idi} with email:{email} and password:{password}')
             print(idi)
+            return False
+        except sqlite3.Error as err:
+            logger.error(f'Employee login: {err.sqlite_errorname}')
+            print('There was a problem logging you in')
+            print('Please try again after some time')
             return None
 
     @staticmethod
@@ -55,5 +62,10 @@ class Login:
         except InvalidUsernameOrPasswordException as iup:
             logger.error(f'[Customer]: {iup} with email:{email} and password:{password}')
             print(iup)
+            return False
+        except sqlite3.Error as err:
+            logger.error(f'Customer login: {err.sqlite_errorname}')
+            print('There was a problem logging you in')
+            print('Please try again after some time')
             return None
 

@@ -1,6 +1,6 @@
 import yaml
 
-MANAGER_TICKET_CONFIG_FILE_PATH = 'config_files/manager_ticket.yml'
+MANAGER_TICKET_CONFIG_FILE_PATH = 'ticket/manager_section/config/manager_ticket.yml'
 
 
 class ManagerTicketConfig:

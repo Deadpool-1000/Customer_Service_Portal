@@ -10,7 +10,7 @@ ALL_TICKETS_WELCOME : "Here are the latest tickets raised by customers in our or
 
 END_OF_TICKETS : "---------------------------That's all the tickets we have---------------------------"
 
-ALL_TICKETS_PROMPT :
+ALL_TICKETS_PROMPT : |
   Press:
   'n': next page
   'q': back

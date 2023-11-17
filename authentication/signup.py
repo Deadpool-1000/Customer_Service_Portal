@@ -1,4 +1,5 @@
 import logging
+import sqlite3
 from os import system
 from authentication.config.auth_config_loader import AuthConfig
 from DBUtils.connection.database_connection import DatabaseConnection
@@ -34,3 +35,8 @@ class Signup:
             print(ae)
             print(AuthConfig.PLEASE_TRY_AGAIN)
             return False
+        except sqlite3.Error as err:
+            logger.error(f'Customer login: {err.sqlite_errorname}')
+            print('There was a problem signing you up')
+            print('Please try again after some time.')
+            return None

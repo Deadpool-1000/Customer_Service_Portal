@@ -1,6 +1,6 @@
 import yaml
 
-QUERIES_CONFIG_FILE_PATH = 'config_files/queries.yml'
+QUERIES_CONFIG_FILE_PATH = 'DBUtils/config/queries.yml'
 
 
 class QueriesConfig:

@@ -24,8 +24,9 @@ class MainMenu:
         for user_choice in m:
             main_function = main_functionalities.get(user_choice)
             system('cls')
-            main_function()
-            system('cls')
+            success = main_function()
+            if success is False:
+                return
 
     @classmethod
     def employee_main_menu(cls):
@@ -33,12 +34,15 @@ class MainMenu:
         print(MainMenuConfig.EMPLOYEE_MAIN_MENU)
         employee = Login.employee_login()
 
-        while employee is None:
+        while employee is not None and employee is False:
             user_choice = simple_prompt(MainMenuConfig.TRY_AGAIN_OR_QUIT, allowed=('y', 'n'))
             if user_choice == 'y':
                 employee = Login.employee_login()
             else:
-                return
+                return False
+
+        if employee is None:
+            return False
 
         logger.info(f'Employee e_id:{employee.e_id} and designation:{employee.designation} logged in')
         if employee.designation == MainMenuConfig.HELPDESK:
@@ -54,7 +58,9 @@ class MainMenu:
         else:
             logger.error(f"Invalid employee designation found for employee_id:{employee.e_id}")
             print(MainMenuConfig.SOME_PROBLEM)
-            return
+            return False
+
+        return True
 
     @classmethod
     def customer_main_menu(cls):
@@ -73,20 +79,34 @@ class MainMenu:
             customer = customer_function()
 
             if customer is None:
-                return
+                return False
 
             logged_in_customer = Customer(c_id=customer.c_id, name=customer.name, phn_num=customer.phn_num, email=customer.email, address=customer.address)
 
             system('cls')
             logged_in_customer.menu()
 
+        return True
+
     @classmethod
     def customer_signup_handler(cls):
         print(MainMenuConfig.CUSTOMER_SIGNUP_WELCOME_MESSAGE)
-        success = False
-        while not success:
-            success = Signup.customer_signup()
+        success = Signup.customer_signup()
+
+        while success is not None and success is False:
+            user_choice = simple_prompt(MainMenuConfig.TRY_AGAIN_OR_QUIT, allowed=('y', 'n'))
+            if user_choice == 'y':
+                success = Signup.customer_signup()
+            else:
+                logger.info("Customer Signup failed")
+                return None
+
+        # checks if unrecoverable sqlite error occurred
+        if success is None:
+            return None
+
         system('cls')
+
         print(MainMenuConfig.SIGNUP_TO_LOGIN_PROMPT)
         return cls.customer_login_handler()
 
@@ -94,11 +114,18 @@ class MainMenu:
     def customer_login_handler():
         print(MainMenuConfig.CUSTOMER_LOGIN_WELCOME_MESSAGE)
         customer = Login.customer_login()
-        while customer is None:
+
+        while customer is not None and customer is False:
             user_choice = simple_prompt(MainMenuConfig.TRY_AGAIN_OR_QUIT, allowed=('y', 'n'))
             if user_choice == 'y':
+                system('cls')
                 customer = Login.customer_login()
             else:
                 logger.info("Customer login failed")
-                break
+                return None
+
+        # checks if unrecoverable sqlite error occurred
+        if customer is None:
+            return None
+
         return customer

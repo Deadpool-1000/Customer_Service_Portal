@@ -31,4 +31,3 @@ if __name__ == "__main__":
     # Starting the main menu
     MainMenu.start_menu()
     logger.info('App ended')
-

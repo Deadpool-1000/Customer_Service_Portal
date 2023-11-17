@@ -1,6 +1,6 @@
 import yaml
 
-MAIN_MENU_CONFIG_FILE_PATH = 'config_files/main_menu.yml'
+MAIN_MENU_CONFIG_FILE_PATH = 'main_menu/config/main_menu.yml'
 
 
 class MainMenuConfig:

@@ -5,10 +5,13 @@ from utils.config.utils_config_loader import UtilsConfig
 
 
 def input_email_password() -> (str, str):
+
+    # email cannot be empty
     email = input(UtilsConfig.EMAIL_PROMPT).strip()
     while len(email) == 0:
         email = input(UtilsConfig.EMAIL_EMPTY_PROMPT).strip()
 
+    # password cannot be empty
     password = advpass(UtilsConfig.PASSWORD_PROMPT).strip()
     while len(password) == 0:
         password = advpass(UtilsConfig.PASSWORD_EMPTY_PROMPT).strip()
@@ -23,10 +26,6 @@ def validator(rg, txt) -> bool:
 
 
 def menu(prompt: str, allowed: Iterable) -> str:
-    """
-    generator for menu that renders menu prompt repetitively and provides some basic input validation
-    :yield str (user choice: a single character)
-    """
     user_choice = input(prompt).strip().lower()
     while user_choice != 'q':
         if user_choice not in allowed:
@@ -39,24 +38,32 @@ def menu(prompt: str, allowed: Iterable) -> str:
 
 
 def input_customer_details() -> (str, str, str, str, str):
+
+    # email must not be empty and should be valid
     email = input(UtilsConfig.EMAIL_PROMPT).strip()
     while len(email) == 0:
         email = input(UtilsConfig.EMAIL_EMPTY_PROMPT).strip()
     while not validator(UtilsConfig.EMAIL_REGEX, email):
         email = input(UtilsConfig.VALID_EMAIL).strip()
 
+    # fullname must not be empty
     fullname = input(UtilsConfig.FULL_NAME_PROMPT).strip()
     while len(fullname) == 0:
         fullname = input(UtilsConfig.FULLNAME_EMPTY).strip()
 
+    # Phone number must not be empty and should be valid
     phn_num = input(UtilsConfig.PHONE_NUMBER_PROMPT).strip()
     while len(phn_num) == 0:
         phn_num = input(UtilsConfig.PHONE_NUMBER_EMPTY).strip()
+    while not validator(UtilsConfig.PHN_NUM_REGEX, phn_num):
+        phn_num = input(UtilsConfig.VALID_PHN_NUM)
 
+    # address must not be empty
     address = input(UtilsConfig.ADDRESS_PROMPT).strip()
     while len(address) == 0:
         address = input(UtilsConfig.ADDRESS_EMPTY).strip()
 
+    # Password must not be empty and should be strong
     password = advpass(UtilsConfig.PASSWORD_PROMPT).strip()
     while len(password) == 0:
         password = advpass(UtilsConfig.PASSWORD_EMPTY_PROMPT).strip()
@@ -76,13 +83,28 @@ def simple_prompt(prompt, allowed: Iterable) -> str:
 
 
 def input_feedback_body() -> (str, str):
-    stars = int(input(UtilsConfig.INPUT_FEEDBACK_STARS))
-    desc = input(UtilsConfig.INPUT_FEEDBACK_DESC)
+    stars = None
+
+    while True:
+        try:
+            stars = int(input(UtilsConfig.INPUT_FEEDBACK_STARS).strip())
+        except ValueError:
+            print(UtilsConfig.VALID_STARS)
+            continue
+        else:
+            break
+
+    desc = input(UtilsConfig.INPUT_FEEDBACK_DESC).strip()
+    while len(desc) == 0:
+        desc = input(UtilsConfig.FEEDBACK_DESC_EMPTY)
+
     return stars, desc
 
 
 def input_message_from_helpdesk() -> str:
+    # message cannot be empty
     message = input(UtilsConfig.INPUT_MESSAGE_FROM_HELPDESK).strip()
     while len(message) == 0:
         message = input(UtilsConfig.MESSAGE_CANT_BE_EMPTY).strip()
+
     return message

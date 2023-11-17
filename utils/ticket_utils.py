@@ -62,6 +62,7 @@ def tickets_menu(tickets, main_prompt, functionalities_prompt, continue_prompt, 
                 break
             else:
                 functionalities.get(user_choice)()
+            system('cls')
 
         if not did_quit:
             print(UtilsConfig.END_OF_TICKETS)
@@ -71,5 +72,3 @@ def tickets_menu(tickets, main_prompt, functionalities_prompt, continue_prompt, 
             continue
         else:
             break
-
-

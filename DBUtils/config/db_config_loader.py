@@ -1,6 +1,6 @@
 import yaml
 
-DB_CONFIG_FILE_PATH = 'config_files/db.yml'
+DB_CONFIG_FILE_PATH = 'DBUtils/config/db.yml'
 
 
 class DBConfig:

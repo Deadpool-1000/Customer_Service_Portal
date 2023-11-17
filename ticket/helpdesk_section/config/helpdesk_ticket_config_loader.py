@@ -1,6 +1,6 @@
 import yaml
 
-HELPDESK_TICKET_CONFIG_FILE_PATH = 'config_files/helpdesk_ticket.yml'
+HELPDESK_TICKET_CONFIG_FILE_PATH = 'ticket/helpdesk_section/config/helpdesk_ticket.yml'
 
 
 class HelpdeskTicketConfig:

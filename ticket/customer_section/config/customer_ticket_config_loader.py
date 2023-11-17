@@ -1,6 +1,6 @@
 import yaml
 
-CUSTOMER_TICKET_CONFIG_FILE_PATH = 'config_files/customer_ticket.yml'
+CUSTOMER_TICKET_CONFIG_FILE_PATH = 'ticket/customer_section/config/customer_ticket.yml'
 
 
 class CustomerTicketConfig:

@@ -1,6 +1,6 @@
 import yaml
 
-AUTH_CONFIG_FILE_PATH = 'config_files/auth.yml'
+AUTH_CONFIG_FILE_PATH = 'authentication/config/auth.yml'
 
 
 class AuthConfig:

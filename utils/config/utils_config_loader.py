@@ -1,6 +1,6 @@
 import yaml
 
-UTILS_CONFIG_FILE_PATH = 'config_files/utils.yml'
+UTILS_CONFIG_FILE_PATH = 'utils/config/utils.yml'
 
 
 class UtilsConfig:
@@ -28,7 +28,6 @@ class UtilsConfig:
     TITLE = None
     DESC = None
     END_OF_TICKETS = None
-    NOT_VALID_EMAIL_PROMPT = None
     TICKET_DEPT_PROMPT = None
     INVALID_DEPT = None
     TICKET_TITLE_PROMPT = None
@@ -43,6 +42,10 @@ class UtilsConfig:
     DEFAULT_MESSAGE = None
     HELPDESK_MEMBER_ASSIGNED = None
     CUSTOMER_ID = None
+    PHN_NUM_REGEX = None
+    VALID_PHN_NUM = None
+    FEEDBACK_DESC_EMPTY = None
+    VALID_STARS = None
 
     @classmethod
     def load(cls):
@@ -70,7 +73,6 @@ class UtilsConfig:
             cls.TITLE = data['TITLE']
             cls.DESC = data['DESC']
             cls.END_OF_TICKETS = data['END_OF_TICKETS']
-            cls.NOT_VALID_EMAIL_PROMPT = data['NOT_VALID_EMAIL_PROMPT']
             cls.TICKET_DEPT_PROMPT = data['TICKET_DEPT_PROMPT']
             cls.INVALID_DEPT = data['INVALID_DEPT']
             cls.TICKET_TITLE_PROMPT = data['TICKET_TITLE_PROMPT']
@@ -86,3 +88,7 @@ class UtilsConfig:
             cls.DEFAULT_MESSAGE = data['DEFAULT_MESSAGE']
             cls.HELPDESK_MEMBER_ASSIGNED = data['HELPDESK_MEMBER_ASSIGNED']
             cls.CUSTOMER_ID = data['CUSTOMER_ID']
+            cls.PHN_NUM_REGEX = data['PHN_NUM_REGEX']
+            cls.VALID_PHN_NUM = data['VALID_PHN_NUM']
+            cls.FEEDBACK_DESC_EMPTY = data['FEEDBACK_DESC_EMPTY']
+            cls.VALID_STARS = data['VALID_STARS']
