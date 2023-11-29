@@ -6,11 +6,13 @@ name = "pypi"
 [packages]
 shortuuid = "*"
 pyyaml = "*"
-pytest = "*"
 maskpass = "*"
-pytest-mock = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.11"
+python_full_version = "3.11.4"
+
+[pipenv]
+allow_prereleases = true

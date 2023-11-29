@@ -1,0 +1,170 @@
+06-20-2023 13:20:05 INFO     [main.py:19] App started
+06-20-2023 13:20:19 ERROR    [login.py:31] [Employee]: Invalid Username or password with email:kelly_kapoor@gmail.com and password:Abcdef@2
+06-20-2023 13:20:36 DEBUG    [employeedao.py:31] <class 'str'>: 1
+06-20-2023 13:20:36 INFO     [login.py:27] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+06-20-2023 13:20:36 INFO     [main_menu.py:43] Employee e_id:Nmmm8 and designation:helpdesk logged in
+06-23-2023 13:23:14 INFO     [main.py:19] App started
+06-23-2023 13:23:29 DEBUG    [employeedao.py:31] <class 'str'>: 1
+06-23-2023 13:23:29 INFO     [login.py:27] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+06-23-2023 13:23:29 INFO     [main_menu.py:43] Employee e_id:Nmmm8 and designation:helpdesk logged in
+06-23-2023 13:23:41 INFO     [helpdesk_ticket_section.py:50] ticket_id:CXjbe is closed by Nmmm8
+06-24-2023 13:24:27 DEBUG    [helpdesk_ticket_section.py:133] Closing ticket with t_id CXjbe
+06-30-2023 13:30:32 INFO     [main.py:19] App started
+06-30-2023 13:30:51 DEBUG    [employeedao.py:31] <class 'str'>: 1
+06-30-2023 13:30:51 INFO     [login.py:27] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+06-30-2023 13:30:51 INFO     [main_menu.py:43] Employee e_id:Nmmm8 and designation:helpdesk logged in
+06-31-2023 13:31:02 INFO     [helpdesk_ticket_section.py:50] ticket_id:CXjbe is closed by Nmmm8
+06-31-2023 13:31:42 DEBUG    [helpdesk_ticket_section.py:133] Closing ticket with t_id CXjbe
+06-31-2023 13:31:42 INFO     [ticketDAO.py:78] Ticket status changed for ticket_id:CXjbe to closed
+06-31-2023 13:31:42 INFO     [ticketDAO.py:74] Message from helpdesk changed for ticket_id:CXjbe to Hope your pc got fixed. Please take time to give us feedback.
+06-32-2023 13:32:45 INFO     [main.py:33] App ended
+06-28-2023 14:28:14 INFO     [main.py:19] App started
+06-28-2023 14:28:34 INFO     [main.py:33] App ended
+06-28-2023 14:28:39 INFO     [main.py:19] App started
+06-29-2023 14:29:01 INFO     [main.py:19] App started
+06-29-2023 14:29:42 ERROR    [login.py:31] [Employee]: Invalid Username or password with email:tanvi@gmail.com and password:tanvi1
+06-30-2023 14:30:14 ERROR    [login.py:31] [Employee]: Invalid Username or password with email:kelly_kapoor@helpdesk.com and password:abcdef@2
+06-30-2023 14:30:41 ERROR    [login.py:31] [Employee]: Invalid Username or password with email:kelly_kapoor@helpdesk.com and password:abcdef@2
+06-31-2023 14:31:01 INFO     [login.py:27] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+06-31-2023 14:31:01 INFO     [main_menu.py:43] Employee e_id:Nmmm8 and designation:helpdesk logged in
+06-32-2023 14:32:53 INFO     [helpdesk_ticket_section.py:50] ticket_id:YRcKy is closed by Nmmm8
+06-33-2023 14:33:03 DEBUG    [helpdesk_ticket_section.py:133] Closing ticket with t_id YRcKy
+06-33-2023 14:33:03 INFO     [ticketDAO.py:78] Ticket status changed for ticket_id:YRcKy to closed
+06-33-2023 14:33:03 INFO     [ticketDAO.py:74] Message from helpdesk changed for ticket_id:YRcKy to You are only idiot
+06-34-2023 14:34:14 INFO     [main.py:19] App started
+06-36-2023 14:36:34 INFO     [signup.py:23] New Customer signup with name:tanvi and email:tanvi@g.com
+06-37-2023 14:37:15 INFO     [login.py:53] Employee with e_id:6twZg, name:tanvi logged in
+06-38-2023 14:38:10 INFO     [login.py:53] Employee with e_id:6twZg, name:tanvi logged in
+06-38-2023 14:38:52 INFO     [ticketDAO.py:23] New ticket raised with ticket_id:BSECx, title:sale by customer:6twZg
+06-38-2023 14:38:52 INFO     [customer.py:37] Customer:6twZg is trying to raise a ticket
+06-43-2023 14:43:21 ERROR    [login.py:31] [Employee]: Invalid Username or password with email:micheal_scott@gmail.com and password:abcdef@2
+06-43-2023 14:43:50 INFO     [login.py:27] Employee with e_id:AfqTX, name:Micheal Scott logged in
+06-43-2023 14:43:50 INFO     [main_menu.py:43] Employee e_id:AfqTX and designation:manager logged in
+06-44-2023 14:44:17 ERROR    [login.py:31] [Employee]: Invalid Username or password with email:micheal_scott@gmail.com and password:abcdef@2
+06-44-2023 14:44:42 INFO     [login.py:27] Employee with e_id:AfqTX, name:Micheal Scott logged in
+06-44-2023 14:44:42 INFO     [main_menu.py:43] Employee e_id:AfqTX and designation:manager logged in
+06-45-2023 14:45:57 INFO     [manager_ticket_section.py:47] Manager viewed all tickets in the organization
+06-46-2023 14:46:03 INFO     [manager_ticket_section.py:47] Manager viewed all tickets in the organization
+06-47-2023 14:47:28 INFO     [main.py:19] App started
+06-50-2023 14:50:02 INFO     [main.py:19] App started
+06-51-2023 14:51:09 INFO     [signup.py:23] New Customer signup with name:Vibhuti Narayan Mishra and email:vibhuti_narayan@gmail.com
+06-51-2023 14:51:52 ERROR    [login.py:56] [Customer]: Invalid Username or password with email:vibhuti_narayan@gmail.com and password:laddu12@
+06-52-2023 14:52:26 ERROR    [login.py:56] [Customer]: Invalid Username or password with email:vibhuti_narayan@gmail.com and password:laddu12@
+06-52-2023 14:52:48 ERROR    [login.py:56] [Customer]: Invalid Username or password with email:vibhuti_narayan@gmail.com and password:laddu12@
+06-53-2023 14:53:26 INFO     [login.py:53] Employee with e_id:BQZua, name:Vibhuti Narayan Mishra logged in
+06-54-2023 14:54:23 ERROR    [login.py:56] [Customer]: Invalid Username or password with email:vibhuti_narayan@gmail.com and password:laddu12@
+06-55-2023 14:55:43 ERROR    [login.py:56] [Customer]: Invalid Username or password with email:vibhuti_narayan@gmail.com and password:laddu12@
+06-56-2023 14:56:09 INFO     [login.py:53] Employee with e_id:BQZua, name:Vibhuti Narayan Mishra logged in
+06-56-2023 14:56:29 INFO     [login.py:53] Employee with e_id:BQZua, name:Vibhuti Narayan Mishra logged in
+06-57-2023 14:57:18 INFO     [main.py:33] App ended
+06-31-2023 15:31:09 INFO     [main.py:19] App started
+06-31-2023 15:31:27 INFO     [login.py:27] Employee with e_id:AfqTX, name:Micheal Scott logged in
+06-31-2023 15:31:27 INFO     [main_menu.py:43] Employee e_id:AfqTX and designation:manager logged in
+06-32-2023 15:32:22 INFO     [main.py:19] App started
+06-32-2023 15:32:34 INFO     [login.py:27] Employee with e_id:AfqTX, name:Micheal Scott logged in
+06-32-2023 15:32:34 INFO     [main_menu.py:43] Employee e_id:AfqTX and designation:manager logged in
+06-32-2023 15:32:52 INFO     [manager_ticket_section.py:47] Manager viewed all tickets in the organization
+06-34-2023 15:34:40 INFO     [main.py:19] App started
+06-34-2023 15:34:54 INFO     [login.py:27] Employee with e_id:AfqTX, name:Micheal Scott logged in
+06-34-2023 15:34:54 INFO     [main_menu.py:43] Employee e_id:AfqTX and designation:manager logged in
+06-35-2023 15:35:22 INFO     [manager_ticket_section.py:47] Manager viewed all tickets in the organization
+06-35-2023 15:35:26 INFO     [main.py:33] App ended
+17-41-2023 11:41:10 INFO     [main.py:19] App started
+17-41-2023 11:41:19 ERROR    [login.py:33] [Employee]: Invalid Username or password with email:j and password:a
+17-41-2023 11:41:29 ERROR    [login.py:33] [Employee]: Invalid Username or password with email:nm and password:aa
+17-41-2023 11:41:36 ERROR    [login.py:33] [Employee]: Invalid Username or password with email:mm and password:ss
+17-41-2023 11:41:39 INFO     [main.py:33] App ended
+17-42-2023 11:42:15 INFO     [main.py:19] App started
+17-42-2023 11:42:37 ERROR    [login.py:45] Employee login: SQLITE_CANTOPEN
+17-44-2023 11:44:08 INFO     [main.py:33] App ended
+17-45-2023 11:45:05 INFO     [main.py:19] App started
+17-45-2023 11:45:11 ERROR    [login.py:45] Employee login: SQLITE_CANTOPEN
+17-45-2023 11:45:33 INFO     [main.py:33] App ended
+17-45-2023 11:45:34 INFO     [main.py:19] App started
+17-45-2023 11:45:40 ERROR    [login.py:45] Employee login: SQLITE_CANTOPEN
+17-45-2023 11:45:52 INFO     [main.py:33] App ended
+17-45-2023 11:45:54 INFO     [main.py:19] App started
+17-46-2023 11:46:00 ERROR    [login.py:67] Customer login: SQLITE_CANTOPEN
+17-46-2023 11:46:13 INFO     [main.py:33] App ended
+17-53-2023 11:53:54 INFO     [main.py:19] App started
+17-54-2023 11:54:03 INFO     [login.py:29] Employee with e_id:AfqTX, name:Micheal Scott logged in
+17-54-2023 11:54:03 INFO     [main_menu.py:45] Employee e_id:AfqTX and designation:manager logged in
+17-54-2023 11:54:22 ERROR    [login.py:63] [Customer]: Invalid Username or password with email:acf and password:acf
+17-54-2023 11:54:23 INFO     [main_menu.py:122] Customer login failed
+17-54-2023 11:54:27 INFO     [main.py:33] App ended
+17-54-2023 11:54:48 INFO     [main.py:19] App started
+17-54-2023 11:54:55 ERROR    [login.py:63] [Customer]: Invalid Username or password with email:acff and password:acf
+17-54-2023 11:54:56 INFO     [main_menu.py:124] Customer login failed
+17-54-2023 11:54:56 INFO     [main.py:33] App ended
+17-55-2023 11:55:41 INFO     [main.py:19] App started
+17-55-2023 11:55:47 ERROR    [login.py:63] [Customer]: Invalid Username or password with email:acf and password:acf
+17-55-2023 11:55:52 ERROR    [login.py:63] [Customer]: Invalid Username or password with email:m and password:a
+17-55-2023 11:55:53 INFO     [main_menu.py:124] Customer login failed
+17-55-2023 11:55:53 INFO     [main.py:33] App ended
+17-55-2023 11:55:55 INFO     [main.py:19] App started
+17-55-2023 11:55:57 ERROR    [login.py:33] [Employee]: Invalid Username or password with email:a and password:a
+17-55-2023 11:55:57 INFO     [main.py:33] App ended
+17-57-2023 11:57:08 INFO     [main.py:19] App started
+17-57-2023 11:57:13 ERROR    [login.py:33] [Employee]: Invalid Username or password with email:acf and password:ac
+17-57-2023 11:57:15 INFO     [main.py:33] App ended
+17-57-2023 11:57:17 INFO     [main.py:19] App started
+17-57-2023 11:57:21 ERROR    [login.py:33] [Employee]: Invalid Username or password with email:a and password:a
+17-57-2023 11:57:26 ERROR    [login.py:33] [Employee]: Invalid Username or password with email:mc and password:mc
+17-57-2023 11:57:27 INFO     [main.py:33] App ended
+17-57-2023 11:57:37 INFO     [main.py:19] App started
+17-57-2023 11:57:41 ERROR    [login.py:67] Customer login: SQLITE_CANTOPEN
+17-57-2023 11:57:41 INFO     [main.py:33] App ended
+17-57-2023 11:57:44 INFO     [main.py:19] App started
+17-57-2023 11:57:52 ERROR    [login.py:45] Employee login: SQLITE_CANTOPEN
+17-57-2023 11:57:52 INFO     [main.py:33] App ended
+17-57-2023 11:57:59 INFO     [main.py:19] App started
+17-58-2023 11:58:43 ERROR    [signup.py:39] Customer login: SQLITE_CANTOPEN
+17-58-2023 11:58:43 INFO     [main.py:33] App ended
+17-20-2023 14:20:28 INFO     [main.py:19] App started
+17-24-2023 14:24:32 INFO     [main.py:19] App started
+17-24-2023 14:24:57 INFO     [main.py:19] App started
+17-26-2023 14:26:13 INFO     [login.py:29] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+17-26-2023 14:26:13 INFO     [main_menu.py:47] Employee e_id:Nmmm8 and designation:helpdesk logged in
+17-29-2023 14:29:23 INFO     [signup.py:24] New Customer signup with name:Agrima Singh Shukla and email:agrima@muj.manipal.edu
+17-29-2023 14:29:41 INFO     [login.py:60] Employee with e_id:XMmqG, name:Agrima Singh Shukla logged in
+17-31-2023 14:31:10 INFO     [ticketDAO.py:23] New ticket raised with ticket_id:6r5pn, title:My pc is broken by customer:XMmqG
+17-31-2023 14:31:10 INFO     [customer.py:37] Customer:XMmqG is trying to raise a ticket
+17-33-2023 14:33:40 INFO     [main.py:33] App ended
+17-44-2023 14:44:39 INFO     [main.py:19] App started
+17-35-2023 17:35:21 INFO     [main.py:19] App started
+17-36-2023 17:36:29 INFO     [signup.py:24] New Customer signup with name:Milind and email:mili@gmail.com
+17-36-2023 17:36:40 ERROR    [login.py:63] [Customer]: Invalid Username or password with email:dmm and password:sss
+17-36-2023 17:36:42 INFO     [main_menu.py:124] Customer login failed
+17-36-2023 17:36:42 INFO     [main.py:33] App ended
+17-36-2023 17:36:44 INFO     [main.py:19] App started
+17-36-2023 17:36:58 INFO     [login.py:29] Employee with e_id:AfqTX, name:Micheal Scott logged in
+17-36-2023 17:36:58 INFO     [main_menu.py:47] Employee e_id:AfqTX and designation:manager logged in
+17-37-2023 17:37:30 INFO     [manager_ticket_section.py:47] Manager viewed all tickets in the organization
+17-37-2023 17:37:49 INFO     [login.py:29] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+17-37-2023 17:37:49 INFO     [main_menu.py:47] Employee e_id:Nmmm8 and designation:helpdesk logged in
+17-26-2023 18:26:34 INFO     [main.py:19] App started
+28-19-2023 10:19:15 INFO     [main.py:19] App started
+28-19-2023 10:19:19 INFO     [main.py:33] App ended
+28-21-2023 10:21:29 INFO     [main.py:19] App started
+28-21-2023 10:21:31 INFO     [main.py:33] App ended
+28-23-2023 10:23:48 INFO     [main.py:25] App started
+28-26-2023 10:26:39 INFO     [main.py:39] App ended
+28-25-2023 12:25:20 INFO     [main.py:25] App started
+28-26-2023 12:26:08 INFO     [main.py:25] App started
+28-26-2023 12:26:26 ERROR    [login.py:44] Employee login: SQLITE_CANTOPEN
+28-26-2023 12:26:26 INFO     [main.py:39] App ended
+28-26-2023 12:26:29 INFO     [main.py:25] App started
+28-26-2023 12:26:33 INFO     [main.py:39] App ended
+28-28-2023 12:28:38 INFO     [main.py:25] App started
+28-28-2023 12:28:50 INFO     [login.py:28] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+28-28-2023 12:28:50 INFO     [main_menu.py:48] Employee e_id:Nmmm8 and designation:helpdesk logged in
+28-29-2023 12:29:33 INFO     [main.py:39] App ended
+28-36-2023 12:36:51 INFO     [main.py:26] App started
+28-36-2023 12:36:52 INFO     [main.py:29] App ended
+28-28-2023 13:28:37 INFO     [main.py:25] App started
+28-28-2023 13:28:59 INFO     [login.py:30] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
+28-28-2023 13:28:59 INFO     [main_menu.py:48] Employee e_id:Nmmm8 and designation:helpdesk logged in
+28-29-2023 13:29:02 INFO     [main.py:28] App ended
+28-31-2023 13:31:11 INFO     [main.py:25] App started
+29-09-2023 10:09:17 INFO     [main.py:25] App started
+29-09-2023 10:09:20 INFO     [main.py:28] App ended

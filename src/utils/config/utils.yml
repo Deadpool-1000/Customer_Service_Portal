@@ -1,0 +1,69 @@
+
+EMAIL_PROMPT : "Email: "
+EMAIL_EMPTY_PROMPT : "Email can't be empty: "
+EMAIL_REGEX : ^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$
+VALID_EMAIL : "Please enter a valid email: "
+
+PASSWORD_PROMPT : "Password: "
+PASSWORD_EMPTY_PROMPT : "Password can't be empty: "
+PASSWORD_REGEX : ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$
+STRONG_PASSWORD_PROMPT : |
+  Your password must contain:
+    1. Minimum eight characters, 
+    2. at least one uppercase letter,
+    3. one lowercase letter and one number
+  New Password:
+
+FULL_NAME_PROMPT : "Full Name: "
+FULLNAME_EMPTY : "Full Name can't be empty: "
+
+PHONE_NUMBER_PROMPT : "Phone Number: "
+PHONE_NUMBER_EMPTY : "Phone Number can't be empty: "
+PHN_NUM_REGEX : ^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$
+VALID_PHN_NUM: "Please enter a valid phone number: "
+
+ADDRESS_PROMPT : "Address: "
+ADDRESS_EMPTY : "Address can't be empty: "
+
+
+INVALID_INPUT : "Invalid Input: "
+
+INPUT_MESSAGE_FROM_HELPDESK : "Please enter a message for the customer: "
+MESSAGE_CANT_BE_EMPTY : "Message cannot be empty: "
+
+INPUT_FEEDBACK_STARS : "Please enter number of stars you want to rate the response: "
+STARS : "Stars (1-5): "
+VALID_STARS: "Please enter a valid number: "
+
+INPUT_FEEDBACK_DESC : "Enter description for your feedback: "
+FEEDBACK_DESC_EMPTY : "Description cannot be empty: "
+
+TICKET_ID :  "Ticket ID: "
+TITLE :  "Title: "
+DESC :  "Description: "
+STATUS :  "Status: "
+MESSAGE_FROM_HELPDESK : "Message from helpdesk: "
+DEFAULT_MESSAGE: "Our helpdesk will get back to you soon."
+RAISED_ON : "Raised on: "
+DATE_FORMAT : "%Y-%m-%d %H:%M:%S.%f"
+END_OF_TICKETS :  "---------------------------That's all the tickets we have---------------------------"
+
+TICKET_DEPT_PROMPT : |
+  Your issue related to:
+  Press:
+  '1': IT department
+  '2': Sales department
+  '3': Quality Assurance department
+  Your choice:
+INVALID_DEPT : "Please enter a valid department: "
+
+TICKET_TITLE_PROMPT : "Title: "
+TICKET_TITLE_EMPTY : "Title cannot be empty: "
+
+TICKET_DESC_PROMPT : "Description: \n"
+TICKET_DESC_EMPTY: "Please provide some description: \n"
+
+LINE_BREAK : "----------------------------------------"
+
+HELPDESK_MEMBER_ASSIGNED : "Helpdesk member assigned: "
+CUSTOMER_ID : "Customer ID: "
