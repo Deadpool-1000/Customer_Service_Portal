@@ -33,14 +33,3 @@ class EmployeeDAO:
             logger.info(DBConfig.INVALID_DEPT_ID)
             raise InvalidDepartmentIDException(DBConfig.THERE_WAS_SOME_PROBLEM)
         return rws
-
-    def get_dept_name_id_mapping(self):
-        rws = self.cur.execute(QueriesConfig.DEPT_TABLE_MAPPING_QUERY).fetchall()
-        if rws.rowcount == 0:
-            logger.error(f'Department table failed to return any row')
-            raise NoDepartmentsException(DBConfig.THERE_WAS_SOME_PROBLEM)
-        mapping = {}
-        for row in rws:
-            mapping[row[1]] = row[0]
-        return mapping
-

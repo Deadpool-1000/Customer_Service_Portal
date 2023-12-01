@@ -1,6 +1,5 @@
 import logging
 from os import system
-
 from src.DBUtils.connection.database_connection import DatabaseConnection
 from src.DBUtils.customer.feedbackdao import FeedbackDAO
 from src.DBUtils.ticket.ticketDAO import TicketDAO

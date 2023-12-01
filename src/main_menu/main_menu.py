@@ -13,15 +13,17 @@ logger = logging.getLogger('main.main_menu')
 
 
 class MainMenu:
-
     @classmethod
     def start_menu(cls):
+
         main_functionalities = {
             'e': cls.employee_main_menu,
             'c': cls.customer_main_menu
         }
         print(MainMenuConfig.COMPANY_LOGO)
+
         m = menu(MainMenuConfig.MAIN_PROMPT, allowed=['e', 'c'])
+
         for user_choice in m:
             main_function = main_functionalities.get(user_choice)
             system('cls')
@@ -33,6 +35,7 @@ class MainMenu:
     def employee_main_menu(cls):
         system('cls')
         print(MainMenuConfig.EMPLOYEE_MAIN_MENU)
+
         employee = Login.employee_login()
 
         while employee is not None and employee is False:

@@ -1,8 +1,6 @@
 import hashlib
 import logging
-
 import shortuuid
-
 from src.DBUtils.config.db_config_loader import DBConfig
 from src.DBUtils.config.queries_config_loader import QueriesConfig
 from src.utils.exceptions.exceptions import InvalidUsernameOrPasswordException, AlreadyExistsException

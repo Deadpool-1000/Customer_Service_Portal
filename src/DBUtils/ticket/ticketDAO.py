@@ -7,7 +7,7 @@ from src.DBUtils.config.db_config_loader import DBConfig
 from src.DBUtils.config.queries_config_loader import QueriesConfig
 from src.utils.data_containers.named_tuples import Ticket
 
-logger = logging.getLogger('main.ticket_dao')
+logger = logging.getLogger('main.mock_ticket_dao')
 
 
 class TicketDAO:

@@ -1,6 +1,5 @@
 import logging
 from os import system
-
 from src.DBUtils.connection.database_connection import DatabaseConnection
 from src.DBUtils.ticket.ticketDAO import TicketDAO
 from src.ticket.helpdesk_section.config.helpdesk_ticket_config_loader import HelpdeskTicketConfig
@@ -29,7 +28,7 @@ class HelpDeskTicketSection:
             helpdesk_function()
             print(HelpdeskTicketConfig.WELCOME_HELPDESK_SECTION)
 
-    def resolve_tickets_handler(self, all_tickets):
+    def resolved_tickets_handler(self, all_tickets):
         t_id = input(HelpdeskTicketConfig.RESOLVE_TICKET_PROMPT)
 
         while not tid_is_valid(t_id, all_tickets) and t_id != 'q':
@@ -49,6 +48,7 @@ class HelpDeskTicketSection:
         if t_id == 'q':
             return
         logger.info(f'ticket_id:{t_id} is closed by {self.helpdesk.e_id}')
+
         self.close_ticket_by_id(t_id)
 
     def unresolved_tickets(self):
@@ -61,7 +61,7 @@ class HelpDeskTicketSection:
             return
 
         unresolved_ticket_functionalities = {
-            'r': lambda: self.resolve_tickets_handler(all_tickets),
+            'r': lambda: self.resolved_tickets_handler(all_tickets),
             'd': lambda: self.view_ticket_detail_handler(all_tickets)
         }
 
@@ -163,7 +163,7 @@ class HelpDeskTicketSection:
             # Raised tickets can be resolved or helpdesk member can go back
             user_choice = simple_input(HelpdeskTicketConfig.RAISED_TICKETS_DETAIL_PROMPT, allowed=('r', 'q'))
             if user_choice == 'r':
-                self.resolve_tickets_handler(all_tickets)
+                self.resolved_tickets_handler(all_tickets)
             else:
                 return
 

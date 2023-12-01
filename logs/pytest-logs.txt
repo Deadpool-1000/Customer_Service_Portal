@@ -1,0 +1,18 @@
+INFO     main.auth_dao:authdao.py:38 Email already exists, please try a different email
+INFO     main.customer_dao:customerdao.py:22 Invalid CustomerID Provided
+INFO     main.employee_dao:employeedao.py:25 Invalid employee id encountered
+INFO     main.employee_dao:employeedao.py:33 Invalid department id encountered
+INFO     main.login:login.py:31 Employee with e_id:1, name:test1 logged in
+ERROR    main.login:login.py:35 [Employee]:  with email:test_wrong@gmail.com and password:wrong_pass
+ERROR    main.login:login.py:39  with email:test_wrong@gmail.com and password:wrong_pass
+ERROR    main.login:login.py:43  with email:test_wrong@gmail.com and password:wrong_pass
+ERROR    main.login:login.py:47 Employee login: 
+INFO     main.login:login.py:62 Employee with e_id:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='2646915565072'>, name:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='2646915565072'> logged in
+INFO     main.login:login.py:62 Employee with e_id:3, name:test3 logged in
+ERROR    main.login:login.py:65 [Customer]:  with email:wrong_email@gmail.com and password:wrong_pass
+ERROR    main.login:login.py:69 Customer login: sqlite3 error 
+INFO     main.signup:signup.py:25 New Customer signup with name:test_full_name and email:test_email@test.com
+ERROR    main.signup:signup.py:37 Email Already exists: test_email@test.com
+ERROR    main.signup:signup.py:43 Customer login: 
+INFO     main.customer_ticket_section:customer_ticket_section.py:131 Feedback generated for ticket_id:111 by 1
+INFO     main.help_section:helpdesk_ticket_section.py:50 ticket_id:1 is closed by <Mock name='mock.e_id' id='2646915916304'>

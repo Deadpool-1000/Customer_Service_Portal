@@ -1,5 +1,4 @@
 import shortuuid
-
 from src.DBUtils.config.queries_config_loader import QueriesConfig
 from src.utils.data_containers.named_tuples import Feedback
 
@@ -19,7 +18,7 @@ class FeedbackDAO:
 
     def get_feedback(self):
         rws = self.cur.execute(QueriesConfig.GET_ALL_FEEDBACK).fetchall()
-        if len(rws) == 0:
+        if rws is None:
             return []
         return self.format_feedback(rws)
 
