@@ -19,9 +19,9 @@ def sample_tickets():
             repr_id=2,
             title='test string',
             description='test string',
-            status='test string',
+            status='open',
             cust_feedback='test string',
-            created_on='test_date',
+            created_on='2023-11-03 15:35:16.375121',
             message='test string'
         ),
         Ticket(
@@ -31,9 +31,9 @@ def sample_tickets():
             repr_id=2,
             title='test string',
             description='test string',
-            status='test string',
+            status='open',
             cust_feedback='test string',
-            created_on='test_date',
+            created_on='2023-11-03 15:35:16.375121',
             message='test string'
         ),
         Ticket(
@@ -43,9 +43,9 @@ def sample_tickets():
             repr_id=2,
             title='test string',
             description='test string',
-            status='test string',
+            status='open',
             cust_feedback='test string',
-            created_on='test_date',
+            created_on='2023-11-03 15:35:16.375121',
             message='test string'
         ),
         Ticket(
@@ -55,9 +55,171 @@ def sample_tickets():
             repr_id=2,
             title='test string',
             description='test string',
-            status='test string',
+            status='open',
             cust_feedback='test string',
-            created_on='test_date',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        )
+    ]
+
+
+@pytest.fixture(scope='session')
+def closed_tickets():
+    return [
+        Ticket(
+            t_id='1',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='closed',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='2',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='closed',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='3',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='closed',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='4',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='closed',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        )
+    ]
+
+
+@pytest.fixture(scope='session')
+def raised_tickets():
+    return [
+        Ticket(
+            t_id='1',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='2',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='3',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='4',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        )
+    ]
+
+
+@pytest.fixture(scope='session')
+def in_prog_tickets():
+    return [
+        Ticket(
+            t_id='1',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='2',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='3',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
+            message='test string'
+        ),
+        Ticket(
+            t_id='4',
+            d_id=2,
+            c_id=3,
+            repr_id=2,
+            title='test string',
+            description='test string',
+            status='raised',
+            cust_feedback='test string',
+            created_on='2023-11-03 15:35:16.375121',
             message='test string'
         )
     ]

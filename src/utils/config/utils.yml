@@ -28,7 +28,7 @@ ADDRESS_EMPTY : "Address can't be empty: "
 
 INVALID_INPUT : "Invalid Input: "
 
-INPUT_MESSAGE_FROM_HELPDESK : "Please enter a message for the customer: "
+INPUT_MESSAGE_FROM_HELPDESK : "Please enter a message for the customer_fake: "
 MESSAGE_CANT_BE_EMPTY : "Message cannot be empty: "
 
 INPUT_FEEDBACK_STARS : "Please enter number of stars you want to rate the response: "

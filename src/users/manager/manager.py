@@ -37,16 +37,20 @@ class Manager:
     @staticmethod
     def customer_feedback_section_handler():
         print(UsersConfig.FEEDBACK_HANDLER_TITLE)
+
         with DatabaseConnection() as conn:
             f_dao = FeedbackDAO(conn)
             all_feedbacks = f_dao.get_feedback()
+
         if len(all_feedbacks) == 0:
             print(UsersConfig.EMPTY_FEEDBACKS)
+            return
+
         while True:
             feedback_generator = view_list_generator(all_feedbacks)
             did_quit = False
-            for tickets in feedback_generator:
-                print_feedbacks_formatted(tickets)
+            for feedback in feedback_generator:
+                print_feedbacks_formatted(feedback)
                 user_choice = simple_input(UsersConfig.FEEDBACK_PROMPT, ('n', 'q'))
                 if user_choice == 'n':
                     continue

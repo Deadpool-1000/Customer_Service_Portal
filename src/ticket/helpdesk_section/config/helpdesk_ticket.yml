@@ -23,7 +23,7 @@ HELPDESK_TICKET_PROMPT : |
   'q': back
   Your choice:
 
-UNRESOLVED_TICKETS_PROMPT :
+UNRESOLVED_TICKETS_PROMPT : |
   Press:
   'd': view ticket in detail
   'r': Resolve tickets

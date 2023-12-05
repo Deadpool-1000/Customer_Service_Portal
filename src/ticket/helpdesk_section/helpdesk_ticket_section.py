@@ -171,5 +171,3 @@ class HelpDeskTicketSection:
             # In case of closed ticket there is only one option to go back
             _ = simple_input(HelpdeskTicketConfig.GO_BACK_PROMPT, allowed=['q'])
             return
-
-

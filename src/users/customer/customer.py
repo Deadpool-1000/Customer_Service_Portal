@@ -5,7 +5,7 @@ from src.ticket.customer_section.customer_ticket_section import CustomerTicketSe
 from src.users.config.users_config_loader import UsersConfig
 from src.utils.inputs.input_utils import menu
 
-logger = logging.getLogger('main.customer')
+logger = logging.getLogger('main.customer_fake')
 
 
 class Customer:

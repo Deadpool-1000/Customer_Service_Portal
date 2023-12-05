@@ -23,14 +23,14 @@ MANAGER_PROMPT : |
   Your Choice:
 MANAGER_WELCOME_MESSAGE : "Welcome {}"
 FEEDBACK_HANDLER_TITLE : "---------------------------Feedback-------------------------------"
-EMPTY_FEEDBACKS : "There are no feedbacks to show"
+EMPTY_FEEDBACKS : "No Feedbacks to show."
 FEEDBACK_PROMPT : |
   Press:
   'n': next page
   'q': back 
   Your Choice
 FEEDBACK_CONTINUE_PROMPT : "Do you want to see the feedbacks again?(y/n): "
-END_OF_FEEDBACKS : "That's all the feedback we have"
+END_OF_FEEDBACKS : "That's all the feedback we have."
 
 
 

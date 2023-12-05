@@ -1,1 +1,0 @@
-INFO     main.help_section:helpdesk_ticket_section.py:50 ticket_id:1 is closed by <Mock name='mock.e_id' id='1388278658064'>
