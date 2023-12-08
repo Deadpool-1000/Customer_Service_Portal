@@ -24,7 +24,7 @@ class TestCustomer:
     @pytest.fixture
     def mock_ticket_section_view_closed_tickets(self, mocker):
         mock_view_closed = mocker.Mock()
-        mocker.patch.object(self.customer.ticket_section, 'view_closed_tickets', mock_view_closed)
+        mocker.patch.object(self.customer.ticket_section, 'get_closed_tickets_by_cid', mock_view_closed)
         return mock_view_closed
 
     @pytest.fixture

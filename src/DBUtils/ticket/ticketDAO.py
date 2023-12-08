@@ -24,16 +24,16 @@ class TicketDAO:
         self.cur.execute(QueriesConfig.INSERT_INTO_TICKETS_TABLE, (t_id, d_id, c_id, title, desc, DBConfig.RAISED, datetime.now(), "We will get back to you soon."))
         logger.info(f'New ticket raised with ticket_id:{t_id}, title:{title} by customer:{c_id}')
 
-    def view_in_progress_ticket(self, c_id):
+    def get_in_progress_tickets_with_cid(self, c_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS, (c_id, DBConfig.IN_PROGRESS)).fetchall()
         # 't_id' 'd_id', 'c_id', 'repr_id', 'title', 'description', 'status', 'cust_feedback', 'created_on', 'message_id'
         return self.prepare_tickets(rws)
 
-    def view_closed_tickets(self, c_id):
+    def get_closed_tickets_by_cid(self, c_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS, (c_id, DBConfig.CLOSED)).fetchall()
         return self.prepare_tickets(rws)
 
-    def view_raised_tickets(self, c_id):
+    def get_raised_tickets_by_cid(self, c_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS, (c_id, DBConfig.RAISED)).fetchall()
         return self.prepare_tickets(rws)
 
@@ -55,19 +55,19 @@ class TicketDAO:
             for row in rws]
         return all_tickets
 
-    def view_all_raised_tickets(self, dept_id):
+    def get_all_raised_tickets(self, dept_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.RAISED, dept_id))
         return self.prepare_tickets(rws)
 
-    def view_all_in_progress_tickets(self, dept_id):
+    def get_all_in_progress_tickets(self, dept_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.IN_PROGRESS, dept_id))
         return self.prepare_tickets(rws)
 
-    def view_all_closed_tickets(self, dept_id):
+    def get_all_closed_tickets(self, dept_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.CLOSED, dept_id))
         return self.prepare_tickets(rws)
 
-    def view_all_tickets(self):
+    def get_all_tickets(self):
         rws = self.cur.execute(QueriesConfig.VIEW_ALL_TICKETS)
         return self.prepare_tickets(rws)
 

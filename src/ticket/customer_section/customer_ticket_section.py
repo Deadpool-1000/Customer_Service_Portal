@@ -24,7 +24,7 @@ class CustomerTicketSection:
     def view_in_progress_tickets(self):
         with DatabaseConnection() as conn:
             t_dao = TicketDAO(conn)
-            all_tickets = t_dao.view_in_progress_ticket(self.customer.c_id)
+            all_tickets = t_dao.get_in_progress_tickets_with_cid(self.customer.c_id)
 
         if len(all_tickets) == 0:
             system('cls')
@@ -47,7 +47,7 @@ class CustomerTicketSection:
     def view_closed_tickets(self):
         with DatabaseConnection() as conn:
             t_dao = TicketDAO(conn)
-            all_tickets = t_dao.view_closed_tickets(self.customer.c_id)
+            all_tickets = t_dao.get_closed_tickets_by_cid(self.customer.c_id)
 
         if len(all_tickets) == 0:
             print(CustomerTicketConfig.EMPTY_CLOSED_TICKETS)
@@ -70,7 +70,7 @@ class CustomerTicketSection:
     def view_unresolved_tickets(self):
         with DatabaseConnection() as conn:
             t_dao = TicketDAO(conn)
-            all_tickets = t_dao.view_raised_tickets(self.customer.c_id)
+            all_tickets = t_dao.get_raised_tickets_by_cid(self.customer.c_id)
 
         if len(all_tickets) == 0:
             print(CustomerTicketConfig.NO_UNRESOLVED_TICKETS)

@@ -1,0 +1,1 @@
+INFO     main.customer_fake:customer.py:38 Customer:1 is trying to raise a ticket

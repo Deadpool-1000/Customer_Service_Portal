@@ -91,7 +91,7 @@ class TestCustomerTicketSection:
         inps = iter(['d', 'q', 'n'])
         mocker.patch('builtins.input', lambda prompt: next(inps))
 
-        mock_ticket_dao().view_raised_tickets.return_value = raised_tickets
+        mock_ticket_dao().get_raised_tickets_by_cid.return_value = raised_tickets
 
         mock_view_ticket_detail_handler = mocker.Mock()
         mocker.patch.object(cts, 'view_ticket_detail_handler', mock_view_ticket_detail_handler)
@@ -101,7 +101,7 @@ class TestCustomerTicketSection:
         mock_view_ticket_detail_handler.assert_called_once()
 
     def test_view_unresolved_tickets_with_empty_tickets(self, capsys, raised_tickets, mock_ticket_dao, cts):
-        mock_ticket_dao().view_raised_tickets.return_value = []
+        mock_ticket_dao().get_raised_tickets_by_cid.return_value = []
         expected_message = "There are no unresolved tickets yet"
 
         cts.view_unresolved_tickets()
@@ -114,7 +114,7 @@ class TestCustomerTicketSection:
         inps = iter(['d', 'q', 'n'])
         mocker.patch('builtins.input', lambda prompt: next(inps))
 
-        mock_ticket_dao().view_closed_tickets.return_value = closed_tickets
+        mock_ticket_dao().get_closed_tickets_by_cid.return_value = closed_tickets
 
         mock_view_ticket_detail_handler = mocker.Mock()
         mocker.patch.object(cts, 'view_ticket_detail_handler', mock_view_ticket_detail_handler)
@@ -124,7 +124,7 @@ class TestCustomerTicketSection:
         mock_view_ticket_detail_handler.assert_called_once()
 
     def test_view_closed_tickets_with_empty_tickets(self, capsys, closed_tickets, mock_ticket_dao, cts):
-        mock_ticket_dao().view_closed_tickets.return_value = []
+        mock_ticket_dao().get_closed_tickets_by_cid.return_value = []
         expected_message = "There are no closed tickets yet"
 
         cts.view_closed_tickets()
@@ -137,7 +137,7 @@ class TestCustomerTicketSection:
         inps = iter(['f', 'q', 'n'])
         mocker.patch('builtins.input', lambda prompt: next(inps))
 
-        mock_ticket_dao().view_closed_tickets.return_value = closed_tickets
+        mock_ticket_dao().get_closed_tickets_by_cid.return_value = closed_tickets
 
         mock_view_ticket_detail_handler = mocker.Mock()
         mocker.patch.object(cts, 'give_feedback_handler', mock_view_ticket_detail_handler)
@@ -150,7 +150,7 @@ class TestCustomerTicketSection:
         inps = iter(['d', 'q', 'n'])
         mocker.patch('builtins.input', lambda prompt: next(inps))
 
-        mock_ticket_dao().view_in_progress_ticket.return_value = in_prog_tickets
+        mock_ticket_dao().get_in_progress_tickets_with_cid.return_value = in_prog_tickets
 
         mock_view_ticket_detail_handler = mocker.Mock()
         mocker.patch.object(cts, 'view_ticket_detail_handler', mock_view_ticket_detail_handler)
@@ -160,7 +160,7 @@ class TestCustomerTicketSection:
         mock_view_ticket_detail_handler.assert_called_once()
 
     def test_view_in_progress_tickets_with_empty_tickets(self, capsys, in_prog_tickets, mock_ticket_dao, cts):
-        mock_ticket_dao().view_in_progress_ticket.return_value = []
+        mock_ticket_dao().get_in_progress_tickets_with_cid.return_value = []
         expected_message = "There are no in-progress tickets yet"
 
         cts.view_in_progress_tickets()
