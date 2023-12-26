@@ -172,3 +172,6 @@
 01-41-2023 16:41:59 INFO     [login.py:31] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
 01-41-2023 16:41:59 INFO     [main_menu.py:51] Employee e_id:Nmmm8 and designation:helpdesk logged in
 01-42-2023 16:42:23 INFO     [main.py:28] App ended
+22-07-2023 15:07:16 INFO     [main.py:24] App started
+22-07-2023 15:07:19 INFO     [main.py:27] App ended
+22-09-2023 15:09:57 INFO     [main.py:24] App started

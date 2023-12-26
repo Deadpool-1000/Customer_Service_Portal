@@ -1,6 +1,5 @@
 import logging
 from os import system, path
-
 from src.main_menu.main_menu import MainMenu
 from src.utils.load_configurations import load_configurations
 
@@ -16,6 +15,7 @@ logger = logging.getLogger("main")
 def entry_point(f):
     if f.__module__ == '__main__':
         f()
+
     return f
 
 
