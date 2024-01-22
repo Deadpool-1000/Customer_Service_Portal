@@ -1,5 +1,3 @@
-from functools import wraps
-
 from src.DBUtils.config.db_config_loader import DBConfig
 from src.DBUtils.config.queries_config_loader import QueriesConfig
 from src.authentication.config.auth_config_loader import AuthConfig
@@ -11,17 +9,13 @@ from src.users.config.users_config_loader import UsersConfig
 from src.utils.config.utils_config_loader import UtilsConfig
 
 
-def load_configurations(main_func):
-    @wraps(main_func)
-    def inner(*args):
-        AuthConfig.load()
-        DBConfig.load()
-        QueriesConfig.load()
-        MainMenuConfig.load()
-        CustomerTicketConfig.load()
-        HelpdeskTicketConfig.load()
-        ManagerTicketConfig.load()
-        UsersConfig.load()
-        UtilsConfig.load()
-        main_func()
-    return inner
+def load_configurations():
+    AuthConfig.load()
+    DBConfig.load()
+    QueriesConfig.load()
+    MainMenuConfig.load()
+    CustomerTicketConfig.load()
+    HelpdeskTicketConfig.load()
+    ManagerTicketConfig.load()
+    UsersConfig.load()
+    UtilsConfig.load()

@@ -37,7 +37,7 @@ class AuthDAO:
         if rws is not None:
             logger.info(DBConfig.ALREADY_EXISTS_EXCEPTION)
             raise AlreadyExistsException(DBConfig.ALREADY_EXISTS_EXCEPTION)
-        cust_id: str = shortuuid.ShortUUID().random(length=5)
+        cust_id: str = shortuuid.ShortUUID().random(5)
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
         self.cur.execute(QueriesConfig.INSERT_INTO_CUSTOMER_AUTH_TABLE, (cust_id, email, hashed_password))
         return cust_id

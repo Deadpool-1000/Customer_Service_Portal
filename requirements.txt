@@ -1,0 +1,7 @@
+PyYAML~=6.0.1
+maskpass~=0.3.7
+flask~=3.0.1
+shortuuid~=1.0.11
+pytest~=7.4.4
+python-dotenv~=1.0.0
+marshmallow~=3.20.2

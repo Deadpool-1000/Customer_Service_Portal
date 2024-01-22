@@ -14,8 +14,7 @@ logger = logging.getLogger('main.signup')
 
 class Signup:
     @staticmethod
-    def customer_signup():
-        email, fullname, phn_num, address, password = input_customer_details()
+    def customer_signup(email, fullname, phn_num, address, password):
         try:
             with DatabaseConnection() as conn:
                 auth_dao = AuthDAO(conn)

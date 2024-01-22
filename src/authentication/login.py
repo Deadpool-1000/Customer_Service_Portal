@@ -9,15 +9,13 @@ from src.authentication.config.auth_config_loader import AuthConfig
 from src.utils.data_containers.named_tuples import Customer, Employee
 from src.utils.exceptions.exceptions import InvalidUsernameOrPasswordException, InvalidEmployeeIDException, \
     InvalidDepartmentIDException
-from src.utils.inputs.input_utils import input_email_password
 
 logger = logging.getLogger('main.login')
 
 
 class Login:
     @classmethod
-    def employee_login(cls):
-        email, password = input_email_password()
+    def employee_login(cls, email, password):
         try:
             with DatabaseConnection() as conn:
                 a_dao = AuthDAO(conn)
@@ -50,8 +48,7 @@ class Login:
             return None
 
     @staticmethod
-    def customer_login():
-        email, password = input_email_password()
+    def customer_login(email, password):
         try:
             with DatabaseConnection() as conn:
                 a_dao = AuthDAO(conn)

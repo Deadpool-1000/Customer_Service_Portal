@@ -1,9 +1,0 @@
-INFO     main.login:login.py:31 Employee with e_id:1, name:test1 logged in
-ERROR    main.login:login.py:35 [Employee]:  with email:test_wrong@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:39  with email:test_wrong@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:43  with email:test_wrong@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:47 Employee login: 
-INFO     main.login:login.py:62 Employee with e_id:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='2588188445904'>, name:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='2588188445904'> logged in
-INFO     main.login:login.py:62 Employee with e_id:3, name:test3 logged in
-ERROR    main.login:login.py:65 [Customer]:  with email:wrong_email@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:69 Customer login: sqlite3 error 

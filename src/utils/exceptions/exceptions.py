@@ -24,3 +24,19 @@ class NoDepartmentsException(Exception):
 
 class CustomerTicketIDMismatchException(Exception):
     pass
+
+
+class NoFeedbackExistsException(Exception):
+    pass
+
+
+class NoMessageFromHelpdeskException(Exception):
+    pass
+
+
+class NoTicketsException(Exception):
+    pass
+
+
+class NoMessageFromManagerException(Exception):
+    pass
