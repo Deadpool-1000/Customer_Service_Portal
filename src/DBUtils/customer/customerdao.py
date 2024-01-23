@@ -16,6 +16,15 @@ class CustomerDAO:
             self.cur.execute(QueriesConfig.CREATE_TABLE_CUST_DETAILS)
             self.singleton -= 1
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type or exc_val or exc_tb:
+            return False
+
+        self.cur.close()
+
     def get_customer_details_by_id(self, cust_id):
         rws = self.cur.execute(QueriesConfig.GET_CUST_DETAILS_BY_ID, (cust_id,)).fetchone()
         if rws is None:

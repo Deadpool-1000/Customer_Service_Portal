@@ -21,9 +21,18 @@ class TicketDAO:
             self.cur.execute(QueriesConfig.CREATE_TABLE_MESSAGE_FROM_MANAGER)
             self.singleton -= 1
 
-    def create_new_ticket(self, d_id, c_id, title, desc):
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_tb or exc_val or exc_type:
+            return False
+
+        self.cur.close()
+
+    def create_new_ticket(self, d_id, c_id, title, description):
         t_id = shortuuid.ShortUUID().random(5)
-        self.cur.execute(QueriesConfig.INSERT_INTO_TICKETS_TABLE, (t_id, d_id, c_id, title, desc, DBConfig.RAISED, datetime.now()))
+        self.cur.execute(QueriesConfig.INSERT_INTO_TICKETS_TABLE, (t_id, d_id, c_id, title, description, DBConfig.RAISED, datetime.now()))
         logger.info(f'New ticket raised with ticket_id:{t_id}, title:{title} by customer:{c_id}')
 
     def get_in_progress_tickets_with_cid(self, c_id):
@@ -54,23 +63,8 @@ class TicketDAO:
 
         return raised_tickets_by_c_id
 
-    @staticmethod
-    def prepare_tickets(rws):
-        all_tickets = [
-            Ticket(
-                t_id=row[0],
-                d_id=row[1],
-                c_id=row[2],
-                repr_id=row[3],
-                title=row[4],
-                description=row[5],
-                status=row[6],
-                cust_feedback=row[7],
-                created_on=row[8],
-                message=row[9]
-            )
-            for row in rws]
-        return all_tickets
+    def get_ticket_by_tid(self, t_id):
+        pass
 
     def get_all_raised_tickets(self, dept_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.RAISED, dept_id))

@@ -1,62 +1,50 @@
-CREATE_TABLE_CUST_AUTH : 'CREATE TABLE IF NOT EXISTS cust_auth (cid text PRIMARY KEY, email TEXT UNIQUE, password TEXT)'
-CREATE_TABLE_CUST_DETAILS : 'CREATE TABLE IF NOT EXISTS cust_details (cid TEXT PRIMARY KEY,full_name TEXT, phn_num TEXT,address TEXT, FOREIGN KEY(cid) REFERENCES cust_auth(cid))'
-CREATE_TABLE_EMP : 'CREATE TABLE IF NOT EXISTS emp_auth (e_id TEXT PRIMARY KEY, email TEXT UNIQUE, password TEXT)'
-CREATE_TABLE_EMP_DETAILS : "CREATE TABLE IF NOT EXISTS emp_details (e_id TEXT PRIMARY KEY, full_name TEXT, phn_num TEXT, dept_id TEXT, address TEXT, designation TEXT, FOREIGN KEY(dept_id) REFERENCES dept_details(dept_id), FOREIGN KEY(e_id) REFERENCES emp_auth(e_id))"
-
-CREATE_TABLE_DEPT_DETAILS : "CREATE TABLE IF NOT EXISTS dept_details(dept_id TEXT PRIMARY KEY, dept_name TEXT)"
-
+CREATE_TABLE_CUST_AUTH : ''
+CREATE_TABLE_CUST_DETAILS :
+CREATE_TABLE_EMP :
+CREATE_TABLE_EMP_DETAILS :
+CREATE_TABLE_DEPT_DETAILS :
 
 
 
-FIND_USER_QUERY : 'SELECT * FROM {} WHERE email = ?'
-FIND_DEPT_BY_DEPTID : 'SELECT dept_name from dept WHERE dept_id=?'
-INSERT_INTO_CUSTOMER_AUTH_TABLE : 'INSERT INTO cust_auth VALUES(?, ?, ?)'
-GET_CUST_DETAILS_BY_ID : 'SELECT * FROM cust_details WHERE cid = ?'
-INSERT_INTO_CUST_DETAILS : 'INSERT INTO cust_details VALUES(?, ?, ?, ?)'
+
+FIND_USER_QUERY : 'SELECT * FROM {} WHERE email = %(email)s'
+FIND_DEPT_BY_DEPTID : 'SELECT dept_name from dept WHERE dept_id=%(dept_id)s'
+INSERT_INTO_CUSTOMER_AUTH_TABLE : 'INSERT INTO cust_auth VALUES(%s, %s, %s)'
+GET_CUST_DETAILS_BY_ID : 'SELECT * FROM cust_details WHERE c_id = %(c_id)s'
+INSERT_INTO_CUST_DETAILS : 'INSERT INTO cust_details VALUES(%s, %s, %s, %s)'
 
 
-GET_EMPLOYEE_DETAILS_BY_ID : "SELECT * FROM emp_details WHERE e_id = ?"
+GET_EMPLOYEE_DETAILS_BY_ID : "SELECT * FROM emp_details WHERE e_id = %(e_id)"
 DEPT_TABLE_MAPPING_QUERY : "SELECT * FROM dept_details"
-GET_DEPT_DETAILS_BY_ID : "SELECT * FROM dept_details WHERE dept_id = ?"
-
+GET_DEPT_DETAILS_BY_ID : "SELECT * FROM dept_details WHERE dept_id = %(dept_id)s"
+GET_EMPLOYEE_ROLE : "SELECT * FROM emp_auth WHERE e_id = %(e_id)s"
 
 
 
 # feedback
 CREATE_TABLE_FEEDBACK : 'CREATE TABLE IF NOT EXISTS feedback(f_id TEXT PRIMARY KEY, stars INTEGER, description TEXT, t_id TEXT UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id))'
-GET_FEEDBACK_BY_TID : "SELECT * FROM feedback WHERE t_id=?"
-INSERT_INTO_FEEDBACK : 'INSERT INTO feedback VALUES(?, ?, ?, ?)'
+GET_FEEDBACK_BY_TID : "SELECT * FROM feedback WHERE t_id=%(t_id)s"
+INSERT_INTO_FEEDBACK : 'INSERT INTO feedback VALUES(%s, %s, %s, %s)'
 GET_ALL_FEEDBACK : 'SELECT * FROM feedback'
 
 # operations on ticket
-CREATE_TABLE_TICKETS: | 
-  CREATE TABLE IF NOT EXISTS tickets (
-    t_id TEXT PRIMARY_KEY,
-    d_id TEXT NOT NULL,
-    c_id TEXT NOT NULL,
-    title TEXT NOT NULL,
-    desc TEXT NOT NULL,
-    status TEXT NOT NULL,
-    created_on timestamp,
-    repr_id TEXT,
-    FOREIGN KEY(repr_id) REFERENCES emp_details(e_id)
-  )
-INSERT_INTO_TICKETS_TABLE : "INSERT INTO tickets(t_id, d_id, c_id, title, desc, status, created_on) VALUES(?, ?, ?, ?, ?, ?, ?)"
-IS_TICKET_CLOSED : 'SELECT * FROM tickets WHERE t_id=? AND status=?'
-UPDATE_TICKET_STATUS : "UPDATE tickets SET status=? WHERE t_id = ?"
-VIEW_TICKETS : "SELECT * FROM tickets WHERE c_id = ? AND status = ?"
-VIEW_TICKETS_BY_STATUS : "SELECT * FROM tickets WHERE status = ? AND d_id = ?"
+CREATE_TABLE_TICKETS:
+INSERT_INTO_TICKETS_TABLE : "INSERT INTO tickets(t_id, d_id, c_id, title, desc, status, created_on) VALUES(%s, %s, %s, %s, %s, %s, %s)"
+IS_TICKET_CLOSED : 'SELECT * FROM tickets WHERE t_id=%(t_id)s AND status=%(status)s'
+UPDATE_TICKET_STATUS : "UPDATE tickets SET status=%(status)s WHERE t_id = %(t_id)s"
+VIEW_TICKETS : "SELECT * FROM tickets WHERE c_id=%(c_id)s AND status =%(status)s "
+VIEW_TICKETS_BY_STATUS : "SELECT * FROM tickets WHERE status=%(status)s AND d_id=%(d_id)s"
 VIEW_ALL_TICKETS : "SELECT * FROM tickets ORDER BY created_on DESC"
-ASSIGN_REPR : "UPDATE tickets SET repr_id=? WHERE t_id=?"
+ASSIGN_REPR : "UPDATE tickets SET repr_id=%(repr_id)s WHERE t_id=%(t_id)s"
 
 
 # Message from helpdesk
-CREATE_TABLE_MESSAGE_FROM_HELPDESK : "CREATE TABLE IF NOT EXISTS message_from_helpdesk(mh_id TEXT PRIMARY_KEY, message TEXT, created_at timestamp, t_id TEXT UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id))"
-UPDATE_MESSAGE_FROM_HELPDESK : "INSERT INTO message_from_helpdesk VALUES(?, ?, ?, ?)"
-GET_MESSAGE_FROM_HELPDESK : "SELECT * FROM message_from_helpdesk WHERE t_id=?"
+CREATE_TABLE_MESSAGE_FROM_HELPDESK :
+UPDATE_MESSAGE_FROM_HELPDESK : "INSERT INTO message_from_helpdesk VALUES(%s, %s, %s, %s)"
+GET_MESSAGE_FROM_HELPDESK : "SELECT * FROM message_from_helpdesk WHERE t_id=%(t_id)s"
 
 # message from manager
-CREATE_TABLE_MESSAGE_FROM_MANAGER : "CREATE TABLE IF NOT EXISTS message_from_manager(mm_id TEXT PRIMARY KEY, message TEXT, created_at timestamp, t_id TEXT UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id))"
-UPDATE_MESSAGE_FROM_MANAGER : "INSERT INTO message_from_manager VALUES(?, ?, ?, ?)"
-GET_MESSAGE_FROM_MANAGER : "SELECT * FROM message_from_manager WHERE t_id=?"
+CREATE_TABLE_MESSAGE_FROM_MANAGER :
+UPDATE_MESSAGE_FROM_MANAGER : "INSERT INTO message_from_manager VALUES(%s, %s, %s, %s)"
+GET_MESSAGE_FROM_MANAGER : "SELECT * FROM message_from_manager WHERE t_id=%(t_id)s"
 

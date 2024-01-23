@@ -20,6 +20,8 @@ class DBConfig:
     IN_PROGRESS = None
     RAISED = None
     CLOSED = None
+    CUST_AUTH = None
+    EMP_AUTH = None
 
     @classmethod
     def load(cls):
@@ -38,3 +40,5 @@ class DBConfig:
             cls.IN_PROGRESS = data['IN_PROGRESS']
             cls.RAISED = data['RAISED']
             cls.CLOSED = data['CLOSED']
+            cls.CUST_AUTH = data['CUST_AUTH']
+            cls.EMP_AUTH = data['EMP_AUTH']

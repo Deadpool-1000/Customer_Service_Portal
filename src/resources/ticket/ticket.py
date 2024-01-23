@@ -1,8 +1,9 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint
+from flask import jsonify
 
-from src.DBUtils.connection.database_connection import DatabaseConnection
-from src.DBUtils.ticket.ticketDAO import TicketDAO
+from src.utils.rbac.rbac import access_required
+from src.authentication.config.auth_config_loader import AuthConfig
 
 blp = Blueprint('Ticket', 'tickets', description='Operation on tickets')
 
@@ -14,8 +15,12 @@ class Tickets(MethodView):
         pass
 
     @blp.doc(parameters=[{'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>', 'required': 'true'}])
+    @access_required(['CUSTOMER'])
     def post(self):
-        pass
+        print("In post request")
+        return {
+            "message": "Welcome"
+        }
 
 
 @blp.route('/tickets/<string:ticket_id>')

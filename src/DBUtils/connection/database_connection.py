@@ -1,19 +1,17 @@
-import sqlite3
+import os
+import mysql.connector
 
 from src.DBUtils.config.db_config_loader import DBConfig
 
 
 class DatabaseConnection:
     def __init__(self):
-        self.conn = sqlite3.connect(fr'{DBConfig.DB_FILE_PATH}')
-        self.conn.row_factory = sqlite3.Row
-
-    @staticmethod
-    def dict_factory(cur, row):
-        d = {}
-        for idx, col in enumerate(cur.description):
-            d[col[0]] = row[idx]
-        return d
+        self.conn = mysql.connector.connect(
+            host='localhost',
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD'),
+            database=os.getenv('DB_NAME')
+        )
 
     def __enter__(self):
         return self.conn

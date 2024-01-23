@@ -15,3 +15,6 @@ WE_WILL_GET_BACK : "We will get back to you soon."
 IN_PROGRESS : "in_progress"
 RAISED : "raised"
 CLOSED : "closed"
+
+CUST_AUTH : "cust_auth"
+EMP_AUTH : "emp_auth"

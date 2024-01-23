@@ -40,3 +40,7 @@ class NoTicketsException(Exception):
 
 class NoMessageFromManagerException(Exception):
     pass
+
+
+class DataBaseException(Exception):
+    pass

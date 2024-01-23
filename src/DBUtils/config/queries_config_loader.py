@@ -38,6 +38,7 @@ class QueriesConfig:
     UPDATE_MESSAGE_FROM_MANAGER = None
     CREATE_TABLE_MESSAGE_FROM_MANAGER = None
     GET_MESSAGE_FROM_MANAGER = None
+    GET_EMPLOYEE_ROLE = None
 
     @classmethod
     def load(cls):
@@ -75,3 +76,4 @@ class QueriesConfig:
             cls.UPDATE_MESSAGE_FROM_MANAGER = data['UPDATE_MESSAGE_FROM_MANAGER']
             cls.CREATE_TABLE_MESSAGE_FROM_MANAGER = data['CREATE_TABLE_MESSAGE_FROM_MANAGER']
             cls.GET_MESSAGE_FROM_MANAGER = data['GET_MESSAGE_FROM_MANAGER']
+            cls.GET_EMPLOYEE_ROLE = data['GET_EMPLOYEE_ROLE']

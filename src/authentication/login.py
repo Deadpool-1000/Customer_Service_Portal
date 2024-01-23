@@ -3,7 +3,6 @@ import sqlite3
 
 from src.DBUtils.auth.authdao import AuthDAO
 from src.DBUtils.connection.database_connection import DatabaseConnection
-from src.DBUtils.customer.customerdao import CustomerDAO
 from src.DBUtils.employee.employeedao import EmployeeDAO
 from src.authentication.config.auth_config_loader import AuthConfig
 from src.utils.data_containers.named_tuples import Customer, Employee
@@ -49,22 +48,4 @@ class Login:
 
     @staticmethod
     def customer_login(email, password):
-        try:
-            with DatabaseConnection() as conn:
-                a_dao = AuthDAO(conn)
-                c_id = a_dao.login_user(email, password, AuthConfig.CUST_AUTH)
-                c_dao = CustomerDAO(conn)
-                customer = c_dao.get_customer_details_by_id(c_id)
-                c = Customer(name=customer[1], c_id=customer[0], phn_num=customer[2], address=customer[3], email=email)
-                logger.info(f"Employee with e_id:{c.c_id}, name:{c.name} logged in")
-            return c
-        except InvalidUsernameOrPasswordException as iup:
-            logger.error(f'[Customer]: {iup} with email:{email} and password:{password}')
-            print(iup)
-            return False
-        except sqlite3.Error as err:
-            logger.error(f'Customer login: sqlite3 error {err}')
-            print('There was a problem logging you in')
-            print('Please try again after some time')
-            return None
-
+        pass
