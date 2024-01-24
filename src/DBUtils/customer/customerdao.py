@@ -11,7 +11,7 @@ class CustomerDAO:
     singleton = 1
 
     def __init__(self, conn):
-        self.cur = conn.cursor()
+        self.cur = conn.cursor(dictionary=True)
         if self.singleton != 0:
             self.cur.execute(QueriesConfig.CREATE_TABLE_CUST_DETAILS)
             self.singleton -= 1

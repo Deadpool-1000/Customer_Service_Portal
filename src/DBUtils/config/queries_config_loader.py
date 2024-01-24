@@ -39,6 +39,9 @@ class QueriesConfig:
     CREATE_TABLE_MESSAGE_FROM_MANAGER = None
     GET_MESSAGE_FROM_MANAGER = None
     GET_EMPLOYEE_ROLE = None
+    GET_TICKET_BY_TID = None
+    GET_DEPARTMENT_FROM_DEPT_ID = None
+    TICKET_DETAIL_QUERY = None
 
     @classmethod
     def load(cls):
@@ -77,3 +80,6 @@ class QueriesConfig:
             cls.CREATE_TABLE_MESSAGE_FROM_MANAGER = data['CREATE_TABLE_MESSAGE_FROM_MANAGER']
             cls.GET_MESSAGE_FROM_MANAGER = data['GET_MESSAGE_FROM_MANAGER']
             cls.GET_EMPLOYEE_ROLE = data['GET_EMPLOYEE_ROLE']
+            cls.GET_TICKET_BY_TID = data['GET_TICKET_BY_TID']
+            cls.GET_DEPARTMENT_FROM_DEPT_ID = data['GET_DEPARTMENT_FROM_DEPT_ID']
+            cls.TICKET_DETAIL_QUERY = data['TICKET_DETAIL_QUERY']

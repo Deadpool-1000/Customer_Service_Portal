@@ -14,7 +14,7 @@ class TicketDAO:
     singleton = 1
 
     def __init__(self, conn):
-        self.cur = conn.cursor()
+        self.cur = conn.cursor(dictionary=True)
         if self.singleton != 0:
             self.cur.execute(QueriesConfig.CREATE_TABLE_TICKETS)
             self.cur.execute(QueriesConfig.CREATE_TABLE_MESSAGE_FROM_HELPDESK)
@@ -34,6 +34,7 @@ class TicketDAO:
         t_id = shortuuid.ShortUUID().random(5)
         self.cur.execute(QueriesConfig.INSERT_INTO_TICKETS_TABLE, (t_id, d_id, c_id, title, description, DBConfig.RAISED, datetime.now()))
         logger.info(f'New ticket raised with ticket_id:{t_id}, title:{title} by customer:{c_id}')
+        return t_id
 
     def get_in_progress_tickets_with_cid(self, c_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS, (c_id, DBConfig.IN_PROGRESS)).fetchall()
@@ -64,7 +65,10 @@ class TicketDAO:
         return raised_tickets_by_c_id
 
     def get_ticket_by_tid(self, t_id):
-        pass
+        self.cur.execute(QueriesConfig.GET_TICKET_BY_TID, {
+            't_id': t_id
+        })
+        return self.cur.fetchone()
 
     def get_all_raised_tickets(self, dept_id):
         rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.RAISED, dept_id))
@@ -141,3 +145,9 @@ class TicketDAO:
             raise NoMessageFromManagerException('No message from manager yet.')
 
         return message_from_manager
+
+    def get_detailed_ticket_view(self, t_id):
+        self.cur.execute(QueriesConfig.TICKET_DETAIL_QUERY, {
+            't_id': t_id
+        })
+        return self.cur.fetchone()

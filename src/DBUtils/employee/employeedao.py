@@ -27,12 +27,15 @@ class EmployeeDAO:
         self.cur.close()
 
     def get_employee_details_by_id(self, e_id):
-        rws = self.cur.execute(QueriesConfig.GET_EMPLOYEE_DETAILS_BY_ID, (e_id,)).fetchone()
-        if rws is None:
+        self.cur.execute(QueriesConfig.GET_EMPLOYEE_DETAILS_BY_ID, {
+            'e_id': e_id
+        })
+        emp_data = self.cur.fetchone()
+        if emp_data is None:
             logger.info(DBConfig.INVALID_EMP_ID)
             raise InvalidEmployeeIDException(DBConfig.THERE_WAS_SOME_PROBLEM)
-        # 'c_id', 'full_name', 'phn_num', 'address', 'dept_id', 'designation'
-        return rws
+        # 'e_id', 'full_name', 'phn_num', 'address', 'dept_id', 'designation'
+        return emp_data
 
     def get_employee_role(self, e_id):
         self.cur.execute(QueriesConfig.GET_EMPLOYEE_ROLE, {
