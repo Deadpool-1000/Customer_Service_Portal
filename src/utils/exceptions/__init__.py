@@ -10,4 +10,4 @@ from src.utils.exceptions.exceptions import NoMessageFromHelpdeskException
 from src.utils.exceptions.exceptions import NoTicketsException
 from src.utils.exceptions.exceptions import NoMessageFromManagerException
 from src.utils.exceptions.exceptions import DataBaseException
-
+from src.utils.exceptions.exceptions import ApplicationError

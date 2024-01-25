@@ -39,7 +39,7 @@ class EmployeeLoginHandler:
         print("generate token ", e_id, role)
 
         additional_claims = {
-            'role': AuthConfig.MANAGER if role == 'manager' else AuthConfig.CUSTOMER
+            'role': AuthConfig.MANAGER if role == 'manager' else AuthConfig.HELPDESK
         }
 
         token = create_access_token(identity=e_id, additional_claims=additional_claims)

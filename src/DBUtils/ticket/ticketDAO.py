@@ -98,18 +98,31 @@ class TicketDAO:
         return closed_tickets
 
     def get_all_tickets(self):
-        rws = self.cur.execute(QueriesConfig.VIEW_ALL_TICKETS)
-        all_tickets = [dict(r) for r in rws.fetchall()]
-
-        if len(all_tickets) == 0:
-            raise NoTicketsException('No tickets to show.')
-
-        return all_tickets
+        self.cur.execute(QueriesConfig.VIEW_ALL_TICKETS)
+        return self.cur.fetchall()
 
     def update_message_from_helpdesk(self, message, t_id):
-        mh_id = shortuuid.ShortUUID().random(5)
-        self.cur.execute(QueriesConfig.UPDATE_MESSAGE_FROM_HELPDESK, (mh_id, message, datetime.now(), t_id))
-        logger.info(f'Message from helpdesk changed for ticket_id:{t_id} to {message}')
+
+        self.cur.execute(QueriesConfig.GET_MESSAGE_FROM_HELPDESK, {
+            't_id': t_id
+        })
+
+        message_from_helpdesk = self.cur.fetchone()
+
+        print(message_from_helpdesk)
+
+        if message_from_helpdesk is None:
+            mh_id = shortuuid.ShortUUID().random(5)
+            self.cur.execute(QueriesConfig.INSERT_MESSAGE_FROM_HELPDESK, (mh_id, message, datetime.now(), t_id))
+            logger.info(f'Message from helpdesk created for ticket_id:{t_id}, message: {message}')
+
+        else:
+            self.cur.execute(QueriesConfig.UPDATE_MESSAGE_FROM_HELPDESK, ({
+                'message': message,
+                'created_at': datetime.now(),
+                't_id': t_id
+            }))
+            logger.info(f'Message from helpdesk updated for ticket_id:{t_id} to {message}')
 
     def get_message_from_helpdesk(self, t_id):
         rws = self.cur.execute(QueriesConfig.GET_MESSAGE_FROM_HELPDESK)
@@ -121,12 +134,19 @@ class TicketDAO:
         return message_from_helpdesk
 
     def change_ticket_status(self, t_id, new_status):
-        self.cur.execute(QueriesConfig.UPDATE_TICKET_STATUS, (new_status, t_id))
+
+        self.cur.execute(QueriesConfig.UPDATE_TICKET_STATUS, {
+            'status': new_status,
+            't_id': t_id
+        })
         logger.info(f'Ticket status changed for ticket_id:{t_id} to {new_status}')
 
     def assign_repr_id(self, t_id, e_id):
-        self.cur.execute(QueriesConfig.ASSIGN_REPR, (e_id, t_id))
-        logger.info(f'ticket_id:{t_id} assigned to {e_id}')
+        self.cur.execute(QueriesConfig.ASSIGN_REPR, {
+            'repr_id': e_id,
+            't_id': t_id
+        })
+        logger.info(f'ticket_id: {t_id} assigned to {e_id}')
 
     def is_ticket_closed(self, t_id):
         rws = self.cur.execute(QueriesConfig.IS_TICKET_CLOSED, (t_id, DBConfig.CLOSED))
@@ -151,3 +171,16 @@ class TicketDAO:
             't_id': t_id
         })
         return self.cur.fetchone()
+
+    def get_all_tickets_by_c_id(self, c_id):
+        self.cur.execute(QueriesConfig.GET_TICKETS_BY_CID, {
+            'c_id': c_id
+        })
+        return self.cur.fetchall()
+
+    def get_all_tickets_by_d_id(self, d_id):
+        self.cur.execute(QueriesConfig.GET_TICKETS_BY_D_ID, {
+            'd_id': d_id
+        })
+        return self.cur.fetchall()
+

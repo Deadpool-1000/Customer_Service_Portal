@@ -11,13 +11,13 @@ from src.resources.ticket.ticket import blp as TicketBlueprint
 from src.resources.feedback.feedback import blp as FeedbackBlueprint
 from src.resources.message.message import blp as MessageBlueprint
 
-# LOG_FILE_PATH = path.join(path_current_directory, 'utils/logs/logs.log')
-#
-#
-# logging.basicConfig(format="%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
-#                     datefmt="%d-%M-%Y %H:%M:%S", level=logging.DEBUG, filename=LOG_FILE_PATH)
-# logger = logging.getLogger("main")
-#
+LOG_FILE_PATH = 'utils/logs/logs.log'
+
+
+logging.basicConfig(format="%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
+                    datefmt="%d-%M-%Y %H:%M:%S", level=logging.DEBUG, filename=LOG_FILE_PATH)
+logger = logging.getLogger("main")
+
 
 def create_app():
     load_dotenv()

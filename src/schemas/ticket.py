@@ -54,3 +54,7 @@ class MessageSchema(Schema):
     created_on = fields.Str(required=True, dump_only=True)
     t_id = fields.Str(required=True, dump_only=True)
     message = fields.Str(required=True)
+
+
+class MessageFromHelpdeskSchema(Schema):
+    message_from_helpdesk = fields.Str(required=True)

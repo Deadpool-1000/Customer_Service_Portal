@@ -50,3 +50,9 @@ class EmployeeDAO:
             logger.info(DBConfig.INVALID_DEPT_ID)
             raise InvalidDepartmentIDException(DBConfig.THERE_WAS_SOME_PROBLEM)
         return rws
+
+    def get_department_by_employee_id(self, e_id):
+        self.cur.execute(QueriesConfig.GET_DEPARTMENT_FROM_EMP_ID, {
+            'e_id': e_id
+        })
+        return self.cur.fetchone()

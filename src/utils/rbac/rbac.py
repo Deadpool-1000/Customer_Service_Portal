@@ -19,8 +19,6 @@ def access_required(roles_allowed):
 
             verify_jwt_in_request()
             token = get_jwt()
-            print(token['role'])
-            print(roles_allowed)
             if token['role'] in allowed:
                 return func(*args, **kwargs)
             else:

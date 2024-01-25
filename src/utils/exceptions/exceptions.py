@@ -44,3 +44,10 @@ class NoMessageFromManagerException(Exception):
 
 class DataBaseException(Exception):
     pass
+
+
+class ApplicationError(Exception):
+    def __init__(self, message, code):
+        self.message = message
+        self.code = code
+    

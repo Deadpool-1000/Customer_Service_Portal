@@ -175,3 +175,90 @@
 22-07-2023 15:07:16 INFO     [main.py:24] App started
 22-07-2023 15:07:19 INFO     [main.py:27] App ended
 22-09-2023 15:09:57 INFO     [main.py:24] App started
+25-27-2024 14:27:44 WARNING  [_internal.py:96]  * Debugger is active!
+25-27-2024 14:27:44 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-27-2024 14:27:48 INFO     [ticketDAO.py:138] Ticket status changed for ticket_id:6gAXi to closed
+25-27-2024 14:27:48 ERROR    [ticket_operation_handler.py:79] There was an error while closing a ticket6gAXi Unread result found
+25-27-2024 14:27:48 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:27:48] "[35m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 500 -
+25-29-2024 14:29:13 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\ticket\\ticketDAO.py', reloading
+25-29-2024 14:29:14 WARNING  [_internal.py:96]  * Debugger is active!
+25-29-2024 14:29:14 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-29-2024 14:29:26 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_operation_handler.py', reloading
+25-29-2024 14:29:27 WARNING  [_internal.py:96]  * Debugger is active!
+25-29-2024 14:29:27 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-29-2024 14:29:30 INFO     [ticketDAO.py:139] Ticket status changed for ticket_id:6gAXi to closed
+25-29-2024 14:29:30 ERROR    [ticket_operation_handler.py:77] There was an error while closing a ticket6gAXi Unread result found
+25-29-2024 14:29:30 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:29:30] "[35m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 500 -
+25-32-2024 14:32:12 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\controllers\\ticket\\ticket_operation_controller.py', reloading
+25-32-2024 14:32:13 WARNING  [_internal.py:96]  * Debugger is active!
+25-32-2024 14:32:13 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-32-2024 14:32:58 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\ticket\\ticketDAO.py', reloading
+25-32-2024 14:32:59 WARNING  [_internal.py:96]  * Debugger is active!
+25-32-2024 14:32:59 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-33-2024 14:33:23 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\ticket\\ticketDAO.py', reloading
+25-33-2024 14:33:23 WARNING  [_internal.py:96]  * Debugger is active!
+25-33-2024 14:33:24 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-36-2024 14:36:42 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:36:42] "[31m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 401 -
+25-36-2024 14:36:51 INFO     [employee_login_handler.py:23] Employee with e_id:SGCxT, role:helpdesk logged in
+25-36-2024 14:36:51 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:36:51] "POST /login/employee HTTP/1.1" 200 -
+25-36-2024 14:36:57 INFO     [ticketDAO.py:139] Ticket status changed for ticket_id:6gAXi to closed
+25-36-2024 14:36:57 ERROR    [ticket_operation_handler.py:77] There was an error while closing a ticket6gAXi Unread result found
+25-36-2024 14:36:57 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:36:57] "[35m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 500 -
+25-37-2024 14:37:26 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\ticket\\ticketDAO.py', reloading
+25-37-2024 14:37:28 WARNING  [_internal.py:96]  * Debugger is active!
+25-37-2024 14:37:28 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-37-2024 14:37:39 INFO     [ticketDAO.py:140] Ticket status changed for ticket_id:6gAXi to closed
+25-37-2024 14:37:39 ERROR    [ticket_operation_handler.py:77] There was an error while closing a ticket6gAXi Unread result found
+25-37-2024 14:37:39 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:37:39] "[35m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 500 -
+25-42-2024 14:42:07 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\ticket\\ticketDAO.py', reloading
+25-42-2024 14:42:09 WARNING  [_internal.py:96]  * Debugger is active!
+25-42-2024 14:42:09 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-42-2024 14:42:20 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\ticket\\ticketDAO.py', reloading
+25-42-2024 14:42:21 WARNING  [_internal.py:96]  * Debugger is active!
+25-42-2024 14:42:21 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-42-2024 14:42:25 INFO     [ticketDAO.py:141] Ticket status changed for ticket_id:6gAXi to closed
+25-42-2024 14:42:25 ERROR    [ticket_operation_handler.py:77] There was an error while closing a ticket6gAXi Truncated incorrect DOUBLE value: 'Hope your issue got solved.'
+25-42-2024 14:42:25 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:42:25] "[35m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 500 -
+25-42-2024 14:42:58 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\utils\\rbac\\rbac.py', reloading
+25-42-2024 14:42:59 WARNING  [_internal.py:96]  * Debugger is active!
+25-42-2024 14:42:59 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-43-2024 14:43:05 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+25-43-2024 14:43:05 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+25-43-2024 14:43:05 INFO     [_internal.py:96]  * Restarting with stat
+25-43-2024 14:43:06 WARNING  [_internal.py:96]  * Debugger is active!
+25-43-2024 14:43:06 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-43-2024 14:43:09 INFO     [ticketDAO.py:141] Ticket status changed for ticket_id:6gAXi to closed
+25-43-2024 14:43:09 ERROR    [ticket_operation_handler.py:77] There was an error while closing a ticket6gAXi Truncated incorrect DOUBLE value: 'Hope your issue got solved.'
+25-43-2024 14:43:09 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:43:09] "[35m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 500 -
+25-43-2024 14:43:55 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\ticket\\ticketDAO.py', reloading
+25-43-2024 14:43:55 INFO     [_internal.py:96]  * Restarting with stat
+25-43-2024 14:43:56 WARNING  [_internal.py:96]  * Debugger is active!
+25-43-2024 14:43:56 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-44-2024 14:44:01 INFO     [ticketDAO.py:143] Ticket status changed for ticket_id:6gAXi to closed
+25-44-2024 14:44:01 ERROR    [ticket_operation_handler.py:77] There was an error while closing a ticket6gAXi Truncated incorrect DOUBLE value: 'Hope your issue got solved.'
+25-44-2024 14:44:01 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:44:01] "[35m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 500 -
+25-54-2024 14:54:11 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+25-54-2024 14:54:11 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+25-54-2024 14:54:11 INFO     [_internal.py:96]  * Restarting with stat
+25-54-2024 14:54:12 WARNING  [_internal.py:96]  * Debugger is active!
+25-54-2024 14:54:12 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-54-2024 14:54:13 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:54:13] "[31m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 401 -
+25-54-2024 14:54:19 INFO     [employee_login_handler.py:23] Employee with e_id:SGCxT, role:helpdesk logged in
+25-54-2024 14:54:19 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:54:19] "POST /login/employee HTTP/1.1" 200 -
+25-54-2024 14:54:23 INFO     [ticketDAO.py:143] Ticket status changed for ticket_id:6gAXi to closed
+25-54-2024 14:54:23 INFO     [ticketDAO.py:126] Message from helpdesk updated for ticket_id:6gAXi to Hope your issue got solved.
+25-54-2024 14:54:23 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:54:23] "PUT /tickets/6gAXi/close HTTP/1.1" 200 -
+25-55-2024 14:55:25 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_operation_handler.py', reloading
+25-55-2024 14:55:25 INFO     [_internal.py:96]  * Restarting with stat
+25-55-2024 14:55:26 WARNING  [_internal.py:96]  * Debugger is active!
+25-55-2024 14:55:26 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-55-2024 14:55:28 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+25-55-2024 14:55:28 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+25-55-2024 14:55:28 INFO     [_internal.py:96]  * Restarting with stat
+25-55-2024 14:55:29 WARNING  [_internal.py:96]  * Debugger is active!
+25-55-2024 14:55:29 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+25-55-2024 14:55:31 ERROR    [ticket_operation_handler.py:63] User tried to resolve an already closed or just raised ticket for Ticket Id: 6gAXi
+25-55-2024 14:55:31 INFO     [_internal.py:96] 127.0.0.1 - - [25/Jan/2024 14:55:31] "[31m[1mPUT /tickets/6gAXi/close HTTP/1.1[0m" 400 -

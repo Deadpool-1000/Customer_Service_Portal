@@ -18,6 +18,7 @@ GET_EMPLOYEE_DETAILS_BY_ID : "SELECT e_a.email, e_d.full_name, e_d.e_id, e_d.phn
 DEPT_TABLE_MAPPING_QUERY : "SELECT * FROM dept_details"
 GET_DEPT_DETAILS_BY_ID : "SELECT * FROM dept_details WHERE dept_id = %(dept_id)s"
 GET_EMPLOYEE_ROLE : "SELECT * FROM emp_auth WHERE e_id = %(e_id)s"
+GET_DEPARTMENT_FROM_EMP_ID : "SELECT dept_id FROM emp_details WHERE e_id=%(e_id)s"
 
 
 
@@ -35,7 +36,7 @@ CREATE_TABLE_TICKETS: |
       c_id VARCHAR(10) NOT NULL,
       title VARCHAR(30) NOT NULL,
       t_desc VARCHAR(200) NOT NULL,
-      t_status VARCHAR(10) NOT NULL,
+      t_status VARCHAR(20) NOT NULL,
       created_on timestamp,
       repr_id VARCHAR(10),
       FOREIGN KEY(repr_id) REFERENCES emp_details(e_id),
@@ -44,7 +45,7 @@ CREATE_TABLE_TICKETS: |
 
 INSERT_INTO_TICKETS_TABLE : "INSERT INTO tickets(t_id, d_id, c_id, title, t_desc, t_status, created_on) VALUES(%s, %s, %s, %s, %s, %s, %s)"
 IS_TICKET_CLOSED : 'SELECT * FROM tickets WHERE t_id=%(t_id)s AND status=%(status)s'
-UPDATE_TICKET_STATUS : "UPDATE tickets SET status=%(status)s WHERE t_id = %(t_id)s"
+UPDATE_TICKET_STATUS : "UPDATE tickets SET t_status=%(status)s WHERE t_id=%(t_id)s"
 VIEW_TICKETS : "SELECT * FROM tickets WHERE c_id=%(c_id)s AND status =%(status)s "
 VIEW_TICKETS_BY_STATUS : "SELECT * FROM tickets WHERE status=%(status)s AND d_id=%(d_id)s"
 VIEW_ALL_TICKETS : "SELECT * FROM tickets ORDER BY created_on DESC"
@@ -56,10 +57,15 @@ TICKET_DETAIL_QUERY : |
   NATURAL JOIN dept_details d
   WHERE t.t_id = %(t_id)s;
 
+GET_TICKETS_BY_CID: "SELECT * FROM tickets WHERE c_id=%(c_id)s;"
+GET_TICKETS_BY_D_ID: "SELECT * FROM tickets WHERE d_id=%(d_id)s;"
+
 # Message from helpdesk
-CREATE_TABLE_MESSAGE_FROM_HELPDESK : "CREATE TABLE IF NOT EXISTS feedback(f_id VARCHAR(10) PRIMARY KEY, stars INTEGER, description VARCHAR(200), t_id VARCHAR(10) UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id));"
-UPDATE_MESSAGE_FROM_HELPDESK : "INSERT INTO message_from_helpdesk VALUES(%s, %s, %s, %s)"
+CREATE_TABLE_MESSAGE_FROM_HELPDESK : "CREATE TABLE IF NOT EXISTS message_from_helpdesk(mh_id VARCHAR(10) PRIMARY KEY, message VARCHAR(200), created_at timestamp, t_id VARCHAR(10) UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id));"
+INSERT_MESSAGE_FROM_HELPDESK : "INSERT INTO message_from_helpdesk VALUES(%s, %s, %s, %s)"
 GET_MESSAGE_FROM_HELPDESK : "SELECT * FROM message_from_helpdesk WHERE t_id=%(t_id)s"
+UPDATE_MESSAGE_FROM_HELPDESK : "UPDATE message_from_helpdesk SET message=%(message)s, created_at=%(created_at)s WHERE t_id=%(t_id)s"
+
 
 # message from manager
 CREATE_TABLE_MESSAGE_FROM_MANAGER : "CREATE TABLE IF NOT EXISTS message_from_manager(mm_id VARCHAR(10) PRIMARY KEY, message VARCHAR(200), created_at timestamp, t_id VARCHAR(10) UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id));"
@@ -68,3 +74,4 @@ GET_MESSAGE_FROM_MANAGER : "SELECT * FROM message_from_manager WHERE t_id=%(t_id
 
 # department
 GET_DEPARTMENT_FROM_DEPT_ID : "SELECT * FROM dept_details WHERE d_id=%(dept_id)s"
+

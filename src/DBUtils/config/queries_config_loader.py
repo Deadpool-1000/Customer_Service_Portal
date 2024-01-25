@@ -28,7 +28,7 @@ class QueriesConfig:
     VIEW_TICKETS = None
     VIEW_TICKETS_BY_STATUS = None
     VIEW_ALL_TICKETS = None
-    UPDATE_MESSAGE_FROM_HELPDESK = None
+    INSERT_MESSAGE_FROM_HELPDESK = None
     UPDATE_TICKET_STATUS = None
     ASSIGN_REPR = None
     CREATE_TABLE_MESSAGE_FROM_HELPDESK = None
@@ -42,6 +42,10 @@ class QueriesConfig:
     GET_TICKET_BY_TID = None
     GET_DEPARTMENT_FROM_DEPT_ID = None
     TICKET_DETAIL_QUERY = None
+    GET_DEPARTMENT_FROM_EMP_ID = None
+    GET_TICKETS_BY_CID = None
+    GET_TICKETS_BY_D_ID = None
+    UPDATE_MESSAGE_FROM_HELPDESK = None
 
     @classmethod
     def load(cls):
@@ -69,7 +73,7 @@ class QueriesConfig:
             cls.VIEW_TICKETS = data['VIEW_TICKETS']
             cls.VIEW_TICKETS_BY_STATUS = data['VIEW_TICKETS_BY_STATUS']
             cls.VIEW_ALL_TICKETS = data['VIEW_ALL_TICKETS']
-            cls.UPDATE_MESSAGE_FROM_HELPDESK = data['UPDATE_MESSAGE_FROM_HELPDESK']
+            cls.INSERT_MESSAGE_FROM_HELPDESK = data['INSERT_MESSAGE_FROM_HELPDESK']
             cls.UPDATE_TICKET_STATUS = data['UPDATE_TICKET_STATUS']
             cls.ASSIGN_REPR = data['ASSIGN_REPR']
             cls.CREATE_TABLE_MESSAGE_FROM_HELPDESK = data['CREATE_TABLE_MESSAGE_FROM_HELPDESK']
@@ -83,3 +87,8 @@ class QueriesConfig:
             cls.GET_TICKET_BY_TID = data['GET_TICKET_BY_TID']
             cls.GET_DEPARTMENT_FROM_DEPT_ID = data['GET_DEPARTMENT_FROM_DEPT_ID']
             cls.TICKET_DETAIL_QUERY = data['TICKET_DETAIL_QUERY']
+            cls.GET_DEPARTMENT_FROM_EMP_ID = data['GET_DEPARTMENT_FROM_EMP_ID']
+            cls.GET_TICKETS_BY_CID = data['GET_TICKETS_BY_CID']
+            cls.GET_TICKETS_BY_D_ID = data['GET_TICKETS_BY_D_ID']
+            cls.UPDATE_MESSAGE_FROM_HELPDESK = data['UPDATE_MESSAGE_FROM_HELPDESK']
+            
