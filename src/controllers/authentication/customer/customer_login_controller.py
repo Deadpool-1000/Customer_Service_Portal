@@ -1,6 +1,6 @@
 from flask_smorest import abort
 from src.handlers.authentication.customer.customer_login_handler import CustomerLoginHandler
-from src.utils.exceptions.exceptions import InvalidUsernameOrPasswordException, DataBaseException
+from src.utils.exceptions.exceptions import DataBaseException, ApplicationError
 
 
 class CustomerLoginController:
@@ -16,8 +16,8 @@ class CustomerLoginController:
                 'token': token
             }
 
-        except InvalidUsernameOrPasswordException as e:
-            return abort(401, message='Invalid Username or Password provided.')
+        except ApplicationError as ae:
+            return abort(ae.code, message=ae.message)
 
-        except DataBaseException:
-            return abort(500, message='There was some problem while logging you in. Please try again later')
+        except DataBaseException as db:
+            return abort(500, message=str(db))

@@ -5,6 +5,9 @@ from src.utils.exceptions import DataBaseException, InvalidDepartmentIDException
 from src.schemas.ticket import TicketSchema
 
 
+INVALID_DEPARTMENT_ERROR_MESSAGE = 'Please provide valid department information.'
+
+
 class NewTicketController:
     @staticmethod
     def create_ticket(ticket_data, c_id):

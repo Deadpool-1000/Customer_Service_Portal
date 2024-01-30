@@ -4,6 +4,8 @@ from src.utils.exceptions import AlreadyExistsException, DataBaseException
 from src.handlers.authentication.customer.customer_signup_handler import CustomerSignupHandler
 from src.schemas.user import SuccessSchema
 
+REGISTER_SUCCESS_MESSAGE = 'Successfully registered'
+
 
 class CustomerSignupController:
     @staticmethod
@@ -19,7 +21,7 @@ class CustomerSignupController:
 
             if success:
                 success_message = SuccessSchema().load({
-                    'message': 'Successfully registered'
+                    'message': REGISTER_SUCCESS_MESSAGE
                 })
                 return success_message
 

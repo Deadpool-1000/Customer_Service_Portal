@@ -1,9 +1,15 @@
+import logging
+
 from mysql.connector import Error
 
 from src.DBUtils.connection import DatabaseConnection
 from src.DBUtils.ticket.ticketDAO import TicketDAO
 from src.utils.exceptions import DataBaseException
 from src.DBUtils.department.departmentDAO import DepartmentDAO
+
+CREATE_TICKET_ERROR_MESSAGE = 'There was some problem creating the ticket'
+
+logger = logging.getLogger('main.new_ticket_handler')
 
 
 class NewTicketHandler:
@@ -16,8 +22,8 @@ class NewTicketHandler:
                     return ticket_id
 
         except Error as e:
-            print(e)
-            raise DataBaseException('There was some problem creating the ticket')
+            logger.error(f'Database error {e} while creating new ticket.')
+            raise DataBaseException(CREATE_TICKET_ERROR_MESSAGE)
 
     @staticmethod
     def get_ticket_by_id(ticket_id):

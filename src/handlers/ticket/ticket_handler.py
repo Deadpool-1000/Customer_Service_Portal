@@ -1,10 +1,15 @@
+import logging
 from mysql.connector import Error
 
 from src.DBUtils.connection.database_connection import DatabaseConnection
 from src.DBUtils.ticket.ticketDAO import TicketDAO
 from src.DBUtils.employee.employeedao import EmployeeDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
-from src.authentication.config.auth_config_loader import AuthConfig
+from src.handlers import CSMConfig
+
+TICKET_DETAIL_FETCH_ERROR_MESSAGE = 'There was some problem getting your data.'
+
+logger = logging.getLogger('main.ticket_handler')
 
 
 class TicketHandler:
@@ -42,42 +47,39 @@ class TicketHandler:
 
                     return ticket
         except Error as e:
-            print(e)
-            raise DataBaseException('There was some problem getting your data.')
+            logger.error(f'Database error {e} while fetching ticket: {t_id}')
+            raise DataBaseException(TICKET_DETAIL_FETCH_ERROR_MESSAGE)
 
     @staticmethod
     def is_allowed_to_view_ticket(ticket, role, identity):
         # Check role and further authorization checks
-        if role != AuthConfig.CUSTOMER and role != AuthConfig.HELPDESK and role != AuthConfig.MANAGER:
-            print("No such role")
+        if role != CSMConfig.CUSTOMER and role != CSMConfig.HELPDESK and role != CSMConfig.MANAGER:
             return False
 
         # Check if the customer is the creator of the ticket
-        if role == AuthConfig.CUSTOMER:
+        if role == CSMConfig.CUSTOMER:
             if ticket['c_id'] != identity:
-                print("Not the creator")
                 return False
 
         # In case it is a helpdesk member check if the ticket is related to his/her department
-        elif role == AuthConfig.HELPDESK:
+        elif role == CSMConfig.HELPDESK:
             dept_id = TicketHandler.get_dept_from_e_id(identity)
             if ticket['d_id'] != dept_id:
-                print("Not your department")
                 return False
 
         return True
 
     @classmethod
     def get_tickets_by_identity_and_role(cls, role, identity):
-        if role == AuthConfig.CUSTOMER:
+        if role == CSMConfig.CUSTOMER:
             tickets = cls.get_tickets_by_c_id(identity)
             return tickets
 
-        elif role == AuthConfig.HELPDESK:
+        elif role == CSMConfig.HELPDESK:
             tickets = cls.get_tickets_by_e_id(identity)
             return tickets
 
-        elif role == AuthConfig.MANAGER:
+        elif role == CSMConfig.MANAGER:
             tickets = cls.get_all_tickets()
             return tickets
 
@@ -112,4 +114,3 @@ class TicketHandler:
                 tickets = t_dao.get_all_tickets()
 
         return tickets
-

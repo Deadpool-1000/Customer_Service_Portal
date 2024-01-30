@@ -12,6 +12,13 @@ from src.DBUtils.config.db_config_loader import DBConfig
 
 logger = logging.getLogger('main.message_handler')
 
+CANNOT_GIVE_MESSAGE_FOR_TICKET_MESSAGE = 'You cannot give message for this ticket.'
+INVALID_TICKET_NUMBER_MESSAGE = 'Invalid Ticket Identification Number provided.'
+UPDATE_MESSAGE_ERROR_MESSAGE = 'There was some problem updating your message.'
+UNAUTHORIZED_MESSAGE = 'You are not authorized to use this resource.'
+NO_MESSAGE_FOUND_MESSAGE = 'There is no message for the ticket.'
+FETCH_MESSAGE_ERROR_MESSAGE = 'There was some problem getting your message'
+
 
 class MessageHandler:
     @staticmethod
@@ -22,23 +29,23 @@ class MessageHandler:
                     ticket = t_dao.get_ticket_by_tid(t_id)
 
                     if ticket is None:
-                        raise ApplicationError(code=404, message='No such ticket found.')
+                        raise ApplicationError(code=404, message=INVALID_TICKET_NUMBER_MESSAGE)
 
                     if ticket['t_status'] != DBConfig.CLOSED:
-                        raise ApplicationError(code=400, message='You cannot give message for this ticket.')
+                        raise ApplicationError(code=400, message=CANNOT_GIVE_MESSAGE_FOR_TICKET_MESSAGE)
 
                 with FeedbackDAO(conn) as f_dao:
                     feedback = f_dao.get_feedback_by_tid(t_id)
 
                     if feedback is None:
-                        raise ApplicationError(code=404, message='You cannot give message for this ticket.')
+                        raise ApplicationError(code=404, message=CANNOT_GIVE_MESSAGE_FOR_TICKET_MESSAGE)
 
                 with MessageDAO(conn) as m_dao:
                     m_dao.update_message_from_manager(t_id, message)
 
         except Error as e:
             logger.error(f'There was some problem while registering message from manager for ticket: {t_id}. Error {e}')
-            raise DataBaseException('There was some problem updating your message')
+            raise DataBaseException(UPDATE_MESSAGE_ERROR_MESSAGE)
 
     @staticmethod
     def get_message_from_manager(identity, role, t_id):
@@ -49,19 +56,19 @@ class MessageHandler:
                         ticket = t_dao.get_ticket_by_tid(t_id)
 
                         if ticket is None:
-                            raise ApplicationError(code=404, message='No such ticket found.')
+                            raise ApplicationError(code=404, message=INVALID_TICKET_NUMBER_MESSAGE)
 
                         if ticket['repr_id'] != identity:
-                            raise ApplicationError(code=403, message='You are not allowed to view this resource.')
+                            raise ApplicationError(code=403, message=UNAUTHORIZED_MESSAGE)
 
                 with MessageDAO(conn) as m_dao:
                     message_from_manager = m_dao.get_message_from_manager(t_id)
 
             if message_from_manager is None:
-                raise ApplicationError(code=404, message='There is no message for the ticket.')
+                raise ApplicationError(code=404, message=NO_MESSAGE_FOUND_MESSAGE)
 
             return message_from_manager
 
         except Error as e:
             logger.error(f'There was some problem while getting message from manager for ticket: {t_id}. Error {e}')
-            raise DataBaseException('There was some problem getting your message')
+            raise DataBaseException(FETCH_MESSAGE_ERROR_MESSAGE)

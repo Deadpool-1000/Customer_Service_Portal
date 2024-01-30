@@ -12,6 +12,9 @@ class CSMConfig:
     HELPDESK = None
     MANAGER = None
     CUSTOMER = None
+    IN_PROGRESS = None
+    RAISED = None
+    CLOSED = None
 
     @classmethod
     def load(cls):
@@ -23,3 +26,6 @@ class CSMConfig:
             cls.HELPDESK = data['HELPDESK']
             cls.MANAGER = data['MANAGER']
             cls.CUSTOMER = data['CUSTOMER']
+            cls.IN_PROGRESS = data['IN_PROGRESS']
+            cls.RAISED = data['RAISED']
+            cls.CLOSED = data['CLOSED']

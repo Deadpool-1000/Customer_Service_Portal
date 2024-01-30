@@ -10,6 +10,12 @@ from src.handlers import CSMConfig
 
 logger = logging.getLogger('main.feedback_handler')
 
+UNAUTHORIZED_MESSAGE = 'You are not authorized to use this resource.'
+INVALID_TICKET_NUMBER_MESSAGE = 'Invalid Ticket Identification Number provided.'
+TICKET_NOT_CLOSED_MESSAGE = 'The ticket is not closed. So feedback cannot be registered.'
+FEEDBACK_REGISTER_ERROR_MESSAGE = 'There was some problem while registering the feedback.'
+FEEDBACK_FETCH_ERROR_MESSAGE = 'There was some problem while getting the feedback.'
+
 
 class FeedbackHandler:
     @staticmethod
@@ -19,20 +25,20 @@ class FeedbackHandler:
                 with TicketDAO(conn) as t_dao:
                     ticket = t_dao.get_ticket_by_tid(t_id)
                     if ticket is None:
-                        raise ApplicationError(code=404, message='Invalid Ticket Identification provided')
+                        raise ApplicationError(code=404, message=INVALID_TICKET_NUMBER_MESSAGE)
 
                     if ticket['c_id'] != c_id:
-                        raise ApplicationError(code=403, message='You are not authorized to use this resource.')
+                        raise ApplicationError(code=403, message=UNAUTHORIZED_MESSAGE)
 
                     if ticket['t_status'] != DBConfig.CLOSED:
-                        raise ApplicationError(code=400, message='The ticket is not closed. So feedback cannot be registered.')
+                        raise ApplicationError(code=400, message=TICKET_NOT_CLOSED_MESSAGE)
 
                 with FeedbackDAO(conn) as f_dao:
                     f_dao.add_feedback(stars, description, t_id)
 
         except Error as e:
             logger.error(f'Error while adding feedback for ticket {t_id}. Error {e}')
-            raise DataBaseException('There was some problem while registering the feedback.')
+            raise DataBaseException(FEEDBACK_REGISTER_ERROR_MESSAGE)
 
     @staticmethod
     def get_feedback_for_ticket(t_id):
@@ -47,7 +53,7 @@ class FeedbackHandler:
             return feedback
         except Error as e:
             logger.error(f'Error while getting feedback for ticket:{t_id}. Error {e}')
-            raise DataBaseException('There was some problem while getting the feedback')
+            raise DataBaseException(FEEDBACK_FETCH_ERROR_MESSAGE)
 
     @staticmethod
     def access_allowed(identity, role, t_id):
