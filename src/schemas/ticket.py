@@ -46,7 +46,7 @@ class TicketRaisingSchema(Schema):
 class FeedbackSchema(Schema):
     stars = fields.Int(required=True, validate=validate.Range(min=1, max=5))
     description = fields.Str(required=True)
-    t_id = fields.Str(required=True)
+    t_id = fields.Str(required=True, dump_only=True)
     created_on = fields.Str(required=True, dump_only=True)
 
 
@@ -58,3 +58,8 @@ class MessageSchema(Schema):
 
 class MessageFromHelpdeskSchema(Schema):
     message_from_helpdesk = fields.Str(required=True)
+
+
+class MessageFromManager(Schema):
+    message_from_manager = fields.Str(required=True)
+

@@ -46,6 +46,8 @@ class QueriesConfig:
     GET_TICKETS_BY_CID = None
     GET_TICKETS_BY_D_ID = None
     UPDATE_MESSAGE_FROM_HELPDESK = None
+    INSERT_MESSAGE_FROM_MANAGER = None
+
 
     @classmethod
     def load(cls):
@@ -91,4 +93,4 @@ class QueriesConfig:
             cls.GET_TICKETS_BY_CID = data['GET_TICKETS_BY_CID']
             cls.GET_TICKETS_BY_D_ID = data['GET_TICKETS_BY_D_ID']
             cls.UPDATE_MESSAGE_FROM_HELPDESK = data['UPDATE_MESSAGE_FROM_HELPDESK']
-            
+            cls.INSERT_MESSAGE_FROM_MANAGER = data['INSERT_MESSAGE_FROM_MANAGER']

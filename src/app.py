@@ -6,16 +6,16 @@ from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 
 from src.utils.load_configurations import load_configurations
-from src.resources.users.user import blp as UserBlueprint
-from src.resources.ticket.ticket import blp as TicketBlueprint
-from src.resources.feedback.feedback import blp as FeedbackBlueprint
-from src.resources.message.message import blp as MessageBlueprint
+from src.resources import user_blueprint
+from src.resources import ticket_blueprint
+from src.resources import feedback_blueprint
+from src.resources import message_blueprint
 
 LOG_FILE_PATH = 'utils/logs/logs.log'
 
 
 logging.basicConfig(format="%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
-                    datefmt="%d-%M-%Y %H:%M:%S", level=logging.DEBUG, filename=LOG_FILE_PATH)
+                    datefmt="%d-%m-%Y %H:%M:%S", level=logging.DEBUG, filename=LOG_FILE_PATH)
 logger = logging.getLogger("main")
 
 
@@ -44,9 +44,9 @@ def create_app():
     api = Api(app)
     jwt = JWTManager(app)
 
-    api.register_blueprint(UserBlueprint)
-    api.register_blueprint(TicketBlueprint)
-    api.register_blueprint(FeedbackBlueprint)
-    api.register_blueprint(MessageBlueprint)
+    api.register_blueprint(user_blueprint)
+    api.register_blueprint(ticket_blueprint)
+    api.register_blueprint(feedback_blueprint)
+    api.register_blueprint(message_blueprint)
 
     return app

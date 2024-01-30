@@ -4,8 +4,7 @@ from datetime import datetime
 
 from src.DBUtils.config.db_config_loader import DBConfig
 from src.DBUtils.config.queries_config_loader import QueriesConfig
-from src.utils.data_containers.named_tuples import Ticket
-from src.utils.exceptions.exceptions import NoMessageFromHelpdeskException, NoTicketsException, NoMessageFromManagerException
+from src.utils.exceptions.exceptions import NoTicketsException, NoMessageFromManagerException
 
 logger = logging.getLogger('main.ticket_dao')
 
@@ -27,7 +26,6 @@ class TicketDAO:
     def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_tb or exc_val or exc_type:
             return False
-
         self.cur.close()
 
     def create_new_ticket(self, d_id, c_id, title, description):
@@ -109,8 +107,6 @@ class TicketDAO:
 
         message_from_helpdesk = self.cur.fetchone()
 
-        print(message_from_helpdesk)
-
         if message_from_helpdesk is None:
             mh_id = shortuuid.ShortUUID().random(5)
             self.cur.execute(QueriesConfig.INSERT_MESSAGE_FROM_HELPDESK, (mh_id, message, datetime.now(), t_id))
@@ -125,13 +121,10 @@ class TicketDAO:
             logger.info(f'Message from helpdesk updated for ticket_id:{t_id} to {message}')
 
     def get_message_from_helpdesk(self, t_id):
-        rws = self.cur.execute(QueriesConfig.GET_MESSAGE_FROM_HELPDESK)
-        message_from_helpdesk = [dict(r) for r in rws.fetchall()]
-
-        if len(message_from_helpdesk) == 0:
-            raise NoMessageFromHelpdeskException('No message from helpdesk yet.')
-
-        return message_from_helpdesk
+        self.cur.execute(QueriesConfig.GET_MESSAGE_FROM_HELPDESK, {
+            't_id': t_id
+        })
+        return self.cur.fetchone()
 
     def change_ticket_status(self, t_id, new_status):
 

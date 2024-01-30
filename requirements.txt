@@ -5,3 +5,7 @@ shortuuid~=1.0.11
 pytest~=7.4.4
 python-dotenv~=1.0.0
 marshmallow~=3.20.2
+flask_jwt_extended
+marshmallow
+flask_smorest
+mysql-connector-python~=8.3.0
