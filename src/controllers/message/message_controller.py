@@ -2,6 +2,7 @@ from flask_smorest import abort
 
 from src.handlers.message.message_handler import MessageHandler
 from src.utils.exceptions import DataBaseException, ApplicationError
+from src.handlers import CSMConfig
 
 
 class MessageController:
@@ -11,7 +12,7 @@ class MessageController:
             message = message_data['message_from_manager']
             MessageHandler.update_message_from_manager(message, t_id)
             return {
-                'message': 'Message Updated Successfully.'
+                'message': CSMConfig.MESSAGE_UPDATE_SUCCESS_MESSAGE
             }
         except DataBaseException as db:
             abort(500, message=db)

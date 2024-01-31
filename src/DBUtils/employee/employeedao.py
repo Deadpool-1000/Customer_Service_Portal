@@ -1,9 +1,7 @@
 import logging
 
-from src.DBUtils.config.db_config_loader import DBConfig
 from src.DBUtils.config.queries_config_loader import QueriesConfig
-from src.utils.exceptions.exceptions import NoDepartmentsException, InvalidEmployeeIDException, \
-    InvalidDepartmentIDException
+
 
 logger = logging.getLogger('main.employee_dao')
 
@@ -31,25 +29,8 @@ class EmployeeDAO:
             'e_id': e_id
         })
         emp_data = self.cur.fetchone()
-        if emp_data is None:
-            logger.info(DBConfig.INVALID_EMP_ID)
-            raise InvalidEmployeeIDException(DBConfig.THERE_WAS_SOME_PROBLEM)
         # 'e_id', 'full_name', 'phn_num', 'address', 'dept_id', 'designation'
         return emp_data
-
-    def get_employee_role(self, e_id):
-        self.cur.execute(QueriesConfig.GET_EMPLOYEE_ROLE, {
-            'e_id': e_id
-        })
-        data = self.cur.fetchone()
-        return data
-
-    def get_department_by_id(self, dept_id):
-        rws = self.cur.execute(QueriesConfig.GET_DEPT_DETAILS_BY_ID, (dept_id,)).fetchone()
-        if rws is None:
-            logger.info(DBConfig.INVALID_DEPT_ID)
-            raise InvalidDepartmentIDException(DBConfig.THERE_WAS_SOME_PROBLEM)
-        return rws
 
     def get_department_by_employee_id(self, e_id):
         self.cur.execute(QueriesConfig.GET_DEPARTMENT_FROM_EMP_ID, {

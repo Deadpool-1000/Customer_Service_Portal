@@ -6,17 +6,25 @@ from src.DBUtils.connection import DatabaseConnection
 from src.DBUtils.ticket.ticketDAO import TicketDAO
 from src.utils.exceptions import DataBaseException
 from src.DBUtils.department.departmentDAO import DepartmentDAO
+from src.utils.exceptions import ApplicationError
 
 CREATE_TICKET_ERROR_MESSAGE = 'There was some problem creating the ticket'
+INVALID_DEPT_ID_MESSAGE = 'Please provide valid department information.'
 
 logger = logging.getLogger('main.new_ticket_handler')
 
 
 class NewTicketHandler:
-    @staticmethod
-    def create_ticket(d_id, c_id, title, description):
+    @classmethod
+    def create_ticket(cls, d_id, c_id, title, description):
         try:
             with DatabaseConnection() as conn:
+                # Checking whether department id is valid or not
+                is_dept_id_valid = cls.verify_dept_id(conn, d_id)
+
+                if not is_dept_id_valid:
+                    raise ApplicationError(code=400, message=INVALID_DEPT_ID_MESSAGE)
+
                 with TicketDAO(conn) as t_dao:
                     ticket_id = t_dao.create_new_ticket(d_id, c_id, title, description)
                     return ticket_id
@@ -33,8 +41,7 @@ class NewTicketHandler:
                 return ticket
 
     @staticmethod
-    def verify_dept_id(dept_id):
-        with DatabaseConnection() as conn:
-            with DepartmentDAO(conn) as d_dao:
-                department = d_dao.get_department_by_id(dept_id)
-                return department is not None
+    def verify_dept_id(conn, dept_id):
+        with DepartmentDAO(conn) as d_dao:
+            department = d_dao.get_department_by_id(dept_id)
+            return department is not None

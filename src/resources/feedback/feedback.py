@@ -9,6 +9,8 @@ from src.schemas.ticket import FeedbackSchema
 
 blp = Blueprint('Feedback', 'feedbacks', description='Operation on feedback for a particular ticket')
 
+# blp doc , status code
+
 
 @blp.route('/tickets/<string:ticket_id>/feedback')
 class Feedback(MethodView):

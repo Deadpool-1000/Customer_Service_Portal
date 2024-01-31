@@ -973,3 +973,690 @@ TypeError: TicketHandler.get_tickets_by_identity_and_role() missing 1 required p
 29-01-2024 13:46:09 INFO     [_internal.py:96] 127.0.0.1 - - [29/Jan/2024 13:46:09] "GET /tickets/Fqw7n/feedback HTTP/1.1" 200 -
 29-01-2024 13:46:17 INFO     [_internal.py:96] 127.0.0.1 - - [29/Jan/2024 13:46:17] "PUT /tickets/Fqw7n/message HTTP/1.1" 200 -
 29-01-2024 13:46:23 INFO     [_internal.py:96] 127.0.0.1 - - [29/Jan/2024 13:46:23] "GET /tickets/Fqw7n/message HTTP/1.1" 200 -
+31-01-2024 11:46:57 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 11:46:57 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 11:47:30 INFO     [customer_signup_handler.py:35] New Customer signup with name:Mr. abc and email:abc@gmail.com
+31-01-2024 11:47:30 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:47:30] "[35m[1mPOST /signup HTTP/1.1[0m" 201 -
+31-01-2024 11:47:45 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:47:45 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:47:45] "[35m[1mPOST /login/customer HTTP/1.1[0m" 500 -
+31-01-2024 11:47:45 ERROR    [_internal.py:96] Error on request:
+Traceback (most recent call last):
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 362, in run_wsgi
+    execute(self.server.app)
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 323, in execute
+    application_iter = app(environ, start_response)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 110, in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 191, in dispatch_request
+    return current_app.ensure_sync(meth)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\webargs\core.py", line 649, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\arguments.py", line 82, in wrapper
+    return func(*f_args, **f_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\response.py", line 89, in wrapper
+    func(*args, **kwargs)
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\resources\users\user.py", line 19, in post
+    token = CustomerLoginController.login(cust_auth_data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\controllers\authentication\customer\customer_login_controller.py", line 14, in login
+    token = CustomerLoginHandler.generate_token(cust_id=customer['c_id'])
+                                                        ^^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+31-01-2024 11:47:51 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:47:51 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:47:51] "[35m[1mPOST /login/customer HTTP/1.1[0m" 500 -
+31-01-2024 11:47:51 ERROR    [_internal.py:96] Error on request:
+Traceback (most recent call last):
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 362, in run_wsgi
+    execute(self.server.app)
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 323, in execute
+    application_iter = app(environ, start_response)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 110, in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 191, in dispatch_request
+    return current_app.ensure_sync(meth)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\webargs\core.py", line 649, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\arguments.py", line 82, in wrapper
+    return func(*f_args, **f_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\response.py", line 89, in wrapper
+    func(*args, **kwargs)
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\resources\users\user.py", line 19, in post
+    token = CustomerLoginController.login(cust_auth_data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\controllers\authentication\customer\customer_login_controller.py", line 14, in login
+    token = CustomerLoginHandler.generate_token(cust_id=customer['c_id'])
+                                                        ^^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+31-01-2024 11:48:24 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:48:24 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:48:24] "[35m[1mPOST /login/customer HTTP/1.1[0m" 500 -
+31-01-2024 11:48:24 ERROR    [_internal.py:96] Error on request:
+Traceback (most recent call last):
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 362, in run_wsgi
+    execute(self.server.app)
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 323, in execute
+    application_iter = app(environ, start_response)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 110, in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 191, in dispatch_request
+    return current_app.ensure_sync(meth)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\webargs\core.py", line 649, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\arguments.py", line 82, in wrapper
+    return func(*f_args, **f_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\response.py", line 89, in wrapper
+    func(*args, **kwargs)
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\resources\users\user.py", line 19, in post
+    token = CustomerLoginController.login(cust_auth_data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\controllers\authentication\customer\customer_login_controller.py", line 14, in login
+    token = CustomerLoginHandler.generate_token(cust_id=customer['c_id'])
+                                                        ^^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+31-01-2024 11:48:25 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:48:25 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:48:25] "[35m[1mPOST /login/customer HTTP/1.1[0m" 500 -
+31-01-2024 11:48:25 ERROR    [_internal.py:96] Error on request:
+Traceback (most recent call last):
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 362, in run_wsgi
+    execute(self.server.app)
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 323, in execute
+    application_iter = app(environ, start_response)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 110, in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 191, in dispatch_request
+    return current_app.ensure_sync(meth)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\webargs\core.py", line 649, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\arguments.py", line 82, in wrapper
+    return func(*f_args, **f_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\response.py", line 89, in wrapper
+    func(*args, **kwargs)
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\resources\users\user.py", line 19, in post
+    token = CustomerLoginController.login(cust_auth_data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\controllers\authentication\customer\customer_login_controller.py", line 14, in login
+    token = CustomerLoginHandler.generate_token(cust_id=customer['c_id'])
+                                                        ^^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+31-01-2024 11:48:55 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:48:55 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:48:55] "[35m[1mPOST /login/customer HTTP/1.1[0m" 500 -
+31-01-2024 11:48:55 ERROR    [_internal.py:96] Error on request:
+Traceback (most recent call last):
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 362, in run_wsgi
+    execute(self.server.app)
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 323, in execute
+    application_iter = app(environ, start_response)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 110, in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 191, in dispatch_request
+    return current_app.ensure_sync(meth)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\webargs\core.py", line 649, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\arguments.py", line 82, in wrapper
+    return func(*f_args, **f_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\response.py", line 89, in wrapper
+    func(*args, **kwargs)
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\resources\users\user.py", line 19, in post
+    token = CustomerLoginController.login(cust_auth_data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\controllers\authentication\customer\customer_login_controller.py", line 14, in login
+    token = CustomerLoginHandler.generate_token(cust_id=customer['c_id'])
+                                                        ^^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+31-01-2024 11:49:40 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 11:49:40 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 11:49:45 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:49:45 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:49:45] "[35m[1mPOST /login/customer HTTP/1.1[0m" 500 -
+31-01-2024 11:49:45 ERROR    [_internal.py:96] Error on request:
+Traceback (most recent call last):
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 362, in run_wsgi
+    execute(self.server.app)
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\werkzeug\serving.py", line 323, in execute
+    application_iter = app(environ, start_response)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 110, in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask\views.py", line 191, in dispatch_request
+    return current_app.ensure_sync(meth)(**kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\webargs\core.py", line 649, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\arguments.py", line 82, in wrapper
+    return func(*f_args, **f_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\.virtualenvs\CSM-nMsP_ctb\Lib\site-packages\flask_smorest\response.py", line 89, in wrapper
+    func(*args, **kwargs)
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\resources\users\user.py", line 19, in post
+    token = CustomerLoginController.login(cust_auth_data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mbhatnagar\PycharmProjects\CSM\src\controllers\authentication\customer\customer_login_controller.py", line 14, in login
+    token = CustomerLoginHandler.generate_token(cust_id=customer['c_id'])
+                                                        ^^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+31-01-2024 11:50:00 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 11:50:00 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 11:50:00 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:50:00 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:50:01 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:50:03 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:50:03 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:50:03] "[35m[1mPOST /login/customer HTTP/1.1[0m" 500 -
+31-01-2024 11:50:48 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\controllers\\authentication\\customer\\customer_login_controller.py', reloading
+31-01-2024 11:50:48 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:50:49 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:50:49 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:50:52 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 11:50:52 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 11:50:52 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:50:53 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:50:53 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:50:55 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 11:50:55 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:50:55] "POST /login/customer HTTP/1.1" 200 -
+31-01-2024 11:51:06 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:51:06] "[35m[1mGET /tickets HTTP/1.1[0m" 500 -
+31-01-2024 11:51:46 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 11:51:46 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 11:51:46 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:51:47 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:51:47 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:51:49 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:51:49] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 11:52:40 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\ticket\\ticket.py', reloading
+31-01-2024 11:52:40 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:52:46 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:52:47 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:52:47 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:52:51 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:52:51] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 11:53:40 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\ticket\\ticket.py', reloading
+31-01-2024 11:53:40 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:53:41 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:53:41 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:53:48 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_handler.py', reloading
+31-01-2024 11:53:49 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:53:49 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:53:49 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:53:52 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:53:52] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 11:54:45 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_handler.py', reloading
+31-01-2024 11:54:45 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:54:46 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:54:46 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:54:48 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:54:48] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 11:55:15 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\utils\\load_configurations.py', reloading
+31-01-2024 11:55:15 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:55:16 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:55:16 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:55:20 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 11:55:20 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 11:55:20 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:55:21 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:55:21 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:55:23 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:55:23] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 11:55:33 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\utils\\load_configurations.py', reloading
+31-01-2024 11:55:33 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:55:34 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:55:34 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:55:51 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_handler.py', reloading
+31-01-2024 11:55:51 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:55:52 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:55:52 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:55:57 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:55:57] "[35m[1mPOST /tickets HTTP/1.1[0m" 500 -
+31-01-2024 11:56:51 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\new_ticket_handler.py', reloading
+31-01-2024 11:56:51 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:56:53 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 11:56:53 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 11:56:53 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:56:54 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:56:54 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 11:56:55 INFO     [ticketDAO.py:34] New ticket raised with ticket_id:FfKC7, title:Need Help ASAP PC by customer:RPfe5
+31-01-2024 11:56:55 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:56:55] "[35m[1mPOST /tickets HTTP/1.1[0m" 201 -
+31-01-2024 11:57:19 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:57:19] "GET /tickets?ticket_status=closed HTTP/1.1" 200 -
+31-01-2024 11:57:27 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:57:27] "GET /tickets?ticket_status=raised HTTP/1.1" 200 -
+31-01-2024 11:57:35 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:57:35] "GET /tickets?ticket_status=in_progress HTTP/1.1" 200 -
+31-01-2024 11:57:42 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:57:42] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 11:57:57 INFO     [employee_login_handler.py:32] Employee with e_id:LLYWi, role:manager logged in
+31-01-2024 11:57:57 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:57:57] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 11:58:01 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:58:01] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 11:58:09 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:58:09] "GET /tickets?ticket_status=in_progress HTTP/1.1" 200 -
+31-01-2024 11:58:18 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:58:18] "GET /tickets?ticket_status=status HTTP/1.1" 200 -
+31-01-2024 11:58:24 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:58:24] "GET /tickets?ticket_status=closed HTTP/1.1" 200 -
+31-01-2024 11:58:35 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 11:58:35] "GET /tickets?ticket_status=raised HTTP/1.1" 200 -
+31-01-2024 11:59:41 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_handler.py', reloading
+31-01-2024 11:59:41 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 11:59:42 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 11:59:42 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 12:00:56 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\controllers\\ticket\\ticket_controller.py', reloading
+31-01-2024 12:00:56 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 12:01:32 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 12:04:02 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 12:05:28 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 12:06:26 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 12:06:34 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:03:19 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:07:08 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:08:07 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:08:09 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:08:09 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:08:15 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:08:15] "[31m[1mPUT /tickets/Fqw7n/resolve HTTP/1.1[0m" 401 -
+31-01-2024 13:08:22 INFO     [employee_login_handler.py:32] Employee with e_id:LLYWi, role:manager logged in
+31-01-2024 13:08:22 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:08:22] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 13:08:25 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:08:25] "[31m[1mPUT /tickets/Fqw7n/resolve HTTP/1.1[0m" 403 -
+31-01-2024 13:08:44 INFO     [employee_login_handler.py:32] Employee with e_id:SGCxT, role:helpdesk logged in
+31-01-2024 13:08:44 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:08:44] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 13:08:49 ERROR    [ticket_operation_handler.py:40] User tried to resolve an already resolved ticket for Ticket Id: Fqw7n
+31-01-2024 13:08:49 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:08:49] "[31m[1mPUT /tickets/Fqw7n/resolve HTTP/1.1[0m" 400 -
+31-01-2024 13:09:18 INFO     [ticketDAO.py:142] ticket_id: FfKC7 assigned to SGCxT
+31-01-2024 13:09:18 INFO     [ticketDAO.py:135] Ticket status changed for ticket_id:FfKC7 to in_progress
+31-01-2024 13:09:18 INFO     [ticketDAO.py:113] Message from helpdesk created for ticket_id:FfKC7, message: Our IT team is on its way to solve the issue.
+31-01-2024 13:09:18 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:09:18] "PUT /tickets/FfKC7/resolve HTTP/1.1" 200 -
+31-01-2024 13:09:41 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:09:41] "[31m[1mPOST /login/employee HTTP/1.1[0m" 401 -
+31-01-2024 13:09:47 INFO     [employee_login_handler.py:32] Employee with e_id:LLYWi, role:manager logged in
+31-01-2024 13:09:47 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:09:47] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 13:10:02 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:10:02] "GET /tickets/FfKC7 HTTP/1.1" 200 -
+31-01-2024 13:10:53 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\controllers\\ticket\\ticket_controller.py', reloading
+31-01-2024 13:10:53 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:10:53 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:10:53 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:10:57 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:10:57] "GET /tickets/FfKC7 HTTP/1.1" 200 -
+31-01-2024 13:13:50 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\controllers\\ticket\\ticket_controller.py', reloading
+31-01-2024 13:13:50 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:13:51 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:13:51 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:13:54 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:13:54] "GET /tickets/FfKC7 HTTP/1.1" 200 -
+31-01-2024 13:18:28 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\message\\messagedao.py', reloading
+31-01-2024 13:18:28 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:18:29 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:18:29 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:20:55 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\config\\queries_config_loader.py', reloading
+31-01-2024 13:20:55 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:20:56 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:20:56 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:20:57 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:20:57] "GET /tickets/FfKC7 HTTP/1.1" 200 -
+31-01-2024 13:21:14 INFO     [employee_login_handler.py:32] Employee with e_id:SGCxT, role:helpdesk logged in
+31-01-2024 13:21:14 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:21:14] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 13:21:27 ERROR    [ticket_operation_handler.py:70] User tried to resolve an already closed or just raised ticket for Ticket Id: Fqw7n
+31-01-2024 13:21:27 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:21:27] "[31m[1mPUT /tickets/Fqw7n/close HTTP/1.1[0m" 400 -
+31-01-2024 13:21:34 ERROR    [ticket_operation_handler.py:40] User tried to resolve an already resolved ticket for Ticket Id: FfKC7
+31-01-2024 13:21:34 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:21:34] "[31m[1mPUT /tickets/FfKC7/resolve HTTP/1.1[0m" 400 -
+31-01-2024 13:21:48 ERROR    [ticket_operation_handler.py:70] User tried to resolve an already closed or just raised ticket for Ticket Id: Fqw7n
+31-01-2024 13:21:48 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:21:48] "[31m[1mPUT /tickets/Fqw7n/close HTTP/1.1[0m" 400 -
+31-01-2024 13:22:50 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_operation_handler.py', reloading
+31-01-2024 13:22:50 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:22:51 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:22:51 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:22:54 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\handlers\\ticket\\ticket_operation_handler.py', reloading
+31-01-2024 13:22:54 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:22:55 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:22:55 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:23:00 ERROR    [ticket_operation_handler.py:70] User tried to resolve an already closed or just raised ticket for Ticket Id: Fqw7n
+31-01-2024 13:23:00 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:23:00] "[31m[1mPUT /tickets/Fqw7n/close HTTP/1.1[0m" 400 -
+31-01-2024 13:23:11 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 13:23:11 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 13:23:11 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 13:23:12 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 13:23:12 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 13:23:14 ERROR    [ticket_operation_handler.py:70] User tried to resolve an already closed or just raised ticket for Ticket Id: Fqw7n
+31-01-2024 13:23:14 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:23:14] "[31m[1mPUT /tickets/Fqw7n/close HTTP/1.1[0m" 400 -
+31-01-2024 13:32:19 INFO     [ticketDAO.py:79] Ticket status changed for ticket_id:FfKC7 to closed
+31-01-2024 13:32:19 INFO     [ticketDAO.py:65] Message from helpdesk updated for ticket_id:FfKC7 to Hope your issue got solved.
+31-01-2024 13:32:19 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:32:19] "PUT /tickets/FfKC7/close HTTP/1.1" 200 -
+31-01-2024 13:34:23 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:34:23] "GET /tickets/FfKC7 HTTP/1.1" 200 -
+31-01-2024 13:34:28 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:34:28] "GET /tickets/FfKC7 HTTP/1.1" 200 -
+31-01-2024 13:34:49 INFO     [employee_login_handler.py:32] Employee with e_id:LLYWi, role:manager logged in
+31-01-2024 13:34:49 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:34:49] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 13:35:02 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:35:02] "PUT /tickets/Fqw7n/message HTTP/1.1" 200 -
+31-01-2024 13:35:10 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:35:10] "[33mGET /tickets/FfKC7/message HTTP/1.1[0m" 404 -
+31-01-2024 13:35:23 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:35:23] "GET /tickets/Fqw7n/message HTTP/1.1" 200 -
+31-01-2024 13:35:51 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:35:51] "[33mPUT /tickets/FfKC7/message HTTP/1.1[0m" 404 -
+31-01-2024 13:36:16 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:36:16] "[33mPUT /tickets/FfKC7/message HTTP/1.1[0m" 404 -
+31-01-2024 13:36:32 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 13:36:32 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:36:32] "POST /login/customer HTTP/1.1" 200 -
+31-01-2024 13:37:04 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:04] "GET /tickets?ticket_status=raised HTTP/1.1" 200 -
+31-01-2024 13:37:12 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:12] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 13:37:25 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:25] "[35m[1mPOST /tickets/FfKC7/feedback HTTP/1.1[0m" 201 -
+31-01-2024 13:37:31 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:31] "GET /tickets/FfKC7/feedback HTTP/1.1" 200 -
+31-01-2024 13:37:41 INFO     [employee_login_handler.py:32] Employee with e_id:LLYWi, role:manager logged in
+31-01-2024 13:37:41 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:41] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 13:37:48 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:48] "[33mGET /tickets/FfKC7/message HTTP/1.1[0m" 404 -
+31-01-2024 13:37:54 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:54] "PUT /tickets/FfKC7/message HTTP/1.1" 200 -
+31-01-2024 13:37:58 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 13:37:58] "GET /tickets/FfKC7/message HTTP/1.1" 200 -
+31-01-2024 15:06:04 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 15:06:04 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 15:06:21 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:06:21] "[33mGET /docs HTTP/1.1[0m" 404 -
+31-01-2024 15:06:21 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:06:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+31-01-2024 15:06:58 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:06:58] "GET /swagger-ui HTTP/1.1" 200 -
+31-01-2024 15:07:00 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:07:00] "GET /api-spec.json HTTP/1.1" 200 -
+31-01-2024 15:53:04 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 15:53:04 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 15:54:10 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 15:54:10 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:54:10] "POST /login/customer HTTP/1.1" 200 -
+31-01-2024 15:54:32 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 15:54:32 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 15:54:32 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:54:33 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:54:33 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:55:32 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:55:32] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 15:56:02 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 15:56:02 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:56:03 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:56:03 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:56:04 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 15:56:04 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 15:56:04 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:56:05 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:56:05 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:56:07 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:56:07] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 15:57:18 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 15:57:18 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:57:20 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 15:57:20 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 15:57:20 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:57:21 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:57:21 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:57:22 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:57:22] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 15:57:52 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 15:57:52 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:57:53 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:57:53 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:57:55 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 15:57:55 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 15:57:55 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:57:56 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:57:56 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:57:57 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:57:57] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 15:58:34 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 15:58:34 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:58:35 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:58:35 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:58:37 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 15:58:37 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 15:58:37 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 15:58:38 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 15:58:38 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 15:58:39 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 15:58:39] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 16:00:45 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 16:00:45 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 16:00:45 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:00:46 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:00:46 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:00:59 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 16:00:59 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:01:00 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:01:00 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:01:03 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:01:03] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 16:01:31 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 16:01:31 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 16:01:31 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:01:32 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:01:32 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:01:33 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:01:33] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 16:01:59 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\app.py', reloading
+31-01-2024 16:01:59 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:02:00 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:02:00 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:02:03 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 16:02:03 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 16:02:03 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:02:04 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:02:04 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:02:06 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:02:06] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 16:02:14 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\app.py', reloading
+31-01-2024 16:02:14 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:02:15 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:02:15 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:02:16 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:02:16] "[35m[1mPOST /logout HTTP/1.1[0m" 500 -
+31-01-2024 16:02:28 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\app.py', reloading
+31-01-2024 16:02:28 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:02:29 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:02:29 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:02:38 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\app.py', reloading
+31-01-2024 16:02:38 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:02:38 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:02:38 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:03:18 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 16:03:18 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:03:19 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:03:19 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:03:21 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:03:21] "[33mPOST /logout HTTP/1.1[0m" 404 -
+31-01-2024 16:03:26 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 16:03:26 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:03:26 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:03:26 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:03:37 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 16:03:39 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 16:03:39 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 16:03:39 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:03:40 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:03:40 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:03:41 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:03:41] "POST /logout HTTP/1.1" 200 -
+31-01-2024 16:03:59 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:03:59] "[31m[1mGET /tickets HTTP/1.1[0m" 401 -
+31-01-2024 16:04:23 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\app.py', reloading
+31-01-2024 16:04:23 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:04:24 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:04:24 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:06:24 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 16:06:24 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 16:06:24 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:06:25 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:06:25 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:34:34 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 16:34:34 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 16:34:34 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 16:34:35 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 16:34:35 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 16:35:02 INFO     [customer_signup_handler.py:35] New Customer signup with name:Mr. dby and email:dby@gmail.com
+31-01-2024 16:35:02 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:35:02] "[35m[1mPOST /signup HTTP/1.1[0m" 201 -
+31-01-2024 16:58:11 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:58:11] "[31m[1mPOST /tickets HTTP/1.1[0m" 401 -
+31-01-2024 16:58:17 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 16:58:17 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:58:17] "POST /login/customer HTTP/1.1" 200 -
+31-01-2024 16:58:20 INFO     [ticketDAO.py:32] New ticket raised with ticket_id:DrsDf, title:Need Help ASAP Router. by customer:RPfe5
+31-01-2024 16:58:20 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:58:20] "[35m[1mPOST /tickets HTTP/1.1[0m" 201 -
+31-01-2024 16:59:06 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:59:06] "GET /tickets/DrsDf HTTP/1.1" 200 -
+31-01-2024 16:59:14 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:59:14] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 16:59:20 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 16:59:20] "GET /tickets?ticket_status=raised HTTP/1.1" 200 -
+31-01-2024 17:00:17 INFO     [employee_login_handler.py:32] Employee with e_id:LLYWi, role:manager logged in
+31-01-2024 17:00:17 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:00:17] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 17:00:22 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:00:22] "GET /tickets/DrsDf HTTP/1.1" 200 -
+31-01-2024 17:01:10 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:01:10] "[31m[1mPUT /tickets/DrsDf/resolve HTTP/1.1[0m" 403 -
+31-01-2024 17:01:21 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:01:21] "GET /tickets?ticket_status=raised HTTP/1.1" 200 -
+31-01-2024 17:01:32 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:01:32] "[31m[1mPUT /tickets/DrsDf/resolve HTTP/1.1[0m" 403 -
+31-01-2024 17:01:39 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:01:39] "GET /tickets/DrsDf HTTP/1.1" 200 -
+31-01-2024 17:01:58 INFO     [employee_login_handler.py:32] Employee with e_id:SGCxT, role:helpdesk logged in
+31-01-2024 17:01:58 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:01:58] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 17:02:02 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:02:02] "GET /tickets/DrsDf HTTP/1.1" 200 -
+31-01-2024 17:02:14 INFO     [ticketDAO.py:85] ticket_id: DrsDf assigned to SGCxT
+31-01-2024 17:02:14 INFO     [ticketDAO.py:78] Ticket status changed for ticket_id:DrsDf to in_progress
+31-01-2024 17:02:14 INFO     [ticketDAO.py:56] Message from helpdesk created for ticket_id:DrsDf, message: Our IT team is on its way to solve the issue.
+31-01-2024 17:02:14 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:02:14] "PUT /tickets/DrsDf/resolve HTTP/1.1" 200 -
+31-01-2024 17:02:20 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:02:20] "GET /tickets/DrsDf HTTP/1.1" 200 -
+31-01-2024 17:05:58 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\controllers\\authentication\\customer\\customer_login_controller.py', reloading
+31-01-2024 17:05:58 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 17:05:59 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 17:05:59 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 17:06:07 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+31-01-2024 17:06:07 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
+31-01-2024 17:06:07 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 17:06:08 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 17:06:08 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 17:18:17 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
+31-01-2024 17:18:17 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 17:18:20 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 17:18:20 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 17:25:42 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\DBUtils\\connection\\database_connection.py', reloading
+31-01-2024 17:25:42 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 17:25:43 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 17:25:43 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 17:25:49 INFO     [customer_login_handler.py:34] Customer with c_id:RPfe5 logged in
+31-01-2024 17:25:49 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:25:49] "POST /login/customer HTTP/1.1" 200 -
+31-01-2024 17:26:07 INFO     [ticketDAO.py:32] New ticket raised with ticket_id:TnSBW, title:Need Help ASAP PC. by customer:RPfe5
+31-01-2024 17:26:07 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:26:07] "[35m[1mPOST /tickets HTTP/1.1[0m" 201 -
+31-01-2024 17:26:59 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:26:59] "GET /tickets/TnSBW HTTP/1.1" 200 -
+31-01-2024 17:27:20 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:27:20] "GET /tickets?ticket_status=raised HTTP/1.1" 200 -
+31-01-2024 17:27:31 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:27:31] "GET /tickets HTTP/1.1" 200 -
+31-01-2024 17:27:39 INFO     [employee_login_handler.py:32] Employee with e_id:SGCxT, role:helpdesk logged in
+31-01-2024 17:27:39 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:27:39] "POST /login/employee HTTP/1.1" 200 -
+31-01-2024 17:27:57 INFO     [ticketDAO.py:85] ticket_id: TnSBW assigned to SGCxT
+31-01-2024 17:27:57 INFO     [ticketDAO.py:78] Ticket status changed for ticket_id:TnSBW to in_progress
+31-01-2024 17:27:57 INFO     [ticketDAO.py:56] Message from helpdesk created for ticket_id:TnSBW, message: Our IT team is on its way to solve the issue.
+31-01-2024 17:27:57 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:27:57] "PUT /tickets/TnSBW/resolve HTTP/1.1" 200 -
+31-01-2024 17:28:03 INFO     [_internal.py:96] 127.0.0.1 - - [31/Jan/2024 17:28:03] "GET /tickets/TnSBW HTTP/1.1" 200 -
+31-01-2024 17:29:00 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\app.py', reloading
+31-01-2024 17:29:00 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 17:29:01 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 17:29:01 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
+31-01-2024 18:25:19 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\app.py', reloading
+31-01-2024 18:25:19 INFO     [_internal.py:96]  * Restarting with stat
+31-01-2024 18:25:22 WARNING  [_internal.py:96]  * Debugger is active!
+31-01-2024 18:25:22 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038

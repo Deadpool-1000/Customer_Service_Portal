@@ -1,4 +1,5 @@
 from flask.views import MethodView
+from flask import request
 from flask_smorest import Blueprint
 from flask_jwt_extended import get_jwt_identity, get_jwt
 
@@ -19,7 +20,8 @@ class Tickets(MethodView):
     def get(self):
         identity = get_jwt_identity()
         role = get_jwt()['role']
-        all_tickets = TicketController.get_all_tickets_concise_view(identity, role)
+        ticket_status = request.args.get('ticket_status')
+        all_tickets = TicketController.get_all_tickets(identity, role, ticket_status)
         return all_tickets
 
     @blp.response(201, TicketSchema)

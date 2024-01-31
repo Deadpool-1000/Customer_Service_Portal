@@ -8,8 +8,11 @@ from src.utils.exceptions import DataBaseException, ApplicationError
 from src.handlers import CSMConfig
 
 TICKET_DETAIL_FETCH_ERROR_MESSAGE = 'There was some problem getting your data.'
+TRY_AGAIN_LATER = 'There was a problem Please Try again later.'
 
 logger = logging.getLogger('main.ticket_handler')
+
+ALLOWED_STATUSES = [CSMConfig.RAISED, CSMConfig.CLOSED, CSMConfig.IN_PROGRESS]
 
 
 class TicketHandler:
@@ -22,6 +25,7 @@ class TicketHandler:
 
                     # Invalid t_id provided
                     if ticket is None:
+                        logger.info(f"Invalid ticket number provided {t_id}")
                         raise ApplicationError(code=404, message='Invalid ticket id provided')
 
                     # Helpdesk member is assigned
@@ -30,6 +34,9 @@ class TicketHandler:
                         # get employee details
                         with EmployeeDAO(conn) as e_dao:
                             employee = e_dao.get_employee_details_by_id(ticket['repr_id'])
+                            if employee is None:
+                                logger.error("Invalid employee id encountered inside tickets table.")
+                                raise ApplicationError(code=500, message=TRY_AGAIN_LATER)
                             ticket['helpdesk'] = {
                                 'full_name': employee['full_name'],
                                 'phn_num': employee['phn_num'],
@@ -70,17 +77,17 @@ class TicketHandler:
         return True
 
     @classmethod
-    def get_tickets_by_identity_and_role(cls, role, identity):
+    def get_tickets_by_identity_and_role(cls, role, identity, status):
         if role == CSMConfig.CUSTOMER:
-            tickets = cls.get_tickets_by_c_id(identity)
+            tickets = cls.get_tickets_by_c_id(identity, status)
             return tickets
 
         elif role == CSMConfig.HELPDESK:
-            tickets = cls.get_tickets_by_e_id(identity)
+            tickets = cls.get_tickets_by_e_id(identity, status)
             return tickets
 
         elif role == CSMConfig.MANAGER:
-            tickets = cls.get_all_tickets()
+            tickets = cls.get_all_tickets(status)
             return tickets
 
     @classmethod
@@ -91,26 +98,37 @@ class TicketHandler:
         return emp_dept_detail['dept_id']
 
     @classmethod
-    def get_tickets_by_c_id(cls, c_id):
+    def get_tickets_by_c_id(cls, c_id, status=None):
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
-                tickets = t_dao.get_all_tickets_by_c_id(c_id)
-
+                if status in ALLOWED_STATUSES:
+                    tickets = t_dao.get_tickets_by_c_id_and_status(c_id, status)
+                else:
+                    tickets = t_dao.get_all_tickets_by_c_id(c_id)
         return tickets
 
     @classmethod
-    def get_tickets_by_e_id(cls, e_id):
+    def get_tickets_by_e_id(cls, e_id, status=None):
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
                 dept_id = cls.get_dept_from_e_id(e_id)
-                tickets = t_dao.get_all_tickets_by_d_id(dept_id)
 
+                if status in ALLOWED_STATUSES:
+                    tickets = t_dao.get_tickets_by_d_id_and_status(dept_id, status)
+
+                else:
+                    tickets = t_dao.get_all_tickets_by_d_id(dept_id)
         return tickets
 
-    @classmethod
-    def get_all_tickets(cls):
+    @staticmethod
+    def get_all_tickets(status=None):
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
-                tickets = t_dao.get_all_tickets()
+
+                if status in ALLOWED_STATUSES:
+                    tickets = t_dao.get_tickets_by_status(status)
+
+                else:
+                    tickets = t_dao.get_all_tickets()
 
         return tickets

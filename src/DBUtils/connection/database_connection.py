@@ -1,8 +1,6 @@
 import os
 import mysql.connector
 
-from src.DBUtils.config.db_config_loader import DBConfig
-
 
 class DatabaseConnection:
     def __init__(self):

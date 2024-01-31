@@ -24,13 +24,6 @@ class FeedbackDAO:
         f_id = shortuuid.ShortUUID().random(length=5)
         self.cur.execute(QueriesConfig.INSERT_INTO_FEEDBACK, (f_id, stars, desc, t_id))
 
-    def get_feedback(self):
-        # rws = self.cur.execute(QueriesConfig.GET_ALL_FEEDBACK).fetchall()
-        # if rws is None:
-        #     return []
-        # return self.format_feedback(rws)
-        pass
-
     def get_feedback_by_tid(self, t_id):
         # (f_id, stars, description, t_id)
         self.cur.execute(QueriesConfig.GET_FEEDBACK_BY_TID, {'t_id': t_id})

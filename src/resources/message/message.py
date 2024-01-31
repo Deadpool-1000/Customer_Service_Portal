@@ -12,7 +12,6 @@ blp = Blueprint('Message', 'messages', description='Operation on messages for a 
 
 @blp.route('/tickets/<string:ticket_id>/message')
 class Message(MethodView):
-
     @blp.doc(parameters=[{'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>', 'required': 'true'}])
     @access_required(['HELPDESK', 'MANAGER'])
     def get(self, ticket_id):

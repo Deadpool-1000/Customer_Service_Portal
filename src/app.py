@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask
+from flask import Flask, jsonify
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
@@ -10,6 +10,7 @@ from src.resources import user_blueprint
 from src.resources import ticket_blueprint
 from src.resources import feedback_blueprint
 from src.resources import message_blueprint
+from src.handlers.authentication.logout.BLOCKLIST import BLOCKLIST
 
 LOG_FILE_PATH = 'utils/logs/logs.log'
 
@@ -20,9 +21,11 @@ logger = logging.getLogger("main")
 
 
 def create_app():
+    # docstring
+    # nested response
     load_dotenv()
     app = Flask(__name__)
-
+    # change the location of below
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config["API_TITLE"] = "Customer Service Management"
     app.config["API_VERSION"] = "v1"
@@ -36,13 +39,22 @@ def create_app():
     app.config["OPENAPI_RAPIDOC_PATH"] = "/rapidoc"
     app.config["OPENAPI_RAPIDOC_URL"] = "https://unpkg.com/rapidoc/dist/rapidoc-min.js"
     app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////DBUtils/data/csm.db'
 
     with app.app_context():
         load_configurations()
 
     api = Api(app)
     jwt = JWTManager(app)
+
+    @jwt.token_in_blocklist_loader
+    def check_token_in_blocklist(jwt_header, jwt_payload):
+        return jwt_payload['jti'] in BLOCKLIST
+
+    @jwt.revoked_token_loader
+    def revoked_token_loader(jwt_header, jwt_payload):
+        return jsonify({
+            'message': 'Your token is revoked, Please log in to continue.'
+        }), 401
 
     api.register_blueprint(user_blueprint)
     api.register_blueprint(ticket_blueprint)

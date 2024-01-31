@@ -1,7 +1,8 @@
 from flask_jwt_extended import get_jwt, verify_jwt_in_request
 from flask_smorest import abort
 from functools import wraps
-from src.authentication.config.auth_config_loader import AuthConfig
+from src.handlers import CSMConfig
+
 
 CUSTOMER = 'CUSTOMER'
 HELPDESK = 'HELPDESK'
@@ -16,11 +17,11 @@ def access_required(roles_allowed):
             allowed = []
             for role in roles_allowed:
                 if role == CUSTOMER:
-                    allowed.append(AuthConfig.CUSTOMER)
+                    allowed.append(CSMConfig.CUSTOMER)
                 elif role == HELPDESK:
-                    allowed.append(AuthConfig.HELPDESK)
+                    allowed.append(CSMConfig.HELPDESK)
                 elif role == MANAGER:
-                    allowed.append(AuthConfig.MANAGER)
+                    allowed.append(CSMConfig.MANAGER)
 
             token = get_jwt()
             if token['role'] in allowed:

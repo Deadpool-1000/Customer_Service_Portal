@@ -2,9 +2,8 @@ import logging
 import shortuuid
 from datetime import datetime
 
-from src.DBUtils.config.db_config_loader import DBConfig
+from src.handlers import CSMConfig
 from src.DBUtils.config.queries_config_loader import QueriesConfig
-from src.utils.exceptions.exceptions import NoTicketsException, NoMessageFromManagerException
 
 logger = logging.getLogger('main.ticket_dao')
 
@@ -17,7 +16,6 @@ class TicketDAO:
         if self.singleton != 0:
             self.cur.execute(QueriesConfig.CREATE_TABLE_TICKETS)
             self.cur.execute(QueriesConfig.CREATE_TABLE_MESSAGE_FROM_HELPDESK)
-            self.cur.execute(QueriesConfig.CREATE_TABLE_MESSAGE_FROM_MANAGER)
             self.singleton -= 1
 
     def __enter__(self):
@@ -30,70 +28,15 @@ class TicketDAO:
 
     def create_new_ticket(self, d_id, c_id, title, description):
         t_id = shortuuid.ShortUUID().random(5)
-        self.cur.execute(QueriesConfig.INSERT_INTO_TICKETS_TABLE, (t_id, d_id, c_id, title, description, DBConfig.RAISED, datetime.now()))
+        self.cur.execute(QueriesConfig.INSERT_INTO_TICKETS_TABLE, (t_id, d_id, c_id, title, description, CSMConfig.RAISED, datetime.now()))
         logger.info(f'New ticket raised with ticket_id:{t_id}, title:{title} by customer:{c_id}')
         return t_id
-
-    def get_in_progress_tickets_with_cid(self, c_id):
-        rws = self.cur.execute(QueriesConfig.VIEW_TICKETS, (c_id, DBConfig.IN_PROGRESS)).fetchall()
-        # 't_id' 'd_id', 'c_id', 'repr_id', 'title', 'description', 'status', 'cust_feedback', 'created_on', 'message_id'
-        in_progress_tickets_by_c_id = [dict(r) for r in rws.fetchall()]
-
-        if len(in_progress_tickets_by_c_id) == 0:
-            raise NoTicketsException('No tickets to show.')
-
-        return in_progress_tickets_by_c_id
-
-    def get_closed_tickets_by_cid(self, c_id):
-        rws = self.cur.execute(QueriesConfig.VIEW_TICKETS, (c_id, DBConfig.CLOSED)).fetchall()
-        closed_tickets_by_c_id = [dict(r) for r in rws.fetchall()]
-
-        if len(closed_tickets_by_c_id) == 0:
-            raise NoTicketsException('No tickets to show.')
-
-        return closed_tickets_by_c_id
-
-    def get_raised_tickets_by_cid(self, c_id):
-        rws = self.cur.execute(QueriesConfig.VIEW_TICKETS, (c_id, DBConfig.RAISED)).fetchall()
-        raised_tickets_by_c_id = [dict(r) for r in rws.fetchall()]
-
-        if len(raised_tickets_by_c_id) == 0:
-            raise NoTicketsException('No tickets to show.')
-
-        return raised_tickets_by_c_id
 
     def get_ticket_by_tid(self, t_id):
         self.cur.execute(QueriesConfig.GET_TICKET_BY_TID, {
             't_id': t_id
         })
         return self.cur.fetchone()
-
-    def get_all_raised_tickets(self, dept_id):
-        rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.RAISED, dept_id))
-        raised_tickets = [dict(r) for r in rws.fetchall()]
-
-        if len(raised_tickets) == 0:
-            raise NoTicketsException('No tickets to show.')
-
-        return raised_tickets
-
-    def get_all_in_progress_tickets(self, dept_id):
-        rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.IN_PROGRESS, dept_id))
-        in_progress_tickets = [dict(r) for r in rws.fetchall()]
-
-        if len(in_progress_tickets) == 0:
-            raise NoTicketsException('No tickets to show.')
-
-        return in_progress_tickets
-
-    def get_all_closed_tickets(self, dept_id):
-        rws = self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_STATUS, (DBConfig.CLOSED, dept_id))
-        closed_tickets = [dict(r) for r in rws.fetchall()]
-
-        if len(closed_tickets) == 0:
-            raise NoTicketsException('No tickets to show.')
-
-        return closed_tickets
 
     def get_all_tickets(self):
         self.cur.execute(QueriesConfig.VIEW_ALL_TICKETS)
@@ -141,24 +84,6 @@ class TicketDAO:
         })
         logger.info(f'ticket_id: {t_id} assigned to {e_id}')
 
-    def is_ticket_closed(self, t_id):
-        rws = self.cur.execute(QueriesConfig.IS_TICKET_CLOSED, (t_id, DBConfig.CLOSED))
-        return len(rws.fetchall()) != 0
-
-    def update_message_from_manager(self, t_id, message):
-        mm_id = shortuuid.ShortUUID().random(5)
-        self.cur.execute(QueriesConfig.UPDATE_MESSAGE_FROM_MANAGER, (mm_id, message, datetime.now(), t_id))
-        logger.info(f'Message from manager for ticket_id:{t_id} updated')
-
-    def get_message_from_manager(self, t_id):
-        rws = self.cur.execute(QueriesConfig.GET_MESSAGE_FROM_MANAGER)
-        message_from_manager = [dict(r) for r in rws.fetchall()]
-
-        if len(message_from_manager) == 0:
-            raise NoMessageFromManagerException('No message from manager yet.')
-
-        return message_from_manager
-
     def get_detailed_ticket_view(self, t_id):
         self.cur.execute(QueriesConfig.TICKET_DETAIL_QUERY, {
             't_id': t_id
@@ -171,9 +96,28 @@ class TicketDAO:
         })
         return self.cur.fetchall()
 
+    def get_tickets_by_c_id_and_status(self, c_id, status):
+        self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_CID_AND_STATUS, {
+            'c_id': c_id,
+            'status': status
+        })
+        return self.cur.fetchall()
+
     def get_all_tickets_by_d_id(self, d_id):
         self.cur.execute(QueriesConfig.GET_TICKETS_BY_D_ID, {
             'd_id': d_id
         })
         return self.cur.fetchall()
 
+    def get_tickets_by_d_id_and_status(self, d_id, status):
+        self.cur.execute(QueriesConfig.VIEW_TICKETS_BY_DID_AND_STATUS, {
+            'd_id': d_id,
+            'status': status
+        })
+        return self.cur.fetchall()
+
+    def get_tickets_by_status(self, status):
+        self.cur.execute(QueriesConfig.GET_TICKETS_BY_STATUS, {
+            'status': status
+        })
+        return self.cur.fetchall()

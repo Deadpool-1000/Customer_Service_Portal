@@ -5,7 +5,8 @@ from mysql.connector import Error
 from src.DBUtils.connection.database_connection import DatabaseConnection
 from src.DBUtils.ticket.ticketDAO import TicketDAO
 from src.DBUtils.employee.employeedao import EmployeeDAO
-from src.DBUtils.config.db_config_loader import DBConfig
+
+from src.handlers import CSMConfig
 from src.utils.exceptions import DataBaseException, ApplicationError
 
 logger = logging.getLogger('main.ticket_operation_handler')
@@ -36,7 +37,7 @@ class TicketOperationHandler:
                         raise ApplicationError(code=404, message=INVALID_TICKET_NUMBER_MESSAGE)
 
                     # Ticket is already closed or in_progress
-                    if ticket['t_status'] == DBConfig.IN_PROGRESS or ticket['t_status'] == DBConfig.CLOSED:
+                    if ticket['t_status'] == CSMConfig.IN_PROGRESS or ticket['t_status'] == CSMConfig.CLOSED:
                         logger.error(f"User tried to resolve an already resolved ticket for Ticket Id: {t_id}")
                         raise ApplicationError(code=400, message=ALREADY_RESOLVED_OR_CLOSED)
 
@@ -47,7 +48,7 @@ class TicketOperationHandler:
                             raise ApplicationError(code=403, message=UNAUTHORIZED_MESSAGE)
 
                     t_dao.assign_repr_id(t_id, identity)
-                    t_dao.change_ticket_status(t_id, DBConfig.IN_PROGRESS)
+                    t_dao.change_ticket_status(t_id, CSMConfig.IN_PROGRESS)
                     t_dao.update_message_from_helpdesk(ticket_data['message_from_helpdesk'], t_id)
 
         except Error as e:
@@ -64,9 +65,8 @@ class TicketOperationHandler:
                     if ticket is None:
                         logger.error(f"Invalid ticket id provided: {t_id}")
                         raise ApplicationError(code=404, message=INVALID_TICKET_NUMBER_MESSAGE)
-
                     # Ticket is already closed or in raised condition
-                    if ticket['t_status'] == DBConfig.RAISED or ticket['t_status'] == DBConfig.CLOSED:
+                    if ticket['t_status'] == CSMConfig.RAISED or ticket['t_status'] == CSMConfig.CLOSED:
                         logger.error(f"User tried to resolve an already closed or just raised ticket for Ticket Id: {t_id}")
                         raise ApplicationError(code=400, message=ALREADY_CLOSED_OR_RAISED)
 
@@ -76,7 +76,7 @@ class TicketOperationHandler:
                             logger.error(f"There was an error while closing a ticket{t_id} {e.msg}")
                             raise ApplicationError(code=403, message=UNAUTHORIZED_MESSAGE)
 
-                    t_dao.change_ticket_status(t_id, DBConfig.CLOSED)
+                    t_dao.change_ticket_status(t_id, CSMConfig.CLOSED)
                     t_dao.update_message_from_helpdesk(ticket_data['message_from_helpdesk'], t_id)
 
         except Error as e:

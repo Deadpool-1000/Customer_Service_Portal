@@ -1,6 +1,7 @@
 from flask_smorest import abort
 from src.handlers.feedback.feedback_handler import FeedbackHandler
 from src.utils.exceptions import ApplicationError, DataBaseException
+from src.handlers import CSMConfig
 
 
 class FeedbackController:
@@ -13,7 +14,7 @@ class FeedbackController:
             FeedbackHandler.add_feedback_for_ticket(c_id, stars, description, t_id)
 
             return {
-                "message": "Feedback Registered successfully."
+                "message": CSMConfig.FEEDBACK_REGISTERED_SUCCESS
             }
 
         except ApplicationError as ae:
@@ -26,9 +27,8 @@ class FeedbackController:
     def get_feedback(identity, role, t_id):
         try:
             is_allowed = FeedbackHandler.access_allowed(identity, role, t_id)
-            print(role, identity)
             if not is_allowed:
-                abort(401, message='You are not authorized to view this resource.')
+                abort(401, message=CSMConfig.UNAUTHORIZED_ERROR_MESSAGE)
 
             feedback = FeedbackHandler.get_feedback_for_ticket(t_id)
             return feedback
@@ -37,4 +37,4 @@ class FeedbackController:
             abort(ae.code, message=ae.message)
 
         except DataBaseException as db:
-            abort(500, message=db)
+            abort(500, message=str(db))

@@ -5,9 +5,13 @@ from src.DBUtils.config.queries_config_loader import QueriesConfig
 
 
 class MessageDAO:
+    singleton = 1
 
     def __init__(self, conn):
         self.cur = conn.cursor(dictionary=True)
+        if self.singleton != 0:
+            self.cur.execute(QueriesConfig.CREATE_TABLE_MESSAGE_FROM_MANAGER)
+            self.singleton -= 1
 
     def __enter__(self):
         return self

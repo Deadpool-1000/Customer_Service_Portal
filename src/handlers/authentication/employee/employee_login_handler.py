@@ -1,4 +1,5 @@
 import logging
+import hashlib
 from mysql.connector import Error
 from flask_jwt_extended import create_access_token
 
@@ -6,11 +7,12 @@ from src.handlers import CSMConfig
 from src.DBUtils.connection.database_connection import DatabaseConnection
 from src.DBUtils.employee.employeedao import EmployeeDAO
 from src.DBUtils.auth.authdao import AuthDAO
-from src.utils.exceptions.exceptions import DataBaseException
+from src.utils.exceptions.exceptions import DataBaseException, ApplicationError
 
 
 logger = logging.getLogger('main.employee_login_handler')
 LOGIN_ERROR_MESSAGE = 'There was some problem while logging you in.'
+INVALID_USERNAME_OR_PASSWORD_MESSAGE = 'Invalid Username or password.'
 
 
 class EmployeeLoginHandler:
@@ -19,13 +21,19 @@ class EmployeeLoginHandler:
         try:
             with DatabaseConnection() as conn:
                 with AuthDAO(conn) as a_dao:
-                    emp_details = a_dao.login_user(email, password, CSMConfig.EMP_AUTH)
+                    employee = a_dao.find_user(email, CSMConfig.EMP_AUTH)
 
-                logger.info(f"Employee with e_id:{emp_details['e_id']}, role:{emp_details['designation']} logged in")
+                    if employee is None:
+                        raise ApplicationError(code=401, message=INVALID_USERNAME_OR_PASSWORD_MESSAGE)
+
+                    if employee['password'] != hashlib.sha256(password.encode()).hexdigest():
+                        raise ApplicationError(code=401, message=INVALID_USERNAME_OR_PASSWORD_MESSAGE)
+
+                logger.info(f"Employee with e_id:{employee['e_id']}, role:{employee['designation']} logged in")
 
             return {
-                'e_id': emp_details['e_id'],
-                'role': emp_details['designation']
+                'e_id': employee['e_id'],
+                'role': employee['designation']
             }
 
         except Error as err:

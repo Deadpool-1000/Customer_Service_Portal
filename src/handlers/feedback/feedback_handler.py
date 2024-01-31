@@ -5,7 +5,6 @@ from src.DBUtils.connection import DatabaseConnection
 from src.DBUtils.customer import FeedbackDAO
 from src.DBUtils.ticket import TicketDAO
 from src.utils.exceptions import ApplicationError, DataBaseException
-from src.DBUtils.config.db_config_loader import DBConfig
 from src.handlers import CSMConfig
 
 logger = logging.getLogger('main.feedback_handler')
@@ -30,7 +29,7 @@ class FeedbackHandler:
                     if ticket['c_id'] != c_id:
                         raise ApplicationError(code=403, message=UNAUTHORIZED_MESSAGE)
 
-                    if ticket['t_status'] != DBConfig.CLOSED:
+                    if ticket['t_status'] != CSMConfig.CLOSED:
                         raise ApplicationError(code=400, message=TICKET_NOT_CLOSED_MESSAGE)
 
                 with FeedbackDAO(conn) as f_dao:

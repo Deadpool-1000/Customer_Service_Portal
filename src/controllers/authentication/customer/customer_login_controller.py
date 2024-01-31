@@ -10,8 +10,8 @@ class CustomerLoginController:
             email = cust_data['email']
             password = cust_data['password']
 
-            customer = CustomerLoginHandler.login_customer(email, password)
-            token = CustomerLoginHandler.generate_token(cust_id=customer['c_id'])
+            c_id = CustomerLoginHandler.login_customer(email, password)
+            token = CustomerLoginHandler.generate_token(cust_id=c_id)
             return {
                 'token': token
             }

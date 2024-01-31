@@ -9,3 +9,18 @@ CUSTOMER: npc
 IN_PROGRESS : "in_progress"
 RAISED : "raised"
 CLOSED : "closed"
+
+REGISTER_SUCCESS_MESSAGE: Successfully registered
+LOGIN_ERROR_MESSAGE : "There was some problem while logging you in."
+LOGOUT_SUCCESS_MESSAGE: "Logout Successful."
+FEEDBACK_REGISTERED_SUCCESS: "Feedback Registered successfully."
+UNAUTHORIZED_ERROR_MESSAGE : "You are not authorized to view this resource."
+MESSAGE_UPDATE_SUCCESS_MESSAGE : "Message Updated Successfully."
+INVALID_DEPARTMENT_ERROR_MESSAGE : "Please provide valid department information."
+CREATE_TICKET_ERROR_MESSAGE : "There was some problem while creating the ticket. Please try again later"
+DETAILED_TICKET_ERROR_MESSAGE : "There was some problem getting your ticket. Please try again later."
+RESOLVED_SUCCESS_MESSAGE : "Resolved Successfully."
+RESOLVED_ERROR_MESSAGE : "There was some problem resolving the ticket. Please try again later."
+CLOSED_SUCCESS_MESSAGE : "Closed Successfully."
+CLOSED_ERROR_MESSAGE : "There was some problem closing the ticket. Please try again later."
+

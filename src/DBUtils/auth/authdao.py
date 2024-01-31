@@ -1,9 +1,7 @@
 import hashlib
 import logging
 import shortuuid
-from src.DBUtils.config.db_config_loader import DBConfig
 from src.DBUtils.config.queries_config_loader import QueriesConfig
-from src.utils.exceptions.exceptions import InvalidUsernameOrPasswordException, AlreadyExistsException
 
 logger = logging.getLogger("main.auth_dao")
 
@@ -32,26 +30,8 @@ class AuthDAO:
         })
         return self.cur.fetchone()
 
-    def login_user(self, email, password, table_name):
-        found_user = self.find_user(email=email, table_name=table_name)
-
-        if found_user is None:
-            raise InvalidUsernameOrPasswordException(DBConfig.INVALID_USERNAME_OR_PASSWORD)
-
-        if found_user['password'] != hashlib.sha256(password.encode()).hexdigest():
-            raise InvalidUsernameOrPasswordException(DBConfig.INVALID_USERNAME_OR_PASSWORD)
-
-        # 'id', 'email', 'password',
-        return found_user
-
-    def customer_signup(self, email, password) -> str:
-        user = self.find_user(email, table_name='cust_auth')
-        if user is not None:
-            logger.info(DBConfig.ALREADY_EXISTS_EXCEPTION)
-            raise AlreadyExistsException(DBConfig.ALREADY_EXISTS_EXCEPTION)
-
-        cust_id: str = shortuuid.ShortUUID().random(5)
+    def add_customer_auth_details(self, email, password) -> str:
+        cust_id = shortuuid.ShortUUID().random(5)
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-
         self.cur.execute(QueriesConfig.INSERT_INTO_CUSTOMER_AUTH_TABLE, (cust_id, email, hashed_password))
         return cust_id

@@ -1,28 +1,30 @@
+import logging
 from flask_smorest import abort
 
 from src.handlers.ticket.ticket_handler import TicketHandler
-from src.authentication.config.auth_config_loader import AuthConfig
 from src.utils.exceptions import DataBaseException, ApplicationError
+from src.handlers import CSMConfig
+
+DEFAULT_HELPDESK_MESSAGE = 'We will get back to you soon 🙂.'
+
+logger = logging.getLogger('main.ticket_controller')
 
 
 class TicketController:
     @classmethod
     def get_ticket_detailed_view(cls, t_id, role, identity):
-        # Get ticket by t_id
-        # Check role and provide only the necessary details
-        # return the correctly formed view of the ticket to the route
         try:
             ticket = TicketHandler.ticket_detail(t_id)
-            print(ticket)
             is_allowed = TicketHandler.is_allowed_to_view_ticket(ticket, role, identity)
 
             if not is_allowed:
-                abort(403, message='You are not authorized to view this resource.')
+                logger.info(f"User with role {role} and identity {identity} tried to access a protected resource for which user is unauthorized.")
+                abort(403, message=CSMConfig.UNAUTHORIZED_ERROR_MESSAGE)
 
             return cls.ticket_detailed_view(ticket)
 
-        except DataBaseException:
-            abort(500, message="There was some problem getting your ticket. Please try again later.")
+        except DataBaseException as db:
+            abort(500, message=str(db))
 
         except ApplicationError as ae:
             abort(ae.code, message=ae.message)
@@ -38,6 +40,11 @@ class TicketController:
                 'created_on': str(ticket['created_on']),
                 'department': {
                     'dept_name': ticket['dept_name']
+                },
+                'customer': {
+                    'full_name': ticket['cust_name'],
+                    'email': ticket['cust_email'],
+                    'phn_num': ticket['cust_phn_num']
                 },
                 'helpdesk_assigned': {
                     **ticket['helpdesk']
@@ -57,12 +64,12 @@ class TicketController:
                     'dept_id': ticket['t_id'],
                     'dept_name': ticket['dept_name'],
                 },
-                'message_from_helpdesk': "We will get back to you soon. 🙂"
+                'message_from_helpdesk': DEFAULT_HELPDESK_MESSAGE
             }
 
     @classmethod
-    def get_all_tickets_concise_view(cls, identity, role):
-        tickets = TicketHandler.get_tickets_by_identity_and_role(role, identity)
+    def get_all_tickets(cls, identity, role, status):
+        tickets = TicketHandler.get_tickets_by_identity_and_role(role, identity, status)
         return [cls.ticket_concise_view(ticket) for ticket in tickets]
 
     @staticmethod

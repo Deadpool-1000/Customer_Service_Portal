@@ -1,10 +1,8 @@
 from flask_smorest import abort
 
-from src.utils.exceptions import AlreadyExistsException, DataBaseException
+from src.utils.exceptions import ApplicationError, DataBaseException
 from src.handlers.authentication.customer.customer_signup_handler import CustomerSignupHandler
-from src.schemas.user import SuccessSchema
-
-REGISTER_SUCCESS_MESSAGE = 'Successfully registered'
+from src.handlers import CSMConfig
 
 
 class CustomerSignupController:
@@ -18,15 +16,13 @@ class CustomerSignupController:
 
         try:
             success = CustomerSignupHandler.signup_customer(email=email, password=password, fullname=full_name, phn_num=phn_num, address=address)
-
             if success:
-                success_message = SuccessSchema().load({
-                    'message': REGISTER_SUCCESS_MESSAGE
-                })
-                return success_message
+                return {
+                    'message': CSMConfig.REGISTER_SUCCESS_MESSAGE
+                }
 
-        except AlreadyExistsException as ae_exception:
-            abort(409, message=str(ae_exception))
+        except ApplicationError as ae:
+            abort(ae.code, message=ae.message)
 
         except DataBaseException as db_exception:
             abort(500, message=str(db_exception))

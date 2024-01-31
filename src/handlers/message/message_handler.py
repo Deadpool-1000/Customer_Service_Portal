@@ -7,7 +7,6 @@ from src.DBUtils.ticket.ticketDAO import TicketDAO
 from src.DBUtils.customer.feedbackdao import FeedbackDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
 from src.handlers.config.csm_config import CSMConfig
-from src.DBUtils.config.db_config_loader import DBConfig
 
 
 logger = logging.getLogger('main.message_handler')
@@ -31,7 +30,7 @@ class MessageHandler:
                     if ticket is None:
                         raise ApplicationError(code=404, message=INVALID_TICKET_NUMBER_MESSAGE)
 
-                    if ticket['t_status'] != DBConfig.CLOSED:
+                    if ticket['t_status'] != CSMConfig.CLOSED:
                         raise ApplicationError(code=400, message=CANNOT_GIVE_MESSAGE_FOR_TICKET_MESSAGE)
 
                 with FeedbackDAO(conn) as f_dao:
