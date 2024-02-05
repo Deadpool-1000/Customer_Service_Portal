@@ -1,7 +1,6 @@
 from flask_smorest import abort
 from src.handlers.authentication.employee.employee_login_handler import EmployeeLoginHandler
 from src.utils.exceptions import ApplicationError, DataBaseException
-from src.handlers import CSMConfig
 
 
 class EmployeeLoginController:
@@ -20,5 +19,5 @@ class EmployeeLoginController:
         except ApplicationError as ae:
             abort(ae.code, message=ae.message)
 
-        except DataBaseException:
-            abort(500, message=CSMConfig.LOGIN_ERROR_MESSAGE)
+        except DataBaseException as db:
+            abort(500, message=str(db))

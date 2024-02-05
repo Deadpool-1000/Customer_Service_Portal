@@ -3,7 +3,6 @@ from flask_smorest import Blueprint
 from flask_jwt_extended import get_jwt, jwt_required
 
 from src.schemas.user import UserSignupSchema, AuthSchema, TokenSchema, SuccessSchema
-
 from src.controllers.authentication.customer.customer_login_controller import CustomerLoginController
 from src.controllers.authentication.employee.employee_login_controller import EmployeeLoginController
 from src.controllers.authentication.customer.customer_signup_controller import CustomerSignupController

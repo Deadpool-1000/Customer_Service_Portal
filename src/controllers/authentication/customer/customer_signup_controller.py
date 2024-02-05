@@ -1,8 +1,8 @@
+from flask import current_app
 from flask_smorest import abort
 
 from src.utils.exceptions import ApplicationError, DataBaseException
 from src.handlers.authentication.customer.customer_signup_handler import CustomerSignupHandler
-from src.handlers import CSMConfig
 
 
 class CustomerSignupController:
@@ -18,7 +18,7 @@ class CustomerSignupController:
             success = CustomerSignupHandler.signup_customer(email=email, password=password, fullname=full_name, phn_num=phn_num, address=address)
             if success:
                 return {
-                    'message': CSMConfig.REGISTER_SUCCESS_MESSAGE
+                    'message': current_app.config['REGISTER_SUCCESS_MESSAGE']
                 }
 
         except ApplicationError as ae:

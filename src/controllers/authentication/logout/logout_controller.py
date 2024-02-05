@@ -1,5 +1,5 @@
+from flask import current_app
 from src.handlers.authentication.logout.logout_handler import LogoutHandler
-from src.handlers import CSMConfig
 
 
 class LogoutController:
@@ -8,5 +8,5 @@ class LogoutController:
         jti = token['jti']
         LogoutHandler.logout(jti)
         return {
-            "message": CSMConfig.LOGOUT_SUCCESS_MESSAGE
+            "message": current_app.config['LOGOUT_SUCCESS_MESSAGE']
         }

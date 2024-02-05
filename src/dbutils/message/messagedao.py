@@ -1,7 +1,6 @@
 import shortuuid
+from flask import current_app
 from datetime import datetime
-
-from src.DBUtils.config.queries_config_loader import QueriesConfig
 
 
 class MessageDAO:
@@ -10,7 +9,7 @@ class MessageDAO:
     def __init__(self, conn):
         self.cur = conn.cursor(dictionary=True)
         if self.singleton != 0:
-            self.cur.execute(QueriesConfig.CREATE_TABLE_MESSAGE_FROM_MANAGER)
+            self.cur.execute(current_app.config['CREATE_TABLE_MESSAGE_FROM_MANAGER'])
             self.singleton -= 1
 
     def __enter__(self):
@@ -22,7 +21,7 @@ class MessageDAO:
         self.cur.close()
 
     def get_message_from_manager(self, t_id):
-        self.cur.execute(QueriesConfig.GET_MESSAGE_FROM_MANAGER, {
+        self.cur.execute(current_app.config['GET_MESSAGE_FROM_MANAGER'], {
             't_id': t_id
         })
         return self.cur.fetchone()
@@ -30,11 +29,11 @@ class MessageDAO:
     def update_message_from_manager(self, t_id, message):
         existing_message = self.get_message_from_manager(t_id)
         if existing_message:
-            self.cur.execute(QueriesConfig.UPDATE_MESSAGE_FROM_MANAGER, {
+            self.cur.execute(current_app.config['UPDATE_MESSAGE_FROM_MANAGER'], {
                 't_id': t_id,
                 'message': message
             })
 
         else:
             mm_id = shortuuid.ShortUUID().random(5)
-            self.cur.execute(QueriesConfig.INSERT_MESSAGE_FROM_MANAGER, (mm_id, message, datetime.now(), t_id))
+            self.cur.execute(current_app.config['INSERT_MESSAGE_FROM_MANAGER'], (mm_id, message, datetime.now(), t_id))

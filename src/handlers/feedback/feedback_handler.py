@@ -1,19 +1,14 @@
 import logging
+from flask import current_app
 from mysql.connector import Error
 
-from src.DBUtils.connection import DatabaseConnection
-from src.DBUtils.customer import FeedbackDAO
-from src.DBUtils.ticket import TicketDAO
+from src.dbutils.connection import DatabaseConnection
+from src.dbutils.customer import FeedbackDAO
+from src.dbutils.ticket import TicketDAO
 from src.utils.exceptions import ApplicationError, DataBaseException
-from src.handlers import CSMConfig
+
 
 logger = logging.getLogger('main.feedback_handler')
-
-UNAUTHORIZED_MESSAGE = 'You are not authorized to use this resource.'
-INVALID_TICKET_NUMBER_MESSAGE = 'Invalid Ticket Identification Number provided.'
-TICKET_NOT_CLOSED_MESSAGE = 'The ticket is not closed. So feedback cannot be registered.'
-FEEDBACK_REGISTER_ERROR_MESSAGE = 'There was some problem while registering the feedback.'
-FEEDBACK_FETCH_ERROR_MESSAGE = 'There was some problem while getting the feedback.'
 
 
 class FeedbackHandler:
@@ -24,20 +19,20 @@ class FeedbackHandler:
                 with TicketDAO(conn) as t_dao:
                     ticket = t_dao.get_ticket_by_tid(t_id)
                     if ticket is None:
-                        raise ApplicationError(code=404, message=INVALID_TICKET_NUMBER_MESSAGE)
+                        raise ApplicationError(code=404, message=current_app.config['INVALID_TICKET_NUMBER_ERROR_MESSAGE'])
 
                     if ticket['c_id'] != c_id:
-                        raise ApplicationError(code=403, message=UNAUTHORIZED_MESSAGE)
+                        raise ApplicationError(code=403, message=current_app.config['UNAUTHORIZED_ERROR_MESSAGE'])
 
-                    if ticket['t_status'] != CSMConfig.CLOSED:
-                        raise ApplicationError(code=400, message=TICKET_NOT_CLOSED_MESSAGE)
+                    if ticket['t_status'] != current_app.config['CLOSED']:
+                        raise ApplicationError(code=400, message=current_app.config['TICKET_NOT_CLOSED_MESSAGE'])
 
                 with FeedbackDAO(conn) as f_dao:
                     f_dao.add_feedback(stars, description, t_id)
 
         except Error as e:
             logger.error(f'Error while adding feedback for ticket {t_id}. Error {e}')
-            raise DataBaseException(FEEDBACK_REGISTER_ERROR_MESSAGE)
+            raise DataBaseException(current_app.config['FEEDBACK_REGISTER_ERROR_MESSAGE'])
 
     @staticmethod
     def get_feedback_for_ticket(t_id):
@@ -47,16 +42,16 @@ class FeedbackHandler:
                     feedback = f_dao.get_feedback_by_tid(t_id)
 
             if feedback is None:
-                raise ApplicationError(code=404, message='No message for this ticket.')
+                raise ApplicationError(code=404, message=current_app.config['NO_FEEDBACK_ERROR_MESSAGE'])
 
             return feedback
         except Error as e:
             logger.error(f'Error while getting feedback for ticket:{t_id}. Error {e}')
-            raise DataBaseException(FEEDBACK_FETCH_ERROR_MESSAGE)
+            raise DataBaseException(current_app.config['FEEDBACK_FETCH_ERROR_MESSAGE'])
 
     @staticmethod
     def access_allowed(identity, role, t_id):
-        if role == CSMConfig.MANAGER:
+        if role == current_app.config['MANAGER']:
             return True
 
         with DatabaseConnection() as conn:

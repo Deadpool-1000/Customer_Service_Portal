@@ -1,6 +1,6 @@
+from flask import current_app
 from flask_smorest import abort
 
-from src.handlers import CSMConfig
 from src.handlers.ticket.ticket_operation_handler import TicketOperationHandler
 from src.utils.exceptions import DataBaseException, ApplicationError
 
@@ -11,10 +11,11 @@ class TicketOperationController:
         try:
             TicketOperationHandler.resolve_ticket(ticket_id, ticket_data, identity)
             return {
-                "message": CSMConfig.RESOLVED_SUCCESS_MESSAGE
+                "message": current_app.config['RESOLVED_SUCCESS_MESSAGE']
             }
-        except DataBaseException:
-            abort(500, message=CSMConfig.RESOLVED_ERROR_MESSAGE)
+
+        except DataBaseException as db:
+            abort(500, message=str(db))
 
         except ApplicationError as ae:
             abort(ae.code, message=ae.message)
@@ -25,11 +26,11 @@ class TicketOperationController:
             TicketOperationHandler.close_ticket(ticket_id, ticket_data, identity)
 
             return {
-                "message": CSMConfig.CLOSED_SUCCESS_MESSAGE
+                "message": current_app.config['CLOSED_SUCCESS_MESSAGE']
             }
 
-        except DataBaseException:
-            abort(500, message=CSMConfig.CLOSED_ERROR_MESSAGE)
+        except DataBaseException as db:
+            abort(500, message=str(db))
 
         except ApplicationError as ae:
             abort(ae.code, message=ae.message)

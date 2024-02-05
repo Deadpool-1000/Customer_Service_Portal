@@ -1,18 +1,16 @@
 import logging
+from flask import current_app
 from mysql.connector import Error
 
-from src.DBUtils.connection.database_connection import DatabaseConnection
-from src.DBUtils.ticket.ticketDAO import TicketDAO
-from src.DBUtils.employee.employeedao import EmployeeDAO
+from src.dbutils.connection.database_connection import DatabaseConnection
+from src.dbutils.ticket.ticketDAO import TicketDAO
+from src.dbutils.employee.employeedao import EmployeeDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
-from src.handlers import CSMConfig
 
-TICKET_DETAIL_FETCH_ERROR_MESSAGE = 'There was some problem getting your data.'
-TRY_AGAIN_LATER = 'There was a problem Please Try again later.'
 
 logger = logging.getLogger('main.ticket_handler')
 
-ALLOWED_STATUSES = [CSMConfig.RAISED, CSMConfig.CLOSED, CSMConfig.IN_PROGRESS]
+ALLOWED_STATUSES = ['raised', 'closed', 'in_progress']
 
 
 class TicketHandler:
@@ -26,17 +24,16 @@ class TicketHandler:
                     # Invalid t_id provided
                     if ticket is None:
                         logger.info(f"Invalid ticket number provided {t_id}")
-                        raise ApplicationError(code=404, message='Invalid ticket id provided')
+                        raise ApplicationError(code=404, message=current_app.config['INVALID_TICKET_NUMBER_ERROR_MESSAGE'])
 
                     # Helpdesk member is assigned
                     if ticket['repr_id'] is not None:
-
                         # get employee details
                         with EmployeeDAO(conn) as e_dao:
                             employee = e_dao.get_employee_details_by_id(ticket['repr_id'])
                             if employee is None:
                                 logger.error("Invalid employee id encountered inside tickets table.")
-                                raise ApplicationError(code=500, message=TRY_AGAIN_LATER)
+                                raise ApplicationError(code=500, message=current_app.config['TRY_AGAIN_LATER'])
                             ticket['helpdesk'] = {
                                 'full_name': employee['full_name'],
                                 'phn_num': employee['phn_num'],
@@ -55,21 +52,21 @@ class TicketHandler:
                     return ticket
         except Error as e:
             logger.error(f'Database error {e} while fetching ticket: {t_id}')
-            raise DataBaseException(TICKET_DETAIL_FETCH_ERROR_MESSAGE)
+            raise DataBaseException(current_app.config['TICKET_DETAIL_FETCH_ERROR_MESSAGE'])
 
     @staticmethod
     def is_allowed_to_view_ticket(ticket, role, identity):
         # Check role and further authorization checks
-        if role != CSMConfig.CUSTOMER and role != CSMConfig.HELPDESK and role != CSMConfig.MANAGER:
+        if role != current_app.config['CUSTOMER'] and role != current_app.config['HELPDESK'] and role != current_app.config['MANAGER']:
             return False
 
         # Check if the customer is the creator of the ticket
-        if role == CSMConfig.CUSTOMER:
+        if role == current_app.config['CUSTOMER']:
             if ticket['c_id'] != identity:
                 return False
 
         # In case it is a helpdesk member check if the ticket is related to his/her department
-        elif role == CSMConfig.HELPDESK:
+        elif role == current_app.config['HELPDESK']:
             dept_id = TicketHandler.get_dept_from_e_id(identity)
             if ticket['d_id'] != dept_id:
                 return False
@@ -78,15 +75,15 @@ class TicketHandler:
 
     @classmethod
     def get_tickets_by_identity_and_role(cls, role, identity, status):
-        if role == CSMConfig.CUSTOMER:
+        if role == current_app.config['CUSTOMER']:
             tickets = cls.get_tickets_by_c_id(identity, status)
             return tickets
 
-        elif role == CSMConfig.HELPDESK:
+        elif role == current_app.config['HELPDESK']:
             tickets = cls.get_tickets_by_e_id(identity, status)
             return tickets
 
-        elif role == CSMConfig.MANAGER:
+        elif role == current_app.config['MANAGER']:
             tickets = cls.get_all_tickets(status)
             return tickets
 

@@ -1,9 +1,10 @@
 import logging
+from flask import current_app
 from flask_smorest import abort
 
 from src.handlers.ticket.ticket_handler import TicketHandler
 from src.utils.exceptions import DataBaseException, ApplicationError
-from src.handlers import CSMConfig
+
 
 DEFAULT_HELPDESK_MESSAGE = 'We will get back to you soon 🙂.'
 
@@ -19,7 +20,7 @@ class TicketController:
 
             if not is_allowed:
                 logger.info(f"User with role {role} and identity {identity} tried to access a protected resource for which user is unauthorized.")
-                abort(403, message=CSMConfig.UNAUTHORIZED_ERROR_MESSAGE)
+                abort(403, message=current_app.config['UNAUTHORIZED_ERROR_MESSAGE'])
 
             return cls.ticket_detailed_view(ticket)
 

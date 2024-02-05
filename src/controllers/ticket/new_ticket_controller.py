@@ -2,7 +2,6 @@ from flask_smorest import abort
 
 from src.handlers.ticket.new_ticket_handler import NewTicketHandler
 from src.utils.exceptions import DataBaseException, ApplicationError
-from src.handlers import CSMConfig
 
 
 DEFAULT_MESSAGE_FROM_HELPDESK = 'We will get back to you soon 🙂.'
@@ -29,8 +28,8 @@ class NewTicketController:
                 "created_on": str(new_ticket['created_on'])
             }
 
-        except DataBaseException:
-            abort(500, message=CSMConfig.CREATE_TICKET_ERROR_MESSAGE)
+        except DataBaseException as db:
+            abort(500, message=str(db))
 
         except ApplicationError as ae:
             abort(400, message=ae.message)

@@ -1,6 +1,6 @@
+from flask import current_app
 import logging
 
-from src.DBUtils.config.queries_config_loader import QueriesConfig
 
 logger = logging.getLogger('main.customer_dao')
 
@@ -11,7 +11,7 @@ class CustomerDAO:
     def __init__(self, conn):
         self.cur = conn.cursor(dictionary=True)
         if self.singleton != 0:
-            self.cur.execute(QueriesConfig.CREATE_TABLE_CUST_DETAILS)
+            self.cur.execute(current_app.config['CREATE_TABLE_CUST_DETAILS'])
             self.singleton -= 1
 
     def __enter__(self):
@@ -23,4 +23,4 @@ class CustomerDAO:
         self.cur.close()
 
     def add_customer_details(self, cust_id, fullname, phn_num, address):
-        self.cur.execute(QueriesConfig.INSERT_INTO_CUST_DETAILS, (cust_id, fullname, phn_num, address))
+        self.cur.execute(current_app.config['INSERT_INTO_CUST_DETAILS'], (cust_id, fullname, phn_num, address))

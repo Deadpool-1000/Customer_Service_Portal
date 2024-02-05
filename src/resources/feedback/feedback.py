@@ -28,4 +28,4 @@ class Feedback(MethodView):
         identity = get_jwt_identity()
         role = get_jwt()['role']
         feedback = FeedbackController.get_feedback(identity, role, ticket_id)
-        return feedback
+        return feedback, 200

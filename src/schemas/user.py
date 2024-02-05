@@ -1,12 +1,10 @@
 from marshmallow import Schema, fields, validate
-
-INVALID_EMAIL_MESSAGE = "Not a valid email address"
-PWD_REGEX = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+from flask import current_app
 
 
 class AuthSchema(Schema):
-    email = fields.Str(required=True, validate=validate.Email(error=INVALID_EMAIL_MESSAGE))
-    password = fields.Str(required=True, validate=validate.Regexp(regex=PWD_REGEX))
+    email = fields.Str(required=True, validate=validate.Email(error=current_app.config['INVALID_EMAIL_ERROR_MESSAGE']))
+    password = fields.Str(required=True, validate=validate.Regexp(regex=rf"{current_app.config['PWD_REGEXP']}", error=current_app.config['WEAK_PASSWORD_ERROR_MESSAGE']))
 
 
 class TokenSchema(Schema):
@@ -20,7 +18,7 @@ class UserSignupSchema(AuthSchema):
 
 
 class UserSchema(Schema):
-    email = fields.Str(required=True, validate=validate.Email(error=INVALID_EMAIL_MESSAGE))
+    email = fields.Str(required=True, validate=validate.Email(error=current_app.config['INVALID_EMAIL_ERROR_MESSAGE']))
     full_name = fields.Str(required=True)
     phn_num = fields.Str(required=True)
     address = fields.Str(required=True)

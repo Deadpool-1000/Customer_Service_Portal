@@ -1,0 +1,72 @@
+EMP_AUTH: emp_auth
+CUST_AUTH: cust_auth
+PLEASE_TRY_AGAIN: Please try again later.
+
+HELPDESK : batman
+MANAGER : superman
+CUSTOMER: npc
+
+IN_PROGRESS : "in_progress"
+RAISED : "raised"
+CLOSED : "closed"
+
+
+# ticket
+INVALID_TICKET_NUMBER_ERROR_MESSAGE: "Invalid Ticket Identification Number provided."
+CREATE_TICKET_ERROR_MESSAGE : "There was some problem while creating the ticket. Please try again later"
+INVALID_DEPARTMENT_ERROR_MESSAGE : "Please provide valid department information."
+
+TICKET_DETAIL_FETCH_ERROR_MESSAGE: "There was some problem getting your data."
+TRY_AGAIN_LATER: "There was some problem. Please try again later."
+
+ALREADY_RESOLVED_OR_CLOSED: "This ticket cannot be resolve as either it is already resolved or closed."
+RESOLVE_TICKET_ERROR_MESSAGE: "There was some problem resolving the ticket. Please try again later."
+ALREADY_CLOSED_OR_RAISED: "This ticket cannot be closed as either it is already closed or still in raised condition."
+CLOSE_TICKET_ERROR_MESSAGE: "There was some problem closing the ticket. Please try again later."
+
+# customer signup controller
+REGISTER_SUCCESS_MESSAGE: "Successfully registered"
+
+# logout controller
+LOGOUT_SUCCESS_MESSAGE: "Logout Successful"
+
+# feedback controller
+FEEDBACK_REGISTERED_SUCCESS: "Feedback Registered successfully"
+
+UNAUTHORIZED_ERROR_MESSAGE : "You are not authorized to view this resource."
+
+# message controller
+MESSAGE_UPDATE_SUCCESS_MESSAGE : "Message Updated Successfully."
+
+DETAILED_TICKET_ERROR_MESSAGE : "There was some problem getting your ticket. Please try again later."
+
+#ticket operation controller
+RESOLVED_SUCCESS_MESSAGE : "Resolved Successfully."
+RESOLVED_ERROR_MESSAGE : "There was some problem resolving the ticket. Please try again later."
+CLOSED_SUCCESS_MESSAGE : "Closed Successfully."
+CLOSED_ERROR_MESSAGE : "There was some problem closing the ticket. Please try again later."
+
+SIGNUP_ERROR_MESSAGE: "There was some problem signing up. Please try again later."
+ALREADY_EXIST_MESSAGE: "Email taken. Please try again later."
+EMAIL_TAKEN_MESSAGE: "Email Already in use. Please try again with a new email."
+
+# login handler
+LOGIN_ERROR_MESSAGE : "There was some problem while logging you in."
+INVALID_USERNAME_OR_PASSWORD_MESSAGE: "Invalid Username or password."
+
+# feedback handler
+TICKET_NOT_CLOSED_MESSAGE: "The ticket is not closed. So feedback cannot be registered."
+FEEDBACK_FETCH_ERROR_MESSAGE: "There was some problem while getting the feedback."
+FEEDBACK_REGISTER_ERROR_MESSAGE: "There was some problem while registering the feedback."
+NO_FEEDBACK_ERROR_MESSAGE: "No message for this ticket."
+
+# message handler
+CANNOT_GIVE_MESSAGE_FOR_TICKET_MESSAGE: "You cannot give message for this ticket."
+UPDATE_MESSAGE_ERROR_MESSAGE: "There was some problem updating your message."
+NO_MESSAGE_FOUND_MESSAGE: "There is no message for the ticket."
+FETCH_MESSAGE_ERROR_MESSAGE: "There was some problem getting your message."
+
+# Marshmallow validation messages
+PWD_REGEXP: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+INVALID_EMAIL_ERROR_MESSAGE: "Not a valid email address."
+WEAK_PASSWORD_ERROR_MESSAGE: "Weak password. Ensure that password is at least 8 characters long, contains one capital letter, and one special character."
