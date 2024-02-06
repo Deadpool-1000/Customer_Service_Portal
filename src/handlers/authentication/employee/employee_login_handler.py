@@ -1,15 +1,12 @@
-import logging
 import hashlib
+
 from flask import current_app
-from mysql.connector import Error
 from flask_jwt_extended import create_access_token
+from mysql.connector import Error
 
-from src.dbutils.connection.database_connection import DatabaseConnection
 from src.dbutils.auth.authdao import AuthDAO
+from src.dbutils.connection.database_connection import DatabaseConnection
 from src.utils.exceptions.exceptions import DataBaseException, ApplicationError
-
-
-logger = logging.getLogger('main.employee_login_handler')
 
 
 class EmployeeLoginHandler:
@@ -21,12 +18,17 @@ class EmployeeLoginHandler:
                     employee = a_dao.find_user(email, current_app.config['EMP_AUTH'])
 
                     if employee is None:
-                        raise ApplicationError(code=401, message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
+                        current_app.logger.error(f"Employee Login: Invalid email {email} provided.")
+                        raise ApplicationError(code=401,
+                                               message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
 
                     if employee['password'] != hashlib.sha256(password.encode()).hexdigest():
-                        raise ApplicationError(code=401, message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
+                        current_app.logger.error(f"Employee with email {email} provided wrong password.")
+                        raise ApplicationError(code=401,
+                                               message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
 
-                logger.info(f"Employee with e_id:{employee['e_id']}, role:{employee['designation']} logged in")
+                current_app.logger.info(
+                    f"Employee with e_id:{employee['e_id']}, role:{employee['designation']} logged in")
 
             return {
                 'e_id': employee['e_id'],
@@ -34,7 +36,7 @@ class EmployeeLoginHandler:
             }
 
         except Error as err:
-            logger.error(f'Employee login: {err}')
+            current_app.logger.error(f'Employee login: {err}')
             raise DataBaseException(current_app.config['LOGIN_ERROR_MESSAGE'])
 
     @staticmethod

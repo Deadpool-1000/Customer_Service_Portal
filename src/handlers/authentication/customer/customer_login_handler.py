@@ -1,15 +1,12 @@
-import logging
 import hashlib
+
 from flask import current_app
 from flask_jwt_extended import create_access_token
 from mysql.connector import Error
 
-from src.dbutils.connection.database_connection import DatabaseConnection
 from src.dbutils.auth.authdao import AuthDAO
+from src.dbutils.connection.database_connection import DatabaseConnection
 from src.utils.exceptions.exceptions import DataBaseException, ApplicationError
-
-
-logger = logging.getLogger('main.login')
 
 
 class CustomerLoginHandler:
@@ -22,18 +19,22 @@ class CustomerLoginHandler:
 
                     # Invalid email
                     if customer is None:
-                        raise ApplicationError(code=401, message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
+                        current_app.logger.error(f"Customer Login: Invalid email {email} provided.")
+                        raise ApplicationError(code=401,
+                                               message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
 
                     # Invalid password
                     if customer['password'] != hashlib.sha256(password.encode()).hexdigest():
-                        raise ApplicationError(code=401, message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
+                        current_app.logger.error(f"Customer with email {email} provided wrong password.")
+                        raise ApplicationError(code=401,
+                                               message=current_app.config['INVALID_USERNAME_OR_PASSWORD_MESSAGE'])
 
-                    logger.info(f"Customer with c_id:{customer['c_id']} logged in")
+                    current_app.logger.info(f"Customer with c_id:{customer['c_id']} logged in")
 
             return customer['c_id']
 
         except Error as err:
-            logger.error(f'Customer login: MySQL error {err}')
+            current_app.logger.error(f'Customer login: {err}')
             raise DataBaseException(current_app.config['LOGIN_ERROR_MESSAGE'])
 
     @staticmethod

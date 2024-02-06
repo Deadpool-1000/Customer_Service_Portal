@@ -1,6 +1,6 @@
-from flask import current_app
 import logging
 
+from flask import current_app
 
 logger = logging.getLogger('main.employee_dao')
 

@@ -5,4 +5,3 @@ class LogoutHandler:
     @staticmethod
     def logout(jti):
         BLOCKLIST.add(jti)
-

@@ -1,10 +1,12 @@
-from marshmallow import Schema, fields, validate
 from flask import current_app
+from marshmallow import Schema, fields, validate
 
 
 class AuthSchema(Schema):
     email = fields.Str(required=True, validate=validate.Email(error=current_app.config['INVALID_EMAIL_ERROR_MESSAGE']))
-    password = fields.Str(required=True, validate=validate.Regexp(regex=rf"{current_app.config['PWD_REGEXP']}", error=current_app.config['WEAK_PASSWORD_ERROR_MESSAGE']))
+    password = fields.Str(required=True, validate=validate.Regexp(regex=rf"{current_app.config['PWD_REGEXP']}",
+                                                                  error=current_app.config[
+                                                                      'WEAK_PASSWORD_ERROR_MESSAGE']))
 
 
 class TokenSchema(Schema):

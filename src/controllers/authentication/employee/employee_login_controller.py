@@ -1,6 +1,10 @@
+from flask import current_app
 from flask_smorest import abort
+
 from src.handlers.authentication.employee.employee_login_handler import EmployeeLoginHandler
 from src.utils.exceptions import ApplicationError, DataBaseException
+
+logger = current_app.logger
 
 
 class EmployeeLoginController:
@@ -11,7 +15,7 @@ class EmployeeLoginController:
         try:
             employee_auth_details = EmployeeLoginHandler.login_employee(email, password)
             token = EmployeeLoginHandler.generate_token(employee_auth_details)
-
+            logger.info(f"Employee with email {email} logged in.")
             return {
                 'token': token
             }

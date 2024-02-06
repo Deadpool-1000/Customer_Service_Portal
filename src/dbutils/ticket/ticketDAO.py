@@ -1,8 +1,8 @@
 import logging
-import shortuuid
-from flask import current_app
 from datetime import datetime
 
+import shortuuid
+from flask import current_app
 
 logger = logging.getLogger('main.ticket_dao')
 
@@ -27,7 +27,8 @@ class TicketDAO:
 
     def create_new_ticket(self, d_id, c_id, title, description):
         t_id = shortuuid.ShortUUID().random(5)
-        self.cur.execute(current_app.config['INSERT_INTO_TICKETS_TABLE'], (t_id, d_id, c_id, title, description, current_app.config['RAISED'], datetime.now()))
+        self.cur.execute(current_app.config['INSERT_INTO_TICKETS_TABLE'],
+                         (t_id, d_id, c_id, title, description, current_app.config['RAISED'], datetime.now()))
         logger.info(f'New ticket raised with ticket_id:{t_id}, title:{title} by customer:{c_id}')
         return t_id
 

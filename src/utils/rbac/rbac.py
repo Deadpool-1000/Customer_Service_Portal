@@ -1,8 +1,8 @@
-from flask_jwt_extended import get_jwt, verify_jwt_in_request
-from flask_smorest import abort
-from flask import current_app
 from functools import wraps
 
+from flask import current_app
+from flask_jwt_extended import get_jwt, verify_jwt_in_request
+from flask_smorest import abort
 
 CUSTOMER = 'CUSTOMER'
 HELPDESK = 'HELPDESK'
@@ -11,6 +11,7 @@ MANAGER = 'MANAGER'
 
 def access_required(roles_allowed):
     """Roles based access control"""
+
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -33,6 +34,7 @@ def access_required(roles_allowed):
                 return func(*args, **kwargs)
             else:
                 abort(403, message=current_app.config['UNAUTHORIZED_ERROR_MESSAGE'])
+
         return wrapper
 
     return decorator

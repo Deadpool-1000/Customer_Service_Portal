@@ -1,12 +1,12 @@
 import logging
+
 from flask import current_app
 from mysql.connector import Error
 
-from src.dbutils.connection.database_connection import DatabaseConnection
 from src.dbutils.auth.authdao import AuthDAO
+from src.dbutils.connection.database_connection import DatabaseConnection
 from src.dbutils.customer.customerdao import CustomerDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
-
 
 logger = logging.getLogger('main.customer_signup_handler')
 
@@ -17,9 +17,9 @@ class CustomerSignupHandler:
         try:
             with DatabaseConnection() as conn:
                 with AuthDAO(conn) as a_dao:
-
                     already_exists = a_dao.find_user(email, current_app.config['CUST_AUTH'])
                     if already_exists:
+                        current_app.logger.error(f'Customer tried to signup with an already taken email {email}.')
                         raise ApplicationError(code=409, message=current_app.config['EMAIL_TAKEN_MESSAGE'])
 
                     # Add customer to auth table

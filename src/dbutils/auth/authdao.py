@@ -1,7 +1,8 @@
-from flask import current_app
 import hashlib
 import logging
+
 import shortuuid
+from flask import current_app
 
 logger = logging.getLogger("main.auth_dao")
 

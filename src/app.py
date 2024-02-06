@@ -1,16 +1,13 @@
-import logging
 import yaml
-from flask import Flask, jsonify
-from flask_smorest import Api
-from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
+from flask import Flask, jsonify, request
+from flask_jwt_extended import JWTManager
+from flask_smorest import Api
 
 from src.handlers.authentication.logout.BLOCKLIST import BLOCKLIST
+from src.utils.utils import RequestFormatter, generate_new_request_id
 
 LOG_FILE_PATH = './utils/logs/logs.log'
-logging.basicConfig(format="%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
-                    datefmt="%d-%m-%Y %H:%M:%S", level=logging.DEBUG, filename=LOG_FILE_PATH)
-logger = logging.getLogger("main")
 
 
 # Application Factory
@@ -19,6 +16,7 @@ def create_app():
     load_dotenv()
     app = Flask(__name__)
 
+    configure_logging(app)
     # Load swagger, flask app and custom configurations
     app.config.from_object('config.Config')
     app.config.from_file('config_files/csm.yml', load=yaml.safe_load, text=False)
@@ -36,8 +34,16 @@ def create_app():
         from src.resources import ticket_blueprint
         from src.resources import feedback_blueprint
         from src.resources import message_blueprint
-
         register_blueprints(api, user_blueprint, ticket_blueprint, feedback_blueprint, message_blueprint)
+
+    @app.before_request
+    def add_request_id():
+        if 'X-Request-Id' in request.environ:
+            request_id = request.headers.get('X-Request-Id')
+        else:
+            request_id = generate_new_request_id()
+        request.request_id = request_id
+        request.environ['X-Request-Id'] = request_id
 
     return app
 
@@ -56,6 +62,31 @@ def register_jwt_error_handlers(app, jwt):
     @jwt.revoked_token_loader
     def revoked_token_loader(jwt_header, jwt_payload):
         """Called every time a revoked JWT token is used"""
+        app.logger.error(f"Identity {jwt_payload['sub']} tried to use a revoked token.")
         return jsonify({
             'message': app.config['REVOKED_TOKEN_MESSAGE']
         }), 401
+
+
+def configure_logging(app):
+    import logging
+    from flask.logging import default_handler
+    from logging.handlers import RotatingFileHandler
+
+    # Deactivate the default flask logger so that log messages don't get duplicated
+    app.logger.removeHandler(default_handler)
+
+    # Create a file handler object
+    file_handler = RotatingFileHandler(LOG_FILE_PATH, maxBytes=16384, backupCount=20)
+
+    # Set the logging level of the file handler object so that it logs INFO and up
+    file_handler.setLevel(logging.DEBUG)
+
+    # Create a file formatter object
+    file_formatter = RequestFormatter('%(asctime)s %(levelname)s %(request_id)s : %(message)s [in %(filename)s: %(lineno)d]')
+
+    # Apply the file formatter object to the file handler object
+    file_handler.setFormatter(file_formatter)
+
+    # Add file handler object to the logger
+    app.logger.addHandler(file_handler)

@@ -1,87 +1,19 @@
-05-02-2024 17:12:53 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-05-02-2024 17:12:53 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
-05-02-2024 17:12:53 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:12:54 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:12:54 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:12:59 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:12:59] "[31m[1mGET /tickets/VcSCS HTTP/1.1[0m" 401 -
-05-02-2024 17:13:06 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:13:06] "[31m[1mPOST /login/employee HTTP/1.1[0m" 422 -
-05-02-2024 17:13:08 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:13:08] "[31m[1mGET /tickets/VcSCS HTTP/1.1[0m" 422 -
-05-02-2024 17:13:20 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:13:20] "[31m[1mPOST /signup HTTP/1.1[0m" 422 -
-05-02-2024 17:14:40 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\resources\\users\\user.py', reloading
-05-02-2024 17:14:40 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:14:40 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:14:40 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:15:01 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:15:01] "[31m[1mPOST /signup HTTP/1.1[0m" 422 -
-05-02-2024 17:16:20 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\user.py', reloading
-05-02-2024 17:16:20 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:16:22 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-05-02-2024 17:16:22 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
-05-02-2024 17:16:22 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:16:23 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:16:23 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:16:24 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:16:24] "[31m[1mPOST /signup HTTP/1.1[0m" 422 -
-05-02-2024 17:16:45 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-05-02-2024 17:16:45 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
-05-02-2024 17:16:45 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:16:46 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:16:46 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:17:01 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\user.py', reloading
-05-02-2024 17:17:01 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:17:02 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:17:02 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:17:06 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:17:06] "[31m[1mPOST /signup HTTP/1.1[0m" 422 -
-05-02-2024 17:17:55 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:17:55] "[31m[1mPOST /signup HTTP/1.1[0m" 422 -
-05-02-2024 17:18:58 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\user.py', reloading
-05-02-2024 17:18:58 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:18:59 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:18:59 INFO     [_internal.py:96]  * Debugger PIN: 123-641-990
-05-02-2024 17:19:23 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\user.py', reloading
-05-02-2024 17:19:23 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:19:25 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-05-02-2024 17:19:25 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
-05-02-2024 17:19:25 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:19:26 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:19:26 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:19:28 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:19:28] "[31m[1mPOST /signup HTTP/1.1[0m" 422 -
-05-02-2024 17:19:40 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\user.py', reloading
-05-02-2024 17:19:40 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:19:41 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:19:41 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:20:29 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-05-02-2024 17:20:29 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
-05-02-2024 17:20:29 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:20:30 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:20:30 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:20:31 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:20:31] "[31m[1mPOST /signup HTTP/1.1[0m" 409 -
-05-02-2024 17:21:53 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\user.py', reloading
-05-02-2024 17:21:53 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:21:54 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:21:54 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:23:50 INFO     [_internal.py:96] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-05-02-2024 17:23:50 INFO     [_internal.py:96] [33mPress CTRL+C to quit[0m
-05-02-2024 17:23:50 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:23:50 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:23:50 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:24:04 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:24:04] "GET /swagger-ui HTTP/1.1" 200 -
-05-02-2024 17:24:05 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:24:05] "GET /api-spec.json HTTP/1.1" 200 -
-05-02-2024 17:24:05 INFO     [_internal.py:96] 127.0.0.1 - - [05/Feb/2024 17:24:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-05-02-2024 17:26:13 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\error.py', reloading
-05-02-2024 17:26:13 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:26:14 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:26:14 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:27:07 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\error.py', reloading
-05-02-2024 17:27:07 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:27:08 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:27:08 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:31:42 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\error.py', reloading
-05-02-2024 17:31:42 INFO     [_internal.py:96]  * Restarting with stat
-05-02-2024 17:31:44 WARNING  [_internal.py:96]  * Debugger is active!
-05-02-2024 17:31:44 INFO     [_internal.py:96]  * Debugger PIN: 436-338-038
-05-02-2024 17:35:26 INFO     [_internal.py:96]  * Detected change in 'C:\\Users\\mbhatnagar\\PycharmProjects\\CSM\\src\\schemas\\error.py', reloading
-05-02-2024 17:35:26 INFO     [_internal.py:96]  * Restarting with stat
+2024-02-06 15:54:57,710 DEBUG EK8A3n4vj6 : POST /login/employee [in user.py: 31]
+2024-02-06 15:54:57,785 INFO EK8A3n4vj6 : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 25]
+2024-02-06 15:55:25,242 DEBUG BsAkVkn3hg : POST /login/employee [in user.py: 31]
+2024-02-06 15:55:25,314 INFO BsAkVkn3hg : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 25]
+2024-02-06 15:55:55,597 DEBUG 3XfkS64d5b : POST /login/employee [in user.py: 31]
+2024-02-06 15:55:55,670 INFO 3XfkS64d5b : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 25]
+2024-02-06 15:58:28,418 DEBUG HD2qZR6RAo : POST /login/employee [in user.py: 31]
+2024-02-06 15:58:28,502 INFO HD2qZR6RAo : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 25]
+2024-02-06 16:36:27,496 DEBUG 63vJvpKSfK : POST /login/employee [in user.py: 31]
+2024-02-06 16:36:27,575 INFO 63vJvpKSfK : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 27]
+2024-02-06 16:36:35,413 DEBUG 3vb7m6SCSh : GET /tickets [in ticket.py: 21]
+2024-02-06 16:36:43,711 DEBUG AhUQ9uop3T : GET /tickets/VcSCS [in ticket.py: 44]
+2024-02-06 16:36:43,747 INFO AhUQ9uop3T : Ticket detail: Ticket VcSCS fetched. [in ticket_handler.py: 53]
+2024-02-06 17:03:39,271 DEBUG GmqwnfrgCa : POST /login/employee [in user.py: 31]
+2024-02-06 17:03:39,341 INFO GmqwnfrgCa : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 27]
+2024-02-06 17:03:39,342 INFO GmqwnfrgCa : Employee with email micheal@manager.com logged in. [in employee_login_controller.py: 17]
+2024-02-06 17:03:43,133 DEBUG 3D8NLxQvqE : GET /tickets/VcSCS [in ticket.py: 44]
+2024-02-06 17:03:43,151 INFO 3D8NLxQvqE : Ticket detail: Ticket VcSCS fetched. [in ticket_handler.py: 53]
+2024-02-06 17:03:43,151 INFO 3D8NLxQvqE : Identity LLYWi fetching detailed view of ticket VcSCS [in ticket_controller.py: 25]

@@ -1,12 +1,12 @@
 import logging
+
 from flask import current_app
 from mysql.connector import Error
 
 from src.dbutils.connection.database_connection import DatabaseConnection
-from src.dbutils.ticket.ticketDAO import TicketDAO
 from src.dbutils.employee.employeedao import EmployeeDAO
+from src.dbutils.ticket.ticketDAO import TicketDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
-
 
 logger = logging.getLogger('main.ticket_handler')
 
@@ -23,17 +23,20 @@ class TicketHandler:
 
                     # Invalid t_id provided
                     if ticket is None:
-                        logger.info(f"Invalid ticket number provided {t_id}")
-                        raise ApplicationError(code=404, message=current_app.config['INVALID_TICKET_NUMBER_ERROR_MESSAGE'])
+                        current_app.logger.info(f"Ticket detail: Invalid ticket number provided {t_id}")
+                        raise ApplicationError(code=404,
+                                               message=current_app.config['INVALID_TICKET_NUMBER_ERROR_MESSAGE'])
 
                     # Helpdesk member is assigned
                     if ticket['repr_id'] is not None:
                         # get employee details
                         with EmployeeDAO(conn) as e_dao:
                             employee = e_dao.get_employee_details_by_id(ticket['repr_id'])
+
                             if employee is None:
-                                logger.error("Invalid employee id encountered inside tickets table.")
+                                current_app.logger.info(f"Ticket detail: Invalid repr id found in database.")
                                 raise ApplicationError(code=500, message=current_app.config['TRY_AGAIN_LATER'])
+
                             ticket['helpdesk'] = {
                                 'full_name': employee['full_name'],
                                 'phn_num': employee['phn_num'],
@@ -48,16 +51,17 @@ class TicketHandler:
                         }
                     else:
                         ticket['helpdesk'] = None
-
+                    current_app.logger.info(f"Ticket detail: Ticket {t_id} fetched.")
                     return ticket
         except Error as e:
-            logger.error(f'Database error {e} while fetching ticket: {t_id}')
+            logger.error(f'Ticket detail: Database error {e} while fetching ticket: {t_id}')
             raise DataBaseException(current_app.config['TICKET_DETAIL_FETCH_ERROR_MESSAGE'])
 
     @staticmethod
     def is_allowed_to_view_ticket(ticket, role, identity):
         # Check role and further authorization checks
-        if role != current_app.config['CUSTOMER'] and role != current_app.config['HELPDESK'] and role != current_app.config['MANAGER']:
+        if role != current_app.config['CUSTOMER'] and role != current_app.config['HELPDESK'] and role != \
+                current_app.config['MANAGER']:
             return False
 
         # Check if the customer is the creator of the ticket

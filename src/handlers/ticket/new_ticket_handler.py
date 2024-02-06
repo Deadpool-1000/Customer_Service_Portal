@@ -1,15 +1,11 @@
-import logging
 from flask import current_app
 from mysql.connector import Error
 
 from src.dbutils.connection import DatabaseConnection
-from src.dbutils.ticket.ticketDAO import TicketDAO
-from src.utils.exceptions import DataBaseException
 from src.dbutils.department.departmentDAO import DepartmentDAO
+from src.dbutils.ticket.ticketDAO import TicketDAO
 from src.utils.exceptions import ApplicationError
-
-
-logger = logging.getLogger('main.new_ticket_handler')
+from src.utils.exceptions import DataBaseException
 
 
 class NewTicketHandler:
@@ -21,6 +17,7 @@ class NewTicketHandler:
                 is_dept_id_valid = cls.verify_dept_id(conn, d_id)
 
                 if not is_dept_id_valid:
+                    current_app.logger.error(f"Create Ticket: Invalid dept identification {d_id} provided.")
                     raise ApplicationError(code=400, message=current_app.config['INVALID_DEPARTMENT_ERROR_MESSAGE'])
 
                 with TicketDAO(conn) as t_dao:
@@ -28,7 +25,7 @@ class NewTicketHandler:
                     return ticket_id
 
         except Error as e:
-            logger.error(f'Database error {e} while creating new ticket.')
+            current_app.logger.error(f'Create Ticket: Database error {e} while creating new ticket.')
             raise DataBaseException(current_app.config['CREATE_TICKET_ERROR_MESSAGE'])
 
     @staticmethod

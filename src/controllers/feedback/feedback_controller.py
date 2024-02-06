@@ -4,6 +4,8 @@ from flask_smorest import abort
 from src.handlers.feedback.feedback_handler import FeedbackHandler
 from src.utils.exceptions import ApplicationError, DataBaseException
 
+logger = current_app.logger
+
 
 class FeedbackController:
     @staticmethod
@@ -13,7 +15,7 @@ class FeedbackController:
             description = feedback_data['description']
 
             FeedbackHandler.add_feedback_for_ticket(c_id, stars, description, t_id)
-
+            logger.info(f"Customer {c_id} added feedback for ticket {t_id}")
             return {
                 "message": current_app.config['FEEDBACK_REGISTERED_SUCCESS']
             }
@@ -29,7 +31,11 @@ class FeedbackController:
         try:
             is_allowed = FeedbackHandler.access_allowed(identity, role, t_id)
             if not is_allowed:
+                logger.error(
+                    f"Identity {identity} tried to access feedback for ticket {t_id} for which they are not allowed")
                 abort(401, message=current_app.config['UNAUTHORIZED_ERROR_MESSAGE'])
+
+            logger.info(f"Identity {identity} fetched feedback for ticket {t_id}")
 
             feedback = FeedbackHandler.get_feedback_for_ticket(t_id)
             return feedback

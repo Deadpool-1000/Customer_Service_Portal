@@ -2,7 +2,6 @@ import shortuuid
 from flask import current_app
 
 
-
 class FeedbackDAO:
     singleton = 1
 

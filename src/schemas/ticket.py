@@ -62,4 +62,3 @@ class MessageFromHelpdeskSchema(Schema):
 
 class MessageFromManager(Schema):
     message_from_manager = fields.Str(required=True)
-

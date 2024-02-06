@@ -1,4 +1,3 @@
-import logging
 from flask import current_app
 from mysql.connector import Error
 
@@ -6,9 +5,6 @@ from src.dbutils.connection import DatabaseConnection
 from src.dbutils.customer import FeedbackDAO
 from src.dbutils.ticket import TicketDAO
 from src.utils.exceptions import ApplicationError, DataBaseException
-
-
-logger = logging.getLogger('main.feedback_handler')
 
 
 class FeedbackHandler:
@@ -19,19 +15,25 @@ class FeedbackHandler:
                 with TicketDAO(conn) as t_dao:
                     ticket = t_dao.get_ticket_by_tid(t_id)
                     if ticket is None:
-                        raise ApplicationError(code=404, message=current_app.config['INVALID_TICKET_NUMBER_ERROR_MESSAGE'])
+                        current_app.logger.error(f"Add Feedback: Invalid Ticket Identification number {t_id}")
+                        raise ApplicationError(code=404,
+                                               message=current_app.config['INVALID_TICKET_NUMBER_ERROR_MESSAGE'])
 
                     if ticket['c_id'] != c_id:
+                        current_app.logger.error(
+                            f"Add Feedback: Customer {c_id}, tried to access ticket {t_id} not belonging to him/her.")
                         raise ApplicationError(code=403, message=current_app.config['UNAUTHORIZED_ERROR_MESSAGE'])
 
                     if ticket['t_status'] != current_app.config['CLOSED']:
+                        current_app.logger.error(
+                            f"Add Feedback: Customer {c_id}, tried to add feedback for an unclosed ticket {t_id}")
                         raise ApplicationError(code=400, message=current_app.config['TICKET_NOT_CLOSED_MESSAGE'])
 
                 with FeedbackDAO(conn) as f_dao:
                     f_dao.add_feedback(stars, description, t_id)
 
         except Error as e:
-            logger.error(f'Error while adding feedback for ticket {t_id}. Error {e}')
+            current_app.logger.error(f'Error while adding feedback for ticket {t_id}. Error {e}')
             raise DataBaseException(current_app.config['FEEDBACK_REGISTER_ERROR_MESSAGE'])
 
     @staticmethod
@@ -46,7 +48,7 @@ class FeedbackHandler:
 
             return feedback
         except Error as e:
-            logger.error(f'Error while getting feedback for ticket:{t_id}. Error {e}')
+            current_app.logger.error(f'Error while getting feedback for ticket:{t_id}. Error {e}')
             raise DataBaseException(current_app.config['FEEDBACK_FETCH_ERROR_MESSAGE'])
 
     @staticmethod

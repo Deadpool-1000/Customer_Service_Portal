@@ -1,6 +1,7 @@
+from datetime import datetime
+
 import shortuuid
 from flask import current_app
-from datetime import datetime
 
 
 class MessageDAO:
