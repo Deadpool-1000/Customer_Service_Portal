@@ -11,6 +11,11 @@ from src.utils.exceptions import DataBaseException
 class NewTicketHandler:
     @classmethod
     def create_ticket(cls, d_id, c_id, title, description):
+        """Creates a new ticket.
+            Expects department identification number,
+            customer identification number, title for a ticket,
+            description of the issue.
+        """
         try:
             with DatabaseConnection() as conn:
                 # Checking whether department id is valid or not
@@ -30,6 +35,7 @@ class NewTicketHandler:
 
     @staticmethod
     def get_ticket_by_id(ticket_id):
+        """Get ticket based on ticket identification number"""
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
                 ticket = t_dao.get_ticket_by_tid(ticket_id)
@@ -37,6 +43,7 @@ class NewTicketHandler:
 
     @staticmethod
     def verify_dept_id(conn, dept_id):
+        """Verify department identification number"""
         with DepartmentDAO(conn) as d_dao:
             department = d_dao.get_department_by_id(dept_id)
             return department is not None

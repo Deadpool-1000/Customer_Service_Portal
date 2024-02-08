@@ -14,6 +14,7 @@ logger = logging.getLogger('main.customer_signup_handler')
 class CustomerSignupHandler:
     @staticmethod
     def signup_customer(email, fullname, phn_num, address, password):
+        """Add customer details to database. Also, verifies if the email is already in use."""
         try:
             with DatabaseConnection() as conn:
                 with AuthDAO(conn) as a_dao:

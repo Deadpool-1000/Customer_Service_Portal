@@ -17,6 +17,7 @@ class LoginCustomer(MethodView):
     @blp.arguments(AuthSchema)
     @blp.response(200, TokenSchema)
     def post(self, cust_auth_data):
+        """Login as customer"""
         current_app.logger.debug("POST /login/customer")
         token = CustomerLoginController.login(cust_auth_data)
         return token
@@ -27,6 +28,7 @@ class LoginEmployee(MethodView):
     @blp.response(200, TokenSchema)
     @blp.arguments(AuthSchema)
     def post(self, emp_data):
+        """Login as employee"""
         current_app.logger.debug("POST /login/employee")
         print("request id", request.request_id)
         print(request.environ['X-Request-Id'])
@@ -39,6 +41,7 @@ class SignupCustomer(MethodView):
     @blp.response(201, SuccessSchema)
     @blp.arguments(UserSignupSchema)
     def post(self, cust_data):
+        """Signup as customer"""
         current_app.logger.debug("POST /signup")
         print("Request headers", request.request_id)
         success_message = CustomerSignupController.signup(cust_data)
@@ -49,6 +52,7 @@ class SignupCustomer(MethodView):
 class Logout(MethodView):
     @jwt_required()
     def post(self):
+        """Logout of the application"""
         current_app.logger.debug("POST /logout")
         token = get_jwt()
         success_message = LogoutController.logout(token)

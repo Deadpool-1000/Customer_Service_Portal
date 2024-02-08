@@ -17,6 +17,7 @@ class Message(MethodView):
          'required': 'true'}])
     @access_required(['HELPDESK', 'MANAGER'])
     def get(self, ticket_id):
+        """Get message from manager for a particular ticket"""
         current_app.logger.debug(f"GET /tickets/{ticket_id}/message")
         role = get_jwt()['role']
         identity = get_jwt_identity()
@@ -29,6 +30,7 @@ class Message(MethodView):
          'required': 'true'}])
     @access_required(['MANAGER'])
     def put(self, message_data, ticket_id):
+        """"Update message from manager on a particular ticket"""
         current_app.logger.debug(f"PUT /tickets/{ticket_id}/message")
         success_message = MessageController.update_message_from_manager(message_data, ticket_id)
         return success_message

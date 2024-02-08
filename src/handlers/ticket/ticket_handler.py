@@ -16,6 +16,7 @@ ALLOWED_STATUSES = ['raised', 'closed', 'in_progress']
 class TicketHandler:
     @staticmethod
     def ticket_detail(t_id):
+        """Fetches a detailed view for a ticket with identification number t_id."""
         try:
             with DatabaseConnection() as conn:
                 with TicketDAO(conn) as t_dao:
@@ -59,6 +60,7 @@ class TicketHandler:
 
     @staticmethod
     def is_allowed_to_view_ticket(ticket, role, identity):
+        """Check if the user with the give identity and role is allowed to access the ticket"""
         # Check role and further authorization checks
         if role != current_app.config['CUSTOMER'] and role != current_app.config['HELPDESK'] and role != \
                 current_app.config['MANAGER']:
@@ -79,6 +81,11 @@ class TicketHandler:
 
     @classmethod
     def get_tickets_by_identity_and_role(cls, role, identity, status):
+        """Get tickets based of identity and role
+            1. If role == Manager, then all tickets of the system are returned.
+            2. If role == Customer, then tickets that the customer has created is returned
+            3. if role == Helpdesk, then tickets that belong to the helpdesk member's department are returned.
+        """
         if role == current_app.config['CUSTOMER']:
             tickets = cls.get_tickets_by_c_id(identity, status)
             return tickets
@@ -93,6 +100,7 @@ class TicketHandler:
 
     @classmethod
     def get_dept_from_e_id(cls, e_id):
+        """Returns department identification number for helpdesk members employee id"""
         with DatabaseConnection() as conn:
             with EmployeeDAO(conn) as e_dao:
                 emp_dept_detail = e_dao.get_department_by_employee_id(e_id)
@@ -100,6 +108,7 @@ class TicketHandler:
 
     @classmethod
     def get_tickets_by_c_id(cls, c_id, status=None):
+        """Get tickets that customer with c_id has created."""
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
                 if status in ALLOWED_STATUSES:
@@ -110,6 +119,7 @@ class TicketHandler:
 
     @classmethod
     def get_tickets_by_e_id(cls, e_id, status=None):
+        """Get tickets that belong to employee's department"""
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
                 dept_id = cls.get_dept_from_e_id(e_id)
@@ -123,6 +133,7 @@ class TicketHandler:
 
     @staticmethod
     def get_all_tickets(status=None):
+        """Get all tickets that are in the system"""
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
 

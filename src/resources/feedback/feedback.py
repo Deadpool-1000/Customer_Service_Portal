@@ -21,6 +21,7 @@ class Feedback(MethodView):
          'required': 'true'}])
     @access_required(['CUSTOMER'])
     def post(self, feedback_data, ticket_id):
+        """Add feedback for a particular ticket"""
         current_app.logger.debug(f"POST /tickets/{ticket_id}/feedback")
         c_id = get_jwt_identity()
         success_message = FeedbackController.register_feedback(c_id, feedback_data, ticket_id)
@@ -31,6 +32,7 @@ class Feedback(MethodView):
         {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
          'required': 'true'}])
     def get(self, ticket_id):
+        """Get feedback for particular ticket"""
         current_app.logger.debug(f"GET /tickets/{ticket_id}/feedback")
         identity = get_jwt_identity()
         role = get_jwt()['role']

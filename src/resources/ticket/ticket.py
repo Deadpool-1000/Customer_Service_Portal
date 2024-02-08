@@ -20,6 +20,7 @@ class Tickets(MethodView):
          'required': 'true'}])
     @access_required(['CUSTOMER', 'MANAGER', 'HELPDESK'])
     def get(self):
+        """Get all tickets"""
         current_app.logger.debug("GET /tickets")
         identity = get_jwt_identity()
         role = get_jwt()['role']
@@ -34,6 +35,7 @@ class Tickets(MethodView):
     @blp.arguments(TicketRaisingSchema)
     @access_required(['CUSTOMER'])
     def post(self, ticket_data):
+        """Raise a new ticket"""
         current_app.logger.debug("POST /tickets")
         cust_id = get_jwt_identity()
         new_ticket = NewTicketController.create_ticket(ticket_data, c_id=cust_id)
@@ -47,6 +49,7 @@ class TicketDetails(MethodView):
          'required': 'true'}])
     @access_required(['CUSTOMER', 'MANAGER', 'HELPDESK'])
     def get(self, ticket_id):
+        """Get a detailed view for a particular ticket"""
         current_app.logger.debug(f"GET /tickets/{ticket_id}")
         jwt = get_jwt()
         identity = get_jwt_identity()
@@ -60,6 +63,7 @@ class TicketResolve(MethodView):
     @blp.arguments(MessageFromHelpdeskSchema)
     @access_required(['HELPDESK'])
     def put(self, ticket_data, ticket_id):
+        """Resolve a particular ticket"""
         current_app.logger.debug(f"PUT /tickets/{ticket_id}/resolve")
         identity = get_jwt_identity()
         response = TicketOperationController.resolve_ticket(ticket_data, ticket_id, identity)
@@ -71,6 +75,7 @@ class TicketClose(MethodView):
     @blp.arguments(MessageFromHelpdeskSchema)
     @access_required(['HELPDESK'])
     def put(self, ticket_data, ticket_id):
+        """Close a particular ticket"""
         current_app.logger.debug(f"PUT /tickets/{ticket_id}/close")
         identity = get_jwt_identity()
         response = TicketOperationController.close_ticket(ticket_data, ticket_id, identity)

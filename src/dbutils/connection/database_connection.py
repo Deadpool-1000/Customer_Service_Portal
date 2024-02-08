@@ -4,7 +4,9 @@ import mysql.connector
 
 
 class DatabaseConnection:
+    """Context manager for maintaining a database connection. On exit, it closes the database connection and commits the changes"""
     def __init__(self):
+        """Initialize a database connection to mysql server"""
         self.conn = mysql.connector.connect(
             host='localhost',
             user=os.getenv('DB_USER'),

@@ -35,20 +35,13 @@ def create_app():
         from src.resources import feedback_blueprint
         from src.resources import message_blueprint
         register_blueprints(api, user_blueprint, ticket_blueprint, feedback_blueprint, message_blueprint)
-
-    @app.before_request
-    def add_request_id():
-        if 'X-Request-Id' in request.environ:
-            request_id = request.headers.get('X-Request-Id')
-        else:
-            request_id = generate_new_request_id()
-        request.request_id = request_id
-        request.environ['X-Request-Id'] = request_id
+        register_before_request_handler(app)
 
     return app
 
 
 def register_blueprints(api, *blueprints):
+    """Register blueprints for every resource"""
     for blueprint in blueprints:
         api.register_blueprint(blueprint)
 
@@ -69,6 +62,7 @@ def register_jwt_error_handlers(app, jwt):
 
 
 def configure_logging(app):
+    """Logging configurations"""
     import logging
     from flask.logging import default_handler
     from logging.handlers import RotatingFileHandler
@@ -90,3 +84,12 @@ def configure_logging(app):
 
     # Add file handler object to the logger
     app.logger.addHandler(file_handler)
+
+
+def register_before_request_handler(app):
+    @app.before_request
+    def add_request_id():
+        """Adds request id to the request object for logging"""
+        request_id = generate_new_request_id()
+        request.request_id = request_id
+

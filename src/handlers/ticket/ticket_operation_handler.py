@@ -49,6 +49,9 @@ class TicketOperationHandler:
 
     @staticmethod
     def close_ticket(t_id, ticket_data, identity):
+        # Verify if the user can edit this ticket
+        # add message to message_from_helpdesk table
+        # change ticket status to closed
         try:
             with DatabaseConnection() as conn:
                 with TicketDAO(conn) as t_dao:
@@ -60,8 +63,7 @@ class TicketOperationHandler:
                                                message=current_app.config['INVALID_TICKET_NUMBER_ERROR_MESSAGE'])
 
                     # Ticket is already closed or in raised condition
-                    if ticket['t_status'] == current_app.config['RAISED'] or ticket['t_status'] == current_app.config[
-                        'CLOSED']:
+                    if ticket['t_status'] == current_app.config['RAISED'] or ticket['t_status'] == current_app.config['CLOSED']:
                         current_app.logger.error(
                             f"User tried to resolve an already closed or just raised ticket for Ticket Id: {t_id}")
                         raise ApplicationError(code=400, message=current_app.config['ALREADY_CLOSED_OR_RAISED'])

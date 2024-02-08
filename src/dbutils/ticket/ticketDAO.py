@@ -4,10 +4,12 @@ from datetime import datetime
 import shortuuid
 from flask import current_app
 
+
 logger = logging.getLogger('main.ticket_dao')
 
 
 class TicketDAO:
+    """Context manager for performing operations on ticker. On exit, it closes the cursor it uses."""
     singleton = 1
 
     def __init__(self, conn):
@@ -15,6 +17,7 @@ class TicketDAO:
         if self.singleton != 0:
             self.cur.execute(current_app.config['CREATE_TABLE_TICKETS'])
             self.cur.execute(current_app.config['CREATE_TABLE_MESSAGE_FROM_HELPDESK'])
+            logger.debug("TicketDAO: ticket and message from helpdesk table created.")
             self.singleton -= 1
 
     def __enter__(self):

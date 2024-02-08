@@ -6,6 +6,7 @@ load_dotenv()
 
 
 class Config:
+    """App wide configuration (Swagger-UI and jwt-secret key)"""
     PROPAGATE_EXCEPTIONS = True
     API_TITLE = "Customer Service Management"
     API_VERSION = "v1"

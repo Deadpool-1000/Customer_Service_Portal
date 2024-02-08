@@ -15,6 +15,9 @@ logger = logging.getLogger('main.message_handler')
 class MessageHandler:
     @staticmethod
     def update_message_from_manager(message, t_id):
+        """Register message from manager.
+        If no message is previously given then, it generates a new message,
+        else it overwrites the previous message."""
         try:
             with DatabaseConnection() as conn:
                 with TicketDAO(conn) as t_dao:
@@ -50,6 +53,7 @@ class MessageHandler:
 
     @staticmethod
     def get_message_from_manager(identity, role, t_id):
+        """Fetches message from manager for ticket with identification t_id"""
         try:
             with DatabaseConnection() as conn:
                 if role == current_app.config['HELPDESK']:

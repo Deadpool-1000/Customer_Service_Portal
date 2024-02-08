@@ -12,6 +12,7 @@ from src.utils.exceptions.exceptions import DataBaseException, ApplicationError
 class EmployeeLoginHandler:
     @staticmethod
     def login_employee(email, password):
+        """Verify employee email and password and returns employee auth data that contains role and employee identification number"""
         try:
             with DatabaseConnection() as conn:
                 with AuthDAO(conn) as a_dao:
@@ -41,6 +42,7 @@ class EmployeeLoginHandler:
 
     @staticmethod
     def generate_token(employee_auth_details):
+        """Generates access token based on employee identification number and role"""
         e_id = employee_auth_details['e_id']
         role = employee_auth_details['role']
 

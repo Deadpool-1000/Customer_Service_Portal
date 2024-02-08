@@ -12,6 +12,7 @@ from src.utils.exceptions.exceptions import DataBaseException, ApplicationError
 class CustomerLoginHandler:
     @staticmethod
     def login_customer(email, password):
+        """Takes email and password verifies with database and returns the customer identification number"""
         try:
             with (DatabaseConnection() as conn):
                 with AuthDAO(conn) as a_dao:
@@ -39,6 +40,7 @@ class CustomerLoginHandler:
 
     @staticmethod
     def generate_token(cust_id):
+        """Generates JWT access tokens based on customer identification number"""
         additional_claims = {
             'role': current_app.config['CUSTOMER']
         }

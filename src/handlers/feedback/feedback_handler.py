@@ -10,6 +10,13 @@ from src.utils.exceptions import ApplicationError, DataBaseException
 class FeedbackHandler:
     @staticmethod
     def add_feedback_for_ticket(c_id, stars, description, t_id):
+        """
+        Register feedback for a particular ticket
+        Three verification steps are performed:
+            1. Ticket identification number is checked.
+            2. Check if the customer identification matches the id number of the creator.
+            3. Check if the ticket status is closed.
+        """
         try:
             with DatabaseConnection() as conn:
                 with TicketDAO(conn) as t_dao:
@@ -38,6 +45,8 @@ class FeedbackHandler:
 
     @staticmethod
     def get_feedback_for_ticket(t_id):
+        """Fetches feedback for a particular ticket with ticket identification number t_id.
+        Raises HTTPException if the feedback for that ticket is empty."""
         try:
             with DatabaseConnection() as conn:
                 with FeedbackDAO(conn) as f_dao:
@@ -53,6 +62,9 @@ class FeedbackHandler:
 
     @staticmethod
     def access_allowed(identity, role, t_id):
+        """checks if the role and identity is according to ticket.
+            if role is manager than it returns true, else the identity must match the identity on the ticket.
+        """
         if role == current_app.config['MANAGER']:
             return True
 
