@@ -1,11 +1,11 @@
 from marshmallow import fields, Schema, validate
 
 
-class UserSchema(Schema):
-    """Schema representing public information of the user"""
-    full_name = fields.Str(required=True)
-    email = fields.Str(required=True)
-    phn_num = fields.Str(required=True)
+# class UserSchema(Schema):
+#     """Schema representing public information of the user"""
+#     full_name = fields.Str(required=True)
+#     email = fields.Str(required=True)
+#     phn_num = fields.Str(required=True)
 
 
 class TicketSchema(Schema):
@@ -18,16 +18,16 @@ class TicketSchema(Schema):
     message_from_helpdesk = fields.Str()
 
 
-class DepartmentSchema(Schema):
-    """Schema department details"""
-    dept_id = fields.Str(required=True)
-    dept_name = fields.Str(required=True)
+# class DepartmentSchema(Schema):
+#     """Schema department details"""
+#     dept_id = fields.Str(required=True)
+#     dept_name = fields.Str(required=True)
 
 
-class TicketManagerView(TicketSchema):
-    department = fields.Nested(DepartmentSchema)
-    customer = fields.Nested(UserSchema)
-    helpdesk_assigned = fields.Nested(UserSchema)
+# class TicketManagerView(TicketSchema):
+#     department = fields.Nested(DepartmentSchema)
+#     customer = fields.Nested(UserSchema)
+#     helpdesk_assigned = fields.Nested(UserSchema)
 
 
 class TicketRaisingSchema(Schema):
