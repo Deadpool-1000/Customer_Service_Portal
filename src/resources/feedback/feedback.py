@@ -12,25 +12,20 @@ blp = Blueprint('Feedback', 'feedbacks', description='Operation on feedback for 
 
 # blp doc , status code
 
-
 @blp.route('/tickets/<string:ticket_id>/feedback')
 class Feedback(MethodView):
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
     @blp.arguments(FeedbackSchema)
-    @blp.doc(parameters=[
-        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
-         'required': 'true'}])
-    @access_required(['CUSTOMER'])
-    def post(self, feedback_data, ticket_id):
-        """Add feedback for a particular ticket"""
+    @access_required([current_app.config['CUSTOMER']])
+    def put(self, feedback_data, ticket_id):
+        """update or register  feedback for a particular ticket"""
         current_app.logger.debug(f"POST /tickets/{ticket_id}/feedback")
         c_id = get_jwt_identity()
-        success_message = FeedbackController.register_feedback(c_id, feedback_data, ticket_id)
+        success_message = FeedbackController.update_feedback(c_id, feedback_data, ticket_id)
         return success_message, 201
 
-    @access_required(['CUSTOMER', 'MANAGER'])
-    @blp.doc(parameters=[
-        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
-         'required': 'true'}])
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
+    @access_required([current_app.config['CUSTOMER'], current_app.config['MANAGER']])
     def get(self, ticket_id):
         """Get feedback for particular ticket"""
         current_app.logger.debug(f"GET /tickets/{ticket_id}/feedback")

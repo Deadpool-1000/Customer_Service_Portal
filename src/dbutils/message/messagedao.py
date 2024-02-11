@@ -1,5 +1,5 @@
 import shortuuid
-from datetime import datetime
+from datetime import datetime, timezone
 from flask import current_app
 
 logger = current_app.logger
@@ -38,7 +38,8 @@ class MessageDAO:
         if existing_message:
             self.cur.execute(current_app.config['UPDATE_MESSAGE_FROM_MANAGER'], {
                 't_id': t_id,
-                'message': message
+                'message': message,
+                'created_at': datetime.now()
             })
             logger.debug(f"MessageDAO: Message for manager updated for ticket {t_id}")
         else:

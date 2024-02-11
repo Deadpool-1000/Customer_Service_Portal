@@ -1,32 +1,33 @@
+#customer
 CREATE_TABLE_CUST_AUTH: "CREATE TABLE IF NOT EXISTS cust_auth (c_id VARCHAR(10) PRIMARY KEY, email VARCHAR(30) UNIQUE, password TEXT);"
 CREATE_TABLE_CUST_DETAILS: "CREATE TABLE IF NOT EXISTS cust_details (c_id VARCHAR(10) PRIMARY KEY,full_name VARCHAR(20), phn_num VARCHAR(15),address VARCHAR(40), FOREIGN KEY(c_id) REFERENCES cust_auth(c_id));"
+INSERT_INTO_CUSTOMER_AUTH_TABLE: 'INSERT INTO cust_auth VALUES(%s, %s, %s)'
+
+
+# employee
 CREATE_TABLE_EMP: "CREATE TABLE IF NOT EXISTS emp_auth (e_id VARCHAR(10) PRIMARY KEY, email VARCHAR(30) UNIQUE, password TEXT, designation VARCHAR(10));"
 CREATE_TABLE_EMP_DETAILS: "CREATE TABLE IF NOT EXISTS emp_details (e_id VARCHAR(10) PRIMARY KEY, full_name VARCHAR(20), phn_num VARCHAR(15), dept_id VARCHAR(10), address VARCHAR(100),FOREIGN KEY(dept_id) REFERENCES dept_details(dept_id), FOREIGN KEY(e_id) REFERENCES emp_auth(e_id));"
+GET_EMPLOYEE_DETAILS_BY_ID: "SELECT e_a.email, e_d.full_name, e_d.e_id, e_d.phn_num FROM emp_details e_d NATURAL JOIN emp_auth e_a WHERE e_id = %(e_id)s"
+
+# department
 CREATE_TABLE_DEPT_DETAILS: "CREATE TABLE IF NOT EXISTS dept_details(d_id VARCHAR(10) PRIMARY KEY, dept_name VARCHAR(20));"
+GET_DEPT_DETAILS_BY_ID: "SELECT * FROM dept_details WHERE dept_id = %(dept_id)s"
+GET_DEPARTMENT_FROM_EMP_ID: "SELECT dept_id FROM emp_details WHERE e_id=%(e_id)s"
+GET_DEPARTMENT_FROM_DEPT_ID: "SELECT * FROM dept_details WHERE d_id=%(dept_id)s"
 
-
-
-
+#user
 FIND_USER_QUERY: 'SELECT * FROM {} WHERE email = %(email)s'
-FIND_DEPT_BY_DEPTID: 'SELECT dept_name from dept WHERE dept_id=%(dept_id)s'
-INSERT_INTO_CUSTOMER_AUTH_TABLE: 'INSERT INTO cust_auth VALUES(%s, %s, %s)'
-GET_CUST_DETAILS_BY_ID: 'SELECT * FROM cust_details WHERE c_id = %(c_id)s'
 INSERT_INTO_CUST_DETAILS: 'INSERT INTO cust_details VALUES(%s, %s, %s, %s)'
 
 
-GET_EMPLOYEE_DETAILS_BY_ID: "SELECT e_a.email, e_d.full_name, e_d.e_id, e_d.phn_num FROM emp_details e_d NATURAL JOIN emp_auth e_a WHERE e_id = %(e_id)s"
-DEPT_TABLE_MAPPING_QUERY: "SELECT * FROM dept_details"
-GET_DEPT_DETAILS_BY_ID: "SELECT * FROM dept_details WHERE dept_id = %(dept_id)s"
-GET_EMPLOYEE_ROLE: "SELECT * FROM emp_auth WHERE e_id = %(e_id)s"
-GET_DEPARTMENT_FROM_EMP_ID: "SELECT dept_id FROM emp_details WHERE e_id=%(e_id)s"
-
-
-
 # feedback
-CREATE_TABLE_FEEDBACK: "CREATE TABLE IF NOT EXISTS feedback(f_id VARCHAR(10) PRIMARY KEY, stars INTEGER, description VARCHAR(200), t_id VARCHAR(10) UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id));"
+CREATE_TABLE_FEEDBACK: "CREATE TABLE IF NOT EXISTS feedback(f_id VARCHAR(10) PRIMARY KEY, stars INTEGER, description VARCHAR(200), t_id VARCHAR(10) UNIQUE, created_at timestamp,FOREIGN KEY(t_id) REFERENCES tickets(t_id));"
 GET_FEEDBACK_BY_TID: "SELECT t_id, stars, description FROM feedback WHERE t_id=%(t_id)s"
-INSERT_INTO_FEEDBACK: 'INSERT INTO feedback VALUES(%s, %s, %s, %s)'
+INSERT_INTO_FEEDBACK: 'INSERT INTO feedback VALUES(%s, %s, %s, %s, %s)'
 GET_ALL_FEEDBACK: 'SELECT * FROM feedback'
+UPDATE_FEEDBACK: "UPDATE feedback SET stars=%(stars)s, description=%(description)s, created_at=%(created_at)s WHERE t_id=%(t_id)s"
+GET_TICKET_JOIN_FEEDBACK: "SELECT * FROM tickets t NATURAL JOIN feedback WHERE t.t_id = %(t_id)s"
+
 
 # ticket
 CREATE_TABLE_TICKETS: |
@@ -43,10 +44,7 @@ CREATE_TABLE_TICKETS: |
       FOREIGN KEY(c_id) REFERENCES cust_details(c_id)
     );
 INSERT_INTO_TICKETS_TABLE: "INSERT INTO tickets(t_id, d_id, c_id, title, t_desc, t_status, created_on) VALUES(%s, %s, %s, %s, %s, %s, %s)"
-IS_TICKET_CLOSED: 'SELECT * FROM tickets WHERE t_id=%(t_id)s AND status=%(status)s'
 UPDATE_TICKET_STATUS: "UPDATE tickets SET t_status=%(status)s WHERE t_id=%(t_id)s"
-VIEW_TICKETS: ""
-VIEW_TICKETS_BY_STATUS:
 VIEW_ALL_TICKETS: "SELECT * FROM tickets ORDER BY created_on DESC"
 ASSIGN_REPR: "UPDATE tickets SET repr_id=%(repr_id)s WHERE t_id=%(t_id)s"
 GET_TICKET_BY_TID: "SELECT *  FROM tickets WHERE t_id=%(t_id)s"
@@ -55,7 +53,6 @@ TICKET_DETAIL_QUERY: |
   NATURAL JOIN (cust_details c NATURAL JOIN cust_auth c_auth)
   NATURAL JOIN dept_details d
   WHERE t.t_id = %(t_id)s;
-
 GET_TICKETS_BY_CID: "SELECT * FROM tickets WHERE c_id=%(c_id)s;"
 GET_TICKETS_BY_D_ID: "SELECT * FROM tickets WHERE d_id=%(d_id)s;"
 VIEW_TICKETS_BY_CID_AND_STATUS: "SELECT * FROM tickets WHERE c_id=%(c_id)s AND t_status =%(status)s"
@@ -74,8 +71,5 @@ UPDATE_MESSAGE_FROM_HELPDESK: "UPDATE message_from_helpdesk SET message=%(messag
 CREATE_TABLE_MESSAGE_FROM_MANAGER: "CREATE TABLE IF NOT EXISTS message_from_manager(mm_id VARCHAR(10) PRIMARY KEY, message VARCHAR(200), created_at timestamp, t_id VARCHAR(10) UNIQUE, FOREIGN KEY(t_id) REFERENCES tickets(t_id));"
 INSERT_MESSAGE_FROM_MANAGER: "INSERT INTO message_from_manager VALUES(%s, %s, %s, %s)"
 GET_MESSAGE_FROM_MANAGER: "SELECT message, created_at, t_id FROM message_from_manager WHERE t_id=%(t_id)s"
-UPDATE_MESSAGE_FROM_MANAGER: "UPDATE message_from_manager SET message=%(message)s WHERE t_id=%(t_id)s"
-
-# department
-GET_DEPARTMENT_FROM_DEPT_ID: "SELECT * FROM dept_details WHERE d_id=%(dept_id)s"
-
+UPDATE_MESSAGE_FROM_MANAGER: "UPDATE message_from_manager SET message=%(message)s, created_at=%(created_at)s WHERE t_id=%(t_id)s"
+GET_TICKET_JOIN_MESSAGE: "SELECT * FROM tickets t NATURAL JOIN message_from_manager WHERE t.t_id = %(t_id)s"

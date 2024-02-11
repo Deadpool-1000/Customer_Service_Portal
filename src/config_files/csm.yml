@@ -70,3 +70,10 @@ FETCH_MESSAGE_ERROR_MESSAGE: "There was some problem getting your message."
 PWD_REGEXP: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
 INVALID_EMAIL_ERROR_MESSAGE: "Not a valid email address."
 WEAK_PASSWORD_ERROR_MESSAGE: "Weak password. Ensure that password is at least 8 characters long, contains one capital letter, and one special character."
+
+
+#status codes
+HTTP_201_CREATED: 201
+HTTP_409_CONFLICT: 409
+HTTP_200_OK: 200
+HTTP_401_UNAUTHORIZED: 401

@@ -6,7 +6,8 @@ from flask_smorest import Blueprint
 from src.controllers import NewTicketController
 from src.controllers import TicketController
 from src.controllers import TicketOperationController
-from src.schemas.ticket import TicketRaisingSchema, TicketSchema, MessageFromHelpdeskSchema
+from src.schemas.error import CustomErrorSchema
+from src.schemas.ticket import TicketRaisingSchema, TicketSchema, MessageFromHelpdeskSchema, TicketDetailedView
 from src.utils.rbac.rbac import access_required
 
 blp = Blueprint('Ticket', 'tickets', description='Operation on tickets')
@@ -14,11 +15,10 @@ blp = Blueprint('Ticket', 'tickets', description='Operation on tickets')
 
 @blp.route('/tickets')
 class Tickets(MethodView):
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
+    @blp.alt_response(401, schema=CustomErrorSchema)
     @blp.response(200, TicketSchema(many=True))
-    @blp.doc(parameters=[
-        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
-         'required': 'true'}])
-    @access_required(['CUSTOMER', 'MANAGER', 'HELPDESK'])
+    @access_required([current_app.config['CUSTOMER'], current_app.config['MANAGER'], current_app.config['HELPDESK']])
     def get(self):
         """Get all tickets"""
         current_app.logger.debug("GET /tickets")
@@ -28,12 +28,12 @@ class Tickets(MethodView):
         all_tickets = TicketController.get_all_tickets(identity, role, ticket_status)
         return all_tickets
 
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
+    @blp.alt_response(403, schema=CustomErrorSchema)
+    @blp.alt_response(401, schema=CustomErrorSchema)
     @blp.response(201, TicketSchema)
-    @blp.doc(parameters=[
-        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
-         'required': 'true'}])
     @blp.arguments(TicketRaisingSchema)
-    @access_required(['CUSTOMER'])
+    @access_required([current_app.config['CUSTOMER']])
     def post(self, ticket_data):
         """Raise a new ticket"""
         current_app.logger.debug("POST /tickets")
@@ -44,10 +44,11 @@ class Tickets(MethodView):
 
 @blp.route('/tickets/<string:ticket_id>')
 class TicketDetails(MethodView):
-    @blp.doc(parameters=[
-        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
-         'required': 'true'}])
-    @access_required(['CUSTOMER', 'MANAGER', 'HELPDESK'])
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
+    @blp.alt_response(403, schema=CustomErrorSchema)
+    @blp.alt_response(401, schema=CustomErrorSchema)
+    @blp.response(200, schema=TicketDetailedView)
+    @access_required([current_app.config['CUSTOMER'], current_app.config['MANAGER'], current_app.config['HELPDESK']])
     def get(self, ticket_id):
         """Get a detailed view for a particular ticket"""
         current_app.logger.debug(f"GET /tickets/{ticket_id}")
@@ -60,8 +61,9 @@ class TicketDetails(MethodView):
 
 @blp.route('/tickets/<string:ticket_id>/resolve')
 class TicketResolve(MethodView):
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
     @blp.arguments(MessageFromHelpdeskSchema)
-    @access_required(['HELPDESK'])
+    @access_required([current_app.config['HELPDESK']])
     def put(self, ticket_data, ticket_id):
         """Resolve a particular ticket"""
         current_app.logger.debug(f"PUT /tickets/{ticket_id}/resolve")
@@ -72,8 +74,9 @@ class TicketResolve(MethodView):
 
 @blp.route('/tickets/<string:ticket_id>/close')
 class TicketClose(MethodView):
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
     @blp.arguments(MessageFromHelpdeskSchema)
-    @access_required(['HELPDESK'])
+    @access_required([current_app.config['HELPDESK']])
     def put(self, ticket_data, ticket_id):
         """Close a particular ticket"""
         current_app.logger.debug(f"PUT /tickets/{ticket_id}/close")

@@ -124,3 +124,15 @@ class TicketDAO:
             'status': status
         })
         return self.cur.fetchall()
+
+    def get_ticket_and_feedback(self, t_id):
+        self.cur.execute(current_app.config['GET_TICKET_JOIN_FEEDBACK'], {
+            't_id': t_id
+        })
+        return self.cur.fetchone()
+
+    def get_ticket_and_message(self, t_id):
+        self.cur.execute(current_app.config['GET_TICKET_JOIN_MESSAGE'],{
+            't_id': t_id
+        })
+        return self.cur.fetchone()

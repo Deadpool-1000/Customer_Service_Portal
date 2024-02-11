@@ -12,10 +12,8 @@ blp = Blueprint('Message', 'messages', description='Operation on messages for a 
 
 @blp.route('/tickets/<string:ticket_id>/message')
 class Message(MethodView):
-    @blp.doc(parameters=[
-        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
-         'required': 'true'}])
-    @access_required(['HELPDESK', 'MANAGER'])
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
+    @access_required([current_app.config['HELPDESK'], current_app.config['MANAGER']])
     def get(self, ticket_id):
         """Get message from manager for a particular ticket"""
         current_app.logger.debug(f"GET /tickets/{ticket_id}/message")
@@ -24,11 +22,9 @@ class Message(MethodView):
         message_from_manager = MessageController.get_message_from_manager(role, identity, ticket_id)
         return message_from_manager
 
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
     @blp.arguments(MessageFromManager)
-    @blp.doc(parameters=[
-        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
-         'required': 'true'}])
-    @access_required(['MANAGER'])
+    @access_required([current_app.config['MANAGER']])
     def put(self, message_data, ticket_id):
         """"Update message from manager on a particular ticket"""
         current_app.logger.debug(f"PUT /tickets/{ticket_id}/message")

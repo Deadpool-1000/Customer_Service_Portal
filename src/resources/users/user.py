@@ -9,6 +9,7 @@ from src.controllers.authentication.employee.employee_login_controller import Em
 from src.controllers.authentication.logout.logout_controller import LogoutController
 from src.schemas.error import CustomErrorSchema
 from src.schemas.user import UserSignupSchema, AuthSchema, TokenSchema, SuccessSchema
+from src.utils.rbac.rbac import access_required
 
 blp = Blueprint('Users', 'users', description='Operation on users')
 
@@ -32,7 +33,7 @@ LOGIN_UNAUTHORIZED_EXAMPLE = {
     'message': 'Incorrect email or password provided.'
 }
 
-LOGOUT_UNAUTHORIZED_EXAMPLE = {
+UNAUTHORIZED_EXAMPLE = {
     'code': HTTP_401_UNAUTHORIZED,
     'status': 'Unauthorized',
     'message': 'Please provide a valid JWT token in the Authorization header.'
@@ -92,9 +93,10 @@ class SignupCustomer(MethodView):
 
 @blp.route('/logout')
 class Logout(MethodView):
-    @blp.response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=LOGOUT_UNAUTHORIZED_EXAMPLE, description=NO_JWT_PROVIDED_DESCRIPTION)
+    @blp.response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=UNAUTHORIZED_EXAMPLE, description=NO_JWT_PROVIDED_DESCRIPTION)
     @blp.response(HTTP_200_OK, schema=SuccessSchema, example=LOGOUT_SUCCESS_EXAMPLE)
-    @jwt_required()
+    @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
+    @access_required([current_app.config['CUSTOMER'], current_app.config['MANAGER'], current_app.config['HELPDESK']])
     def post(self):
         """Logout of the application"""
         current_app.logger.debug("POST /logout")
