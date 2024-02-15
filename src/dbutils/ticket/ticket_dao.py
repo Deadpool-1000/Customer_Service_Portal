@@ -1,32 +1,14 @@
-import logging
-from datetime import datetime
-
 import shortuuid
+from datetime import datetime
 from flask import current_app
 
+from src.dbutils.base_dao import BaseDAO
 
-logger = logging.getLogger('main.ticket_dao')
+logger = current_app.logger
 
 
-class TicketDAO:
+class TicketDAO(BaseDAO):
     """Context manager for performing operations on ticker. On exit, it closes the cursor it uses."""
-    singleton = 1
-
-    def __init__(self, conn):
-        self.cur = conn.cursor(dictionary=True)
-        if self.singleton != 0:
-            self.cur.execute(current_app.config['CREATE_TABLE_TICKETS'])
-            self.cur.execute(current_app.config['CREATE_TABLE_MESSAGE_FROM_HELPDESK'])
-            logger.debug("TicketDAO: ticket and message from helpdesk table created.")
-            self.singleton -= 1
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_tb or exc_val or exc_type:
-            return False
-        self.cur.close()
 
     def create_new_ticket(self, d_id, c_id, title, description):
         t_id = shortuuid.ShortUUID().random(5)

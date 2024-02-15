@@ -3,27 +3,13 @@ from datetime import datetime
 import shortuuid
 from flask import current_app
 
+from src.dbutils.base_dao import BaseDAO
+
 logger = current_app.logger
 
 
-class FeedbackDAO:
+class FeedbackDAO(BaseDAO):
     """Context manager for performing operation on feedback. On exit, it closes the cursor it uses."""
-    singleton = 1
-
-    def __init__(self, conn):
-        self.cur = conn.cursor(dictionary=True)
-        if self.singleton != 0:
-            self.cur.execute(current_app.config['CREATE_TABLE_FEEDBACK'])
-            logger.debug("FeedbackDAO: feedback table created.")
-            self.singleton -= 1
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_type or exc_tb or exc_val:
-            return False
-        self.cur.close()
 
     def add_feedback(self, stars, desc, t_id):
         """Add/Update feedback for ticket identification number t_id"""

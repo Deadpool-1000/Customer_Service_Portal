@@ -1,27 +1,12 @@
 from flask import current_app
 
+from src.dbutils.base_dao import BaseDAO
+
 logger = current_app.logger
 
 
-class EmployeeDAO:
+class EmployeeDAO(BaseDAO):
     """Context manager for performing operation on employee. On exit, it closes the cursor it uses."""
-    singleton = 1
-
-    def __init__(self, conn):
-        self.cur = conn.cursor(dictionary=True)
-        if self.singleton != 0:
-            self.cur.execute(current_app.config['CREATE_TABLE_DEPT_DETAILS'])
-            self.cur.execute(current_app.config['CREATE_TABLE_EMP_DETAILS'])
-            logger.debug("EmployeeDAO: Employee details and department details table created.")
-            self.singleton -= 1
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_type or exc_val or exc_tb:
-            return False
-        self.cur.close()
 
     def get_employee_details_by_id(self, e_id):
         """Gets employee details for employee e_id"""

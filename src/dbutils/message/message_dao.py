@@ -2,27 +2,13 @@ import shortuuid
 from datetime import datetime, timezone
 from flask import current_app
 
+from src.dbutils.base_dao import BaseDAO
+
 logger = current_app.logger
 
 
-class MessageDAO:
+class MessageDAO(BaseDAO):
     """Context manager for performing operation on message. On exit, it closes the cursor it uses."""
-    singleton = 1
-
-    def __init__(self, conn):
-        self.cur = conn.cursor(dictionary=True)
-        if self.singleton != 0:
-            self.cur.execute(current_app.config['CREATE_TABLE_MESSAGE_FROM_MANAGER'])
-            logger.debug("MessageDAO: message from manager table created.")
-            self.singleton -= 1
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_type or exc_val or exc_tb:
-            return False
-        self.cur.close()
 
     def get_message_from_manager(self, t_id):
         """Get message from manager for ticket identification number t_id"""
