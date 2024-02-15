@@ -1,1 +1,1 @@
-from src.dbutils.customer.feedbackdao import FeedbackDAO
+from src.dbutils.customer.feedback_dao import FeedbackDAO

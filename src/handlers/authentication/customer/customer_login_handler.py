@@ -4,7 +4,7 @@ from flask import current_app
 from flask_jwt_extended import create_access_token
 from mysql.connector import Error
 
-from src.dbutils.auth.authdao import AuthDAO
+from src.dbutils.auth.auth_dao import AuthDAO
 from src.dbutils.connection.database_connection import DatabaseConnection
 from src.utils.exceptions.exceptions import DataBaseException, ApplicationError
 

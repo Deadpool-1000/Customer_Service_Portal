@@ -4,9 +4,9 @@ from flask import current_app
 from mysql.connector import Error
 
 from src.dbutils.connection import DatabaseConnection
-from src.dbutils.customer.feedbackdao import FeedbackDAO
-from src.dbutils.message.messagedao import MessageDAO
-from src.dbutils.ticket.ticketDAO import TicketDAO
+from src.dbutils.customer.feedback_dao import FeedbackDAO
+from src.dbutils.message.message_dao import MessageDAO
+from src.dbutils.ticket.ticket_dao import TicketDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
 
 logger = current_app.logger

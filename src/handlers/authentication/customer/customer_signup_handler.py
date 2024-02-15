@@ -3,9 +3,9 @@ import logging
 from flask import current_app
 from mysql.connector import Error
 
-from src.dbutils.auth.authdao import AuthDAO
+from src.dbutils.auth.auth_dao import AuthDAO
 from src.dbutils.connection.database_connection import DatabaseConnection
-from src.dbutils.customer.customerdao import CustomerDAO
+from src.dbutils.customer.customer_dao import CustomerDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
 
 logger = logging.getLogger('main.customer_signup_handler')

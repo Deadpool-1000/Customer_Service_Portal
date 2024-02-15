@@ -17,6 +17,7 @@ def create_app():
     app = Flask(__name__)
 
     configure_logging(app)
+
     # Load swagger, flask app and custom configurations
     app.config.from_object('config.Config')
     app.config.from_file('config_files/csm.yml', load=yaml.safe_load, text=False)
@@ -92,4 +93,3 @@ def register_before_request_handler(app):
         """Adds request id to the request object for logging"""
         request_id = generate_new_request_id()
         request.request_id = request_id
-

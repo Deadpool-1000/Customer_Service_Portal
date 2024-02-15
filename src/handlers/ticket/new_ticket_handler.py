@@ -2,8 +2,8 @@ from flask import current_app
 from mysql.connector import Error
 
 from src.dbutils.connection import DatabaseConnection
-from src.dbutils.department.departmentDAO import DepartmentDAO
-from src.dbutils.ticket.ticketDAO import TicketDAO
+from src.dbutils.department.department_dao import DepartmentDAO
+from src.dbutils.ticket.ticket_dao import TicketDAO
 from src.utils.exceptions import ApplicationError
 from src.utils.exceptions import DataBaseException
 

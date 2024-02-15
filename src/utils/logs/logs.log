@@ -21,3 +21,8 @@
 2024-02-11 23:04:30,246 DEBUG FiJB5SDHLk : AuthDAO: tried to fetch user with email micheal@manager.com in table emp_auth [in authdao.py: 34]
 2024-02-11 23:04:30,246 INFO FiJB5SDHLk : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 31]
 2024-02-11 23:04:30,247 INFO FiJB5SDHLk : Employee with email micheal@manager.com logged in. [in employee_login_controller.py: 18]
+2024-02-12 10:45:59,693 DEBUG DQZGCt4nBG : POST /login/employee [in user.py: 77]
+2024-02-12 10:45:59,822 DEBUG DQZGCt4nBG : AuthDAO: customer auth and employee auth table created [in authdao.py: 26]
+2024-02-12 10:45:59,823 DEBUG DQZGCt4nBG : AuthDAO: tried to fetch user with email micheal@manager.com in table emp_auth [in authdao.py: 34]
+2024-02-12 10:45:59,824 INFO DQZGCt4nBG : Employee with e_id:LLYWi, role:manager logged in [in employee_login_handler.py: 31]
+2024-02-12 10:45:59,825 INFO DQZGCt4nBG : Employee with email micheal@manager.com logged in. [in employee_login_controller.py: 18]

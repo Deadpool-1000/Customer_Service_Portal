@@ -11,7 +11,7 @@ class DatabaseConnection:
             host='localhost',
             user=os.getenv('DB_USER'),
             password=os.getenv('DB_PASSWORD'),
-            database=os.getenv('DB_NAME')
+            database=os.getenv('DEV_DB_NAME') if os.getenv('RUN_ENV') == 'DEV' else os.getenv('TEST_DB_NAME')
         )
 
     def __enter__(self):
