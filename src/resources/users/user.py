@@ -21,6 +21,7 @@ NO_JWT_PROVIDED_DESCRIPTION = "No valid JWT token provided in the Authorization 
 INCORRECT_CREDENTIALS_DESCRIPTION = "Incorrect credentials provided in the request."
 CONFLICT_MESSAGE_DESCRIPTION = "Email already in use."
 
+
 SIGNUP_CONFLICT_EXAMPLE = {
     'code': HTTP_409_CONFLICT,
     'status': 'Conflict',
