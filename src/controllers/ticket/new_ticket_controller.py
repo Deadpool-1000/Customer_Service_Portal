@@ -25,7 +25,7 @@ class NewTicketController:
                 "message_from_helpdesk": DEFAULT_MESSAGE_FROM_HELPDESK,
                 "status": new_ticket['t_status'],
                 "description": new_ticket['t_desc'],
-                "t_id": new_ticket['t_id'],
+                "ticket_id": new_ticket['t_id'],
                 "title": new_ticket['title'],
                 "created_on": str(new_ticket['created_on'])
             }

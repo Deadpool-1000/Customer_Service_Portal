@@ -38,6 +38,12 @@ def create_app():
         register_blueprints(api, user_blueprint, ticket_blueprint, feedback_blueprint, message_blueprint)
         register_before_request_handler(app)
 
+    @app.route("/status", methods=["GET"])
+    def status():
+        return {
+            "status": "Happy 🙂"
+        }, 200
+
     return app
 
 
@@ -58,7 +64,18 @@ def register_jwt_error_handlers(app, jwt):
         """Called every time a revoked JWT token is used"""
         app.logger.error(f"Identity {jwt_payload['sub']} tried to use a revoked token.")
         return jsonify({
+            'code': 401,
+            'status': 'Unauthorized',
             'message': app.config['REVOKED_TOKEN_MESSAGE']
+        }), 401
+
+    @jwt.unauthorized_loader
+    def no_jwt_token_loader(reason):
+        print(reason)
+        return jsonify({
+            'code': 401,
+            'status': 'Unauthorized',
+            'message': app.config['NO_JWT_TOKEN_MESSAGE']
         }), 401
 
 

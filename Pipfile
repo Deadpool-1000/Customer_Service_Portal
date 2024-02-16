@@ -16,6 +16,7 @@ flask-jwt-extended = "*"
 python-dotenv = "~=1.0.0"
 flask-sqlalchemy = "*"
 mysql-connector-python = "*"
+pymysql = "*"
 
 [dev-packages]
 

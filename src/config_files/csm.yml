@@ -77,3 +77,6 @@ HTTP_201_CREATED: 201
 HTTP_409_CONFLICT: 409
 HTTP_200_OK: 200
 HTTP_401_UNAUTHORIZED: 401
+
+REVOKED_TOKEN_MESSAGE: "Your token has been revoked. Please log in and try again."
+NO_JWT_TOKEN_MESSAGE: "Please provide a valid bearer token in JWT Authorization header."

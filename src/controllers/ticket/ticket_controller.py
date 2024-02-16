@@ -65,6 +65,11 @@ class TicketController:
                     'dept_id': ticket['t_id'],
                     'dept_name': ticket['dept_name'],
                 },
+                'customer': {
+                    'full_name': ticket['cust_name'],
+                    'email': ticket['cust_email'],
+                    'phn_num': ticket['cust_phn_num']
+                },
                 'message_from_helpdesk': DEFAULT_HELPDESK_MESSAGE
             }
 
