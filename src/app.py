@@ -7,8 +7,6 @@ from flask_smorest import Api
 from src.handlers.authentication.logout.BLOCKLIST import BLOCKLIST
 from src.utils.utils import RequestFormatter, generate_new_request_id
 
-LOG_FILE_PATH = './utils/logs/logs.log'
-
 
 # Application Factory
 def create_app():
