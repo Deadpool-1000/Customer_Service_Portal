@@ -15,6 +15,7 @@ marshmallow = "~=3.20.2"
 flask-jwt-extended = "*"
 python-dotenv = "~=1.0.0"
 pymysql = "*"
+gunicorn = "*"
 
 [dev-packages]
 flask = "~=3.0.1"
