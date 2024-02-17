@@ -1,17 +1,18 @@
 import os
-
-import mysql.connector
+import pymysql
 
 
 class DatabaseConnection:
     """Context manager for maintaining a database connection. On exit, it closes the database connection and commits the changes"""
     def __init__(self):
         """Initialize a database connection to mysql server"""
-        self.conn = mysql.connector.connect(
-            host='localhost',
+        self.conn = pymysql.connect(
+            port=int(os.getenv('DB_PORT')),
+            cursorclass=pymysql.cursors.DictCursor,
+            host=os.getenv('DB_HOST'),
             user=os.getenv('DB_USER'),
             password=os.getenv('DB_PASSWORD'),
-            database=os.getenv('DEV_DB_NAME') if os.getenv('RUN_ENV') == 'DEV' else os.getenv('TEST_DB_NAME')
+            db=os.getenv('DEV_DB_NAME'),
         )
 
     def __enter__(self):

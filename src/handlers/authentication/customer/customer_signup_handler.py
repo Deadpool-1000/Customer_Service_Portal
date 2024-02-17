@@ -1,7 +1,6 @@
 import logging
-
+import pymysql
 from flask import current_app
-from mysql.connector import Error
 
 from src.dbutils.auth.auth_dao import AuthDAO
 from src.dbutils.connection.database_connection import DatabaseConnection
@@ -33,6 +32,6 @@ class CustomerSignupHandler:
                 logger.info(f'New Customer signup with name:{fullname} and email:{email}')
             return True
 
-        except Error as e:
-            logger.error(f'Database error during customer signup {e}')
+        except pymsql.Error as e:
+            logger.error(f'Database error during customer signup {e.args[0]}: {e.args[1]}')
             raise DataBaseException(current_app.config['SIGNUP_ERROR_MESSAGE'])

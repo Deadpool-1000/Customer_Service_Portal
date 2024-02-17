@@ -1,10 +1,7 @@
-import logging
-
+import pymysql
 from flask import current_app
-from mysql.connector import Error
 
 from src.dbutils.connection import DatabaseConnection
-from src.dbutils.customer.feedback_dao import FeedbackDAO
 from src.dbutils.message.message_dao import MessageDAO
 from src.dbutils.ticket.ticket_dao import TicketDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
@@ -30,29 +27,9 @@ class MessageHandler:
                 with MessageDAO(conn) as m_dao:
                     m_dao.update_message_from_manager(t_id, message)
 
-            """
-                    if ticket['t_status'] != current_app.config['CLOSED']:
-                        current_app.logger.error(
-                            "Update message: Tried to add message from manager on an unclosed ticket.")
-                        raise ApplicationError(code=400,
-                                               message=current_app.config['CANNOT_GIVE_MESSAGE_FOR_TICKET_MESSAGE'])
-                   
-                    
-                with FeedbackDAO(conn) as f_dao:
-                    feedback = f_dao.get_feedback_by_tid(t_id)
-
-                    if feedback is None:
-                        current_app.logger.error(
-                            "Update message: Tried to add message from manager on a ticket with no feedback.")
-                        raise ApplicationError(code=404,
-                                               message=current_app.config['CANNOT_GIVE_MESSAGE_FOR_TICKET_MESSAGE'])
-            """
-
-
-
-        except Error as e:
+        except pymysql.Error as e:
             logger.error(
-                f'Update message: There was some problem while registering message from manager for ticket: {t_id}. Error {e}')
+                f'Update message: There was some problem while registering message from manager for ticket: {t_id}. Error {e.args[0]}: {e.args[1]}')
             raise DataBaseException(current_app.config['UPDATE_MESSAGE_ERROR_MESSAGE'])
 
     @staticmethod
@@ -87,7 +64,7 @@ class MessageHandler:
                 'created_at': ticket_and_message['created_at']
             }
 
-        except Error as e:
+        except pymysql.Error as e:
             logger.error(
-                f'Get message: There was some problem while getting message from manager for ticket: {t_id}. Error {e}')
+                f'Get message: There was some problem while getting message from manager for ticket: {t_id}. Error {e.args[0]}: {e.args[1]}')
             raise DataBaseException(current_app.config['FETCH_MESSAGE_ERROR_MESSAGE'])

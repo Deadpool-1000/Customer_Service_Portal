@@ -1,7 +1,7 @@
 import logging
 
 from flask import current_app
-from mysql.connector import Error
+import pymysql
 
 from src.dbutils.connection.database_connection import DatabaseConnection
 from src.dbutils.employee.employee_dao import EmployeeDAO
@@ -54,8 +54,8 @@ class TicketHandler:
                         ticket['helpdesk'] = None
                     current_app.logger.info(f"Ticket detail: Ticket {t_id} fetched.")
                     return ticket
-        except Error as e:
-            logger.error(f'Ticket detail: Database error {e} while fetching ticket: {t_id}')
+        except pymysql.Error as e:
+            logger.error(f'Ticket detail: Database error {e.args[0]}: {e.args[1]} while fetching ticket: {t_id}')
             raise DataBaseException(current_app.config['TICKET_DETAIL_FETCH_ERROR_MESSAGE'])
 
     @staticmethod
@@ -82,21 +82,25 @@ class TicketHandler:
     @classmethod
     def get_tickets_by_identity_and_role(cls, role, identity, status):
         """Get tickets based of identity and role
-            1. If role == Manager, then all tickets of the system are returned.
+            1. If role == Manager, then all tickets in the system are returned.
             2. If role == Customer, then tickets that the customer has created is returned
             3. if role == Helpdesk, then tickets that belong to the helpdesk member's department are returned.
         """
-        if role == current_app.config['CUSTOMER']:
-            tickets = cls.get_tickets_by_c_id(identity, status)
-            return tickets
+        try:
+            if role == current_app.config['CUSTOMER']:
+                tickets = cls.get_tickets_by_c_id(identity, status)
+                return tickets
 
-        elif role == current_app.config['HELPDESK']:
-            tickets = cls.get_tickets_by_e_id(identity, status)
-            return tickets
+            elif role == current_app.config['HELPDESK']:
+                tickets = cls.get_tickets_by_e_id(identity, status)
+                return tickets
 
-        elif role == current_app.config['MANAGER']:
-            tickets = cls.get_all_tickets(status)
-            return tickets
+            elif role == current_app.config['MANAGER']:
+                tickets = cls.get_all_tickets(status)
+                return tickets
+        except pymysql.Error as e:
+            logger.error(f"There was an error while fetching tickets for identity {identity}, Error {e.args[0]}: {e.args[1]}")
+            raise DataBaseException("There was a problem while fetching tickets. Please try again later.")
 
     @classmethod
     def get_dept_from_e_id(cls, e_id):
@@ -123,10 +127,8 @@ class TicketHandler:
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
                 dept_id = cls.get_dept_from_e_id(e_id)
-
                 if status in ALLOWED_STATUSES:
                     tickets = t_dao.get_tickets_by_d_id_and_status(dept_id, status)
-
                 else:
                     tickets = t_dao.get_all_tickets_by_d_id(dept_id)
         return tickets

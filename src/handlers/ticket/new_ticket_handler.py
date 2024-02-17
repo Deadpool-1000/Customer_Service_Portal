@@ -1,5 +1,5 @@
 from flask import current_app
-from mysql.connector import Error
+import pymysql
 
 from src.dbutils.connection import DatabaseConnection
 from src.dbutils.department.department_dao import DepartmentDAO
@@ -29,8 +29,8 @@ class NewTicketHandler:
                     ticket_id = t_dao.create_new_ticket(d_id, c_id, title, description)
                     return ticket_id
 
-        except Error as e:
-            current_app.logger.error(f'Create Ticket: Database error {e} while creating new ticket.')
+        except pymysql.Error as e:
+            current_app.logger.error(f'Create Ticket: Database error {e.args[0]}: {e.args[1]} while creating new ticket.')
             raise DataBaseException(current_app.config['CREATE_TICKET_ERROR_MESSAGE'])
 
     @staticmethod

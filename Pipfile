@@ -19,6 +19,13 @@ mysql-connector-python = "*"
 pymysql = "*"
 
 [dev-packages]
+flask = "~=3.0.1"
+shortuuid = "~=1.0.11"
+pyyaml = "~=6.0.1"
+python-dotenv = "~=1.0.0"
+mysql-connector-python = "~=8.3.0"
+marshmallow = "~=3.20.2"
+pymysql = "~=1.1.0"
 
 [requires]
 python_version = "3.11"

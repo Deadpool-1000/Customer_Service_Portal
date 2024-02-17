@@ -1,0 +1,5 @@
+services:
+  webapp:
+    image: deadpoolcodes/csm:v1
+    env_file:
+      - .env

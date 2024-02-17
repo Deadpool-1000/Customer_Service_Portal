@@ -1,5 +1,5 @@
 from flask import current_app
-from mysql.connector import Error
+import pymysql
 
 from src.dbutils.connection.database_connection import DatabaseConnection
 from src.dbutils.employee.employee_dao import EmployeeDAO
@@ -43,8 +43,8 @@ class TicketOperationHandler:
                     t_dao.change_ticket_status(t_id, current_app.config['IN_PROGRESS'])
                     t_dao.update_message_from_helpdesk(ticket_data['message_from_helpdesk'], t_id)
 
-        except Error as e:
-            current_app.logger.error(f"There was an error while resolving a ticket{t_id} {e.msg}")
+        except pymysql.Error as e:
+            current_app.logger.error(f"There was an error while resolving a ticket{t_id} {e.args[0]}: {e.args[1]}")
             raise DataBaseException(current_app.config['RESOLVE_TICKET_ERROR_MESSAGE'])
 
     @staticmethod
@@ -78,6 +78,6 @@ class TicketOperationHandler:
                     t_dao.change_ticket_status(t_id, current_app.config['CLOSED'])
                     t_dao.update_message_from_helpdesk(ticket_data['message_from_helpdesk'], t_id)
 
-        except Error as e:
-            current_app.logger.error(f"There was an error while closing a ticket{t_id} {e.msg}")
+        except pymysql.Error as e:
+            current_app.logger.error(f"There was an error while closing a ticket{t_id} {e.args[0]}: {e.args[1]}")
             raise DataBaseException(current_app.config['CLOSE_TICKET_ERROR_MESSAGE'])

@@ -1,8 +1,8 @@
 import hashlib
-
+import pymysql
 from flask import current_app
 from flask_jwt_extended import create_access_token
-from mysql.connector import Error
+
 
 from src.dbutils.auth.auth_dao import AuthDAO
 from src.dbutils.connection.database_connection import DatabaseConnection
@@ -34,8 +34,8 @@ class CustomerLoginHandler:
 
             return customer['c_id']
 
-        except Error as err:
-            current_app.logger.error(f'Customer login: {err}')
+        except pymysql.Error as e:
+            current_app.logger.error(f'Customer login: {e.args[0]}: {e.args[1]}')
             raise DataBaseException(current_app.config['LOGIN_ERROR_MESSAGE'])
 
     @staticmethod

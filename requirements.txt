@@ -4,3 +4,4 @@ PyYAML~=6.0.1
 python-dotenv~=1.0.0
 mysql-connector-python~=8.3.0
 marshmallow~=3.20.2
+PyMySQL~=1.1.0

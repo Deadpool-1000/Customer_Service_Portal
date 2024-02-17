@@ -1,5 +1,5 @@
+import pymysql
 from flask import current_app
-from mysql.connector import Error
 
 from src.dbutils.connection import DatabaseConnection
 from src.dbutils.customer import FeedbackDAO
@@ -40,8 +40,8 @@ class FeedbackHandler:
                 with FeedbackDAO(conn) as f_dao:
                     f_dao.add_feedback(stars, description, t_id)
 
-        except Error as e:
-            current_app.logger.error(f'Error while adding feedback for ticket {t_id}. Error {e}')
+        except pymysql.Error as e:
+            current_app.logger.error(f'Error while adding feedback for ticket {t_id}. Error {e.args[0]}: {e.args[1]}')
             raise DataBaseException(current_app.config['FEEDBACK_REGISTER_ERROR_MESSAGE'])
 
     @staticmethod
@@ -73,6 +73,6 @@ class FeedbackHandler:
                 'description': ticket_and_feedback['description'],
                 'created_on': ticket_and_feedback['created_on']
             }
-        except Error as e:
+        except pymsql.Error as e:
             current_app.logger.error(f'Error while getting feedback for ticket:{t_id}. Error {e}')
             raise DataBaseException(current_app.config['FEEDBACK_FETCH_ERROR_MESSAGE'])
