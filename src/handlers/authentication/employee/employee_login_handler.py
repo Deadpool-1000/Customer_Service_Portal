@@ -1,5 +1,4 @@
 import hashlib
-
 from flask import current_app
 from flask_jwt_extended import create_access_token
 import pymysql
@@ -38,7 +37,7 @@ class EmployeeLoginHandler:
 
         except pymysql.Error as e:
             current_app.logger.error(f'Employee login: {e.args[0]}: {e.args[1]}')
-            raise DataBaseException(current_app.config['LOGIN_ERROR_MESSAGE'])
+            raise DataBaseException(current_app.config['LOGIN_ERROR_MESSAGE']) from e
 
     @staticmethod
     def generate_token(employee_auth_details):

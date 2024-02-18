@@ -1,14 +1,12 @@
 from flask import current_app
 from flask.views import MethodView
-from flask_jwt_extended import get_jwt, jwt_required
+from flask_jwt_extended import get_jwt
 from flask_smorest import Blueprint
 
-from src.controllers.authentication.customer.customer_login_controller import CustomerLoginController
-from src.controllers.authentication.customer.customer_signup_controller import CustomerSignupController
-from src.controllers.authentication.employee.employee_login_controller import EmployeeLoginController
+from src.controllers.authentication.login.login_controller import LoginController
 from src.controllers.authentication.logout.logout_controller import LogoutController
 from src.schemas.error import CustomErrorSchema
-from src.schemas.user import UserSignupSchema, AuthSchema, TokenSchema, SuccessSchema
+from src.schemas.user import UserSignupSchema, AuthSchema, SuccessSchema, TokenSchema
 from src.utils.rbac.rbac import access_required
 
 blp = Blueprint('Users', 'users', description='Operation on users')
@@ -55,14 +53,14 @@ SIGNUP_SUCCESS_EXAMPLE = {
     'message': 'Signup Successful.'
 }
 
-
+"""
 @blp.route('/login/customer')
 class LoginCustomer(MethodView):
     @blp.alt_response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=LOGIN_UNAUTHORIZED_EXAMPLE, description=INCORRECT_CREDENTIALS_DESCRIPTION)
     @blp.response(HTTP_200_OK, TokenSchema, example=TOKEN_EXAMPLE)
     @blp.arguments(AuthSchema)
     def post(self, cust_auth_data):
-        """Login as customer"""
+        """"""Login as customer""""""
         current_app.logger.debug("POST /login/customer")
         token = CustomerLoginController.login(cust_auth_data)
         return token
@@ -74,9 +72,20 @@ class LoginEmployee(MethodView):
     @blp.response(HTTP_200_OK, TokenSchema, example=TOKEN_EXAMPLE)
     @blp.arguments(AuthSchema)
     def post(self, emp_data):
-        """Login as employee"""
+        """"""Login as employee""""""
         current_app.logger.debug("POST /login/employee")
         token = EmployeeLoginController.login(emp_data)
+        return token
+"""
+
+
+@blp.route('/login')
+class Login(MethodView):
+    @blp.alt_response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=LOGIN_UNAUTHORIZED_EXAMPLE, description=INCORRECT_CREDENTIALS_DESCRIPTION)
+    @blp.response(HTTP_200_OK, TokenSchema, example=TOKEN_EXAMPLE)
+    @blp.arguments(AuthSchema)
+    def post(self, login_data):
+        token = LoginController.login(login_data)
         return token
 
 

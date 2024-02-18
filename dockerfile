@@ -7,4 +7,4 @@ RUN python -m pip install --upgrade pip
 RUN pip install pipenv && pipenv install --dev --system --deploy
 
 EXPOSE 5000
-CMD cd src && python3 -m flask run --host=0.0.0.0
+CMD gunicorn -w 4 -b 0.0.0.0:5000 'wsgi:app'

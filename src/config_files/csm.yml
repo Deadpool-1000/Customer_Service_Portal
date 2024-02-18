@@ -6,6 +6,9 @@ HELPDESK: batman
 MANAGER: superman
 CUSTOMER: npc
 
+CUSTOMER_: customer
+EMPLOYEE_: employee
+
 IN_PROGRESS: "in_progress"
 RAISED: "raised"
 CLOSED: "closed"
@@ -80,3 +83,4 @@ HTTP_401_UNAUTHORIZED: 401
 
 REVOKED_TOKEN_MESSAGE: "Your token has been revoked. Please log in and try again."
 NO_JWT_TOKEN_MESSAGE: "Please provide a valid bearer token in JWT Authorization header."
+INVALID_ROLE_ERROR_MESSAGE: "Invalid Role provided. Only values allowed are 'customer' and 'employee'"
