@@ -45,7 +45,7 @@ CREATE_TABLE_TICKETS: |
     );
 INSERT_INTO_TICKETS_TABLE: "INSERT INTO tickets(t_id, d_id, c_id, title, t_desc, t_status, created_on) VALUES(%s, %s, %s, %s, %s, %s, %s)"
 UPDATE_TICKET_STATUS: "UPDATE tickets SET t_status=%(status)s WHERE t_id=%(t_id)s"
-VIEW_ALL_TICKETS: "SELECT * FROM tickets ORDER BY created_on DESC"
+VIEW_ALL_TICKETS: "SELECT * FROM tickets ORDER BY created_on DESC LIMIT %(limit)s OFFSET %(offset)s"
 ASSIGN_REPR: "UPDATE tickets SET repr_id=%(repr_id)s WHERE t_id=%(t_id)s"
 GET_TICKET_BY_TID: "SELECT *  FROM tickets WHERE t_id=%(t_id)s"
 TICKET_DETAIL_QUERY: |
@@ -53,11 +53,11 @@ TICKET_DETAIL_QUERY: |
   NATURAL JOIN (cust_details c NATURAL JOIN cust_auth c_auth)
   NATURAL JOIN dept_details d
   WHERE t.t_id = %(t_id)s;
-GET_TICKETS_BY_CID: "SELECT * FROM tickets WHERE c_id=%(c_id)s;"
-GET_TICKETS_BY_D_ID: "SELECT * FROM tickets WHERE d_id=%(d_id)s;"
-VIEW_TICKETS_BY_CID_AND_STATUS: "SELECT * FROM tickets WHERE c_id=%(c_id)s AND t_status =%(status)s"
-VIEW_TICKETS_BY_DID_AND_STATUS: "SELECT * FROM tickets WHERE t_status=%(status)s AND d_id=%(d_id)s"
-GET_TICKETS_BY_STATUS: "SELECT * FROM tickets WHERE t_status=%(status)s"
+GET_TICKETS_BY_CID: "SELECT * FROM tickets WHERE c_id=%(c_id)s ORDER BY created_on DESC LIMIT %(limit)s OFFSET %(offset)s;"
+GET_TICKETS_BY_D_ID: "SELECT * FROM tickets WHERE d_id=%(d_id)s ORDER BY created_on DESC LIMIT %(limit)s OFFSET %(offset)s;"
+VIEW_TICKETS_BY_CID_AND_STATUS: "SELECT * FROM tickets WHERE c_id=%(c_id)s AND t_status =%(status)s ORDER BY created_on DESC LIMIT %(limit)s OFFSET %(offset)s;"
+VIEW_TICKETS_BY_DID_AND_STATUS: "SELECT * FROM tickets WHERE t_status=%(status)s AND d_id=%(d_id)s ORDER BY created_on DESC LIMIT %(limit)s OFFSET %(offset)s;"
+GET_TICKETS_BY_STATUS: "SELECT * FROM tickets WHERE t_status=%(status)s ORDER BY created_on DESC LIMIT %(limit)s OFFSET %(offset)s;"
 
 
 # Message from helpdesk

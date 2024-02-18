@@ -2,6 +2,7 @@ from flask import request, current_app
 from flask.views import MethodView
 from flask_jwt_extended import get_jwt_identity, get_jwt
 from flask_smorest import Blueprint
+from flask_smorest.pagination import PaginationParameters
 
 from src.controllers import NewTicketController
 from src.controllers import TicketController
@@ -16,16 +17,17 @@ blp = Blueprint('Ticket', 'tickets', description='Operation on tickets')
 @blp.route('/tickets')
 class Tickets(MethodView):
     @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])
+    @blp.paginate()
     @blp.alt_response(401, schema=CustomErrorSchema)
     @blp.response(200, TicketSchema(many=True))
     @access_required([current_app.config['CUSTOMER'], current_app.config['MANAGER'], current_app.config['HELPDESK']])
-    def get(self):
+    def get(self, pagination_parameters: PaginationParameters):
         """Get all tickets"""
         current_app.logger.debug("GET /tickets")
         identity = get_jwt_identity()
         role = get_jwt()['role']
         ticket_status = request.args.get('ticket_status')
-        all_tickets = TicketController.get_all_tickets(identity, role, ticket_status)
+        all_tickets = TicketController.get_all_tickets(identity, role, ticket_status, pagination_parameters)
         return all_tickets
 
     @blp.doc(parameters=[current_app.config['SECURITY_PARAMETERS']])

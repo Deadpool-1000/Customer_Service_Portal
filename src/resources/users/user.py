@@ -6,7 +6,7 @@ from flask_smorest import Blueprint
 from src.controllers.authentication.login.login_controller import LoginController
 from src.controllers.authentication.logout.logout_controller import LogoutController
 from src.schemas.error import CustomErrorSchema
-from src.schemas.user import UserSignupSchema, AuthSchema, SuccessSchema, TokenSchema
+from src.schemas.user import UserSignupSchema, AuthSchemaRole, SuccessSchema, TokenSchema
 from src.utils.rbac.rbac import access_required
 
 blp = Blueprint('Users', 'users', description='Operation on users')
@@ -83,7 +83,7 @@ class LoginEmployee(MethodView):
 class Login(MethodView):
     @blp.alt_response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=LOGIN_UNAUTHORIZED_EXAMPLE, description=INCORRECT_CREDENTIALS_DESCRIPTION)
     @blp.response(HTTP_200_OK, TokenSchema, example=TOKEN_EXAMPLE)
-    @blp.arguments(AuthSchema)
+    @blp.arguments(AuthSchemaRole)
     def post(self, login_data):
         token = LoginController.login(login_data)
         return token

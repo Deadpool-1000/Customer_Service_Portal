@@ -8,7 +8,7 @@ from src.dbutils.employee.employee_dao import EmployeeDAO
 from src.dbutils.ticket.ticket_dao import TicketDAO
 from src.utils.exceptions import DataBaseException, ApplicationError
 
-logger = logging.getLogger('main.ticket_handler')
+logger = current_app.logger
 
 ALLOWED_STATUSES = ['raised', 'closed', 'in_progress']
 
@@ -80,23 +80,24 @@ class TicketHandler:
         return True
 
     @classmethod
-    def get_tickets_by_identity_and_role(cls, role, identity, status):
+    def get_tickets_by_identity_and_role(cls, role, identity, status, page, page_size):
         """Get tickets based of identity and role
             1. If role == Manager, then all tickets in the system are returned.
             2. If role == Customer, then tickets that the customer has created is returned
             3. if role == Helpdesk, then tickets that belong to the helpdesk member's department are returned.
         """
+        offset = (page-1)*page_size
         try:
             if role == current_app.config['CUSTOMER']:
-                tickets = cls.get_tickets_by_c_id(identity, status)
+                tickets = cls.get_tickets_by_c_id(identity, page_size, offset, status=status)
                 return tickets
 
             elif role == current_app.config['HELPDESK']:
-                tickets = cls.get_tickets_by_e_id(identity, status)
+                tickets = cls.get_tickets_by_e_id(identity, page_size, offset, status=status)
                 return tickets
 
             elif role == current_app.config['MANAGER']:
-                tickets = cls.get_all_tickets(status)
+                tickets = cls.get_all_tickets(page_size, offset, status=status)
                 return tickets
         except pymysql.Error as e:
             logger.error(f"There was an error while fetching tickets for identity {identity}, Error {e.args[0]}: {e.args[1]}")
@@ -111,38 +112,38 @@ class TicketHandler:
         return emp_dept_detail['dept_id']
 
     @classmethod
-    def get_tickets_by_c_id(cls, c_id, status=None):
+    def get_tickets_by_c_id(cls, c_id, page_size, offset, status=None):
         """Get tickets that customer with c_id has created."""
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
                 if status in ALLOWED_STATUSES:
-                    tickets = t_dao.get_tickets_by_c_id_and_status(c_id, status)
+                    tickets = t_dao.get_tickets_by_c_id_and_status(c_id, status, page_size, offset)
                 else:
-                    tickets = t_dao.get_all_tickets_by_c_id(c_id)
+                    tickets = t_dao.get_all_tickets_by_c_id(c_id, page_size, offset)
         return tickets
 
     @classmethod
-    def get_tickets_by_e_id(cls, e_id, status=None):
+    def get_tickets_by_e_id(cls, e_id, page_size, offset, status=None):
         """Get tickets that belong to employee's department"""
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
                 dept_id = cls.get_dept_from_e_id(e_id)
                 if status in ALLOWED_STATUSES:
-                    tickets = t_dao.get_tickets_by_d_id_and_status(dept_id, status)
+                    tickets = t_dao.get_tickets_by_d_id_and_status(dept_id, status, page_size, offset)
                 else:
-                    tickets = t_dao.get_all_tickets_by_d_id(dept_id)
+                    tickets = t_dao.get_all_tickets_by_d_id(dept_id, page_size, offset)
         return tickets
 
     @staticmethod
-    def get_all_tickets(status=None):
+    def get_all_tickets(page_size, offset, status=None):
         """Get all tickets that are in the system"""
         with DatabaseConnection() as conn:
             with TicketDAO(conn) as t_dao:
 
                 if status in ALLOWED_STATUSES:
-                    tickets = t_dao.get_tickets_by_status(status)
+                    tickets = t_dao.get_tickets_by_status(status, page_size, offset)
 
                 else:
-                    tickets = t_dao.get_all_tickets()
+                    tickets = t_dao.get_all_tickets(page_size, offset)
 
         return tickets

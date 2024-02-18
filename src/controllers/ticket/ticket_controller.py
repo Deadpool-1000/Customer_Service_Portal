@@ -74,8 +74,10 @@ class TicketController:
             }
 
     @classmethod
-    def get_all_tickets(cls, identity, role, status):
-        tickets = TicketHandler.get_tickets_by_identity_and_role(role, identity, status)
+    def get_all_tickets(cls, identity, role, status, pagination_parameters):
+        page = pagination_parameters.page
+        page_size = pagination_parameters.page_size
+        tickets = TicketHandler.get_tickets_by_identity_and_role(role, identity, status, page, page_size)
         logger.info(f"Identity {identity} role {role} accessing all tickets related to them.")
         return [cls.ticket_concise_view(ticket) for ticket in tickets]
 

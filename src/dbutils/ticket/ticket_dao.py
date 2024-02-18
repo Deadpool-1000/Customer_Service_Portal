@@ -23,9 +23,6 @@ class TicketDAO(BaseDAO):
         })
         return self.cur.fetchone()
 
-    def get_all_tickets(self):
-        self.cur.execute(current_app.config['VIEW_ALL_TICKETS'])
-        return self.cur.fetchall()
 
     def update_message_from_helpdesk(self, message, t_id):
 
@@ -75,35 +72,52 @@ class TicketDAO(BaseDAO):
         })
         return self.cur.fetchone()
 
-    def get_all_tickets_by_c_id(self, c_id):
+    def get_all_tickets_by_c_id(self, c_id, page_size, offset):
         self.cur.execute(current_app.config['GET_TICKETS_BY_CID'], {
-            'c_id': c_id
+            'c_id': c_id,
+            'limit': page_size,
+            'offset': offset
         })
         return self.cur.fetchall()
 
-    def get_tickets_by_c_id_and_status(self, c_id, status):
+    def get_tickets_by_c_id_and_status(self, c_id, status, page_size, offset):
         self.cur.execute(current_app.config['VIEW_TICKETS_BY_CID_AND_STATUS'], {
             'c_id': c_id,
-            'status': status
+            'status': status,
+            'limit': page_size,
+            'offset': offset
         })
         return self.cur.fetchall()
 
-    def get_all_tickets_by_d_id(self, d_id):
+    def get_all_tickets_by_d_id(self, d_id, page_size, offset):
         self.cur.execute(current_app.config['GET_TICKETS_BY_D_ID'], {
-            'd_id': d_id
+            'd_id': d_id,
+            'limit': page_size,
+            'offset': offset
         })
         return self.cur.fetchall()
 
-    def get_tickets_by_d_id_and_status(self, d_id, status):
+    def get_tickets_by_d_id_and_status(self, d_id, status, page_size, offset):
         self.cur.execute(current_app.config['VIEW_TICKETS_BY_DID_AND_STATUS'], {
             'd_id': d_id,
-            'status': status
+            'status': status,
+            'limit': page_size,
+            'offset': offset
         })
         return self.cur.fetchall()
 
-    def get_tickets_by_status(self, status):
+    def get_all_tickets(self, page_size, offset):
+        self.cur.execute(current_app.config['VIEW_ALL_TICKETS'], {
+            'limit': page_size,
+            'offset': offset
+        })
+        return self.cur.fetchall()
+
+    def get_tickets_by_status(self, status, page_size, offset):
         self.cur.execute(current_app.config['GET_TICKETS_BY_STATUS'], {
-            'status': status
+            'status': status,
+            'limit': page_size,
+            'offset': offset
         })
         return self.cur.fetchall()
 

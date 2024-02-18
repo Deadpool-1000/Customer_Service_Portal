@@ -87,7 +87,7 @@ def configure_logging(app):
     app.logger.removeHandler(default_handler)
 
     # Create a file handler object
-    papertrail_log = SysLogHandler(address=('logs3.papertrailapp.com', 14400))
+    papertrail_log = SysLogHandler(address=('logs5.papertrailapp.com', 40933))
 
     # Set the logging level of the file handler object so that it logs INFO and up
     papertrail_log.setLevel(logging.DEBUG)

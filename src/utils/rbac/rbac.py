@@ -14,9 +14,7 @@ def access_required(roles_allowed):
             This function checks jwt in request and further verifies if the role in token is in the roles_allowed iterable.
             If the role inside jwt payload is in roles_allowed then the decorated function is allowed to run. Otherwise a 403 exception is sent to user.
             """
-            print("I am here")
             verify_jwt_in_request()
-            print("I am not here")
             token = get_jwt()
             if token['role'] in roles_allowed:
                 return func(*args, **kwargs)
