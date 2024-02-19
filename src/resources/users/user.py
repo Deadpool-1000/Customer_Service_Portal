@@ -5,6 +5,7 @@ from flask_smorest import Blueprint
 
 from src.controllers.authentication.login.login_controller import LoginController
 from src.controllers.authentication.logout.logout_controller import LogoutController
+from src.controllers.authentication.signup.customer_signup_controller import CustomerSignupController
 from src.schemas.error import CustomErrorSchema
 from src.schemas.user import UserSignupSchema, AuthSchemaRole, SuccessSchema, TokenSchema
 from src.utils.rbac.rbac import access_required
