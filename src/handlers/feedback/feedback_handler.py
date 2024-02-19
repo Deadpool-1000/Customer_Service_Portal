@@ -73,6 +73,6 @@ class FeedbackHandler:
                 'description': ticket_and_feedback['description'],
                 'created_on': ticket_and_feedback['created_on']
             }
-        except pymsql.Error as e:
+        except pymysql.Error as e:
             current_app.logger.error(f'Error while getting feedback for ticket:{t_id}. Error {e}')
             raise DataBaseException(current_app.config['FEEDBACK_FETCH_ERROR_MESSAGE'])

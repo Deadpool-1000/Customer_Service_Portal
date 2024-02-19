@@ -32,6 +32,6 @@ class CustomerSignupHandler:
                 logger.info(f'New Customer signup with name:{fullname} and email:{email}')
             return True
 
-        except pymsql.Error as e:
+        except pymysql.Error as e:
             logger.error(f'Database error during customer signup {e.args[0]}: {e.args[1]}')
             raise DataBaseException(current_app.config['SIGNUP_ERROR_MESSAGE'])
