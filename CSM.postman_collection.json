@@ -1,0 +1,1972 @@
+{
+	"info": {
+		"_postman_id": "b66282e8-715e-411a-858b-7906fad4cc6e",
+		"name": "CSM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32189842"
+	},
+	"item": [
+		{
+			"name": "status-check",
+			"item": [
+				{
+					"name": "status-check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"status is happy\", function(){\r",
+									"    pm.expect(pm.response.json().status).to.eql(\"Happy 🙂\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/status",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "happy-path",
+			"item": [
+				{
+					"name": "create-ticket",
+					"item": [
+						{
+							"name": "create-new-ticket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 201){\r",
+											"    pm.test(\"response is object\", function(){\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"    const response = pm.response.json()\r",
+											"    pm.test(\"reponse has ticket_id\", function(){\r",
+											"        pm.expect(response.ticket_id).to.exist.and.to.be.a('string');\r",
+											"        console.log(response.ticket_id)\r",
+											"        pm.collectionVariables.set('new-ticket-id', response.ticket_id);\r",
+											"    });\r",
+											"} else {\r",
+											"    pm.expect.fail(\"Status code is 200\");\r",
+											"}\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"d_id\": \"1\",\r\n    \"description\": \"There was problem with pc {{$randomAlphaNumeric}}\",\r\n    \"title\": \"Need Help.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-new-ticket-details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function () {\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response has required fields\", function () {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(pm.response.json()).to.have.property('ticket_id');\r",
+											"        pm.expect(pm.response.json()).to.have.property('title');\r",
+											"        pm.expect(pm.response.json()).to.have.property('description');\r",
+											"        pm.expect(pm.response.json()).to.have.property('created_on');\r",
+											"        pm.expect(pm.response.json()).to.have.property('status');\r",
+											"        pm.expect(pm.response.json()).to.have.property('message_from_helpdesk');\r",
+											"        pm.expect(pm.response.json()).to.have.property('department');\r",
+											"        pm.expect(pm.response.json()).to.have.property('customer');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response has correct ticket_id\", function(){\r",
+											"        pm.expect(pm.response.json().ticket_id).to.eql(pm.collectionVariables.get('new-ticket-id'));\r",
+											"    })\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "resolve-ticket",
+					"item": [
+						{
+							"name": "resolve-new-ticket",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"message_from_helpdesk\": \"Hey, Our IT team will get back to you.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/resolve",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"resolve"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ticket-detail-in-prog",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const IN_PROGRESS = \"in_progress\";\r",
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function () {\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response has required fields\", function () {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(pm.response.json()).to.have.property('ticket_id');\r",
+											"        pm.expect(pm.response.json()).to.have.property('title');\r",
+											"        pm.expect(pm.response.json()).to.have.property('description');\r",
+											"        pm.expect(pm.response.json()).to.have.property('created_on');\r",
+											"        pm.expect(pm.response.json()).to.have.property('status');\r",
+											"        pm.expect(pm.response.json()).to.have.property('message_from_helpdesk');\r",
+											"        pm.expect(pm.response.json()).to.have.property('department');\r",
+											"        pm.expect(pm.response.json()).to.have.property('customer');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response ticket's status is in_progress\", function(){\r",
+											"        pm.expect(pm.response.json().status).to.eql(IN_PROGRESS);\r",
+											"    })\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "close-ticket",
+					"item": [
+						{
+							"name": "close-new-ticket",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"message_from_helpdesk\": \"Hope, Your issue got resolved. Please take time to give us a feedback.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/close",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"close"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ticket-detail-closed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const CLOSED = \"closed\";\r",
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function () {\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response has required fields\", function () {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(pm.response.json()).to.have.property('ticket_id');\r",
+											"        pm.expect(pm.response.json()).to.have.property('title');\r",
+											"        pm.expect(pm.response.json()).to.have.property('description');\r",
+											"        pm.expect(pm.response.json()).to.have.property('created_on');\r",
+											"        pm.expect(pm.response.json()).to.have.property('status');\r",
+											"        pm.expect(pm.response.json()).to.have.property('message_from_helpdesk');\r",
+											"        pm.expect(pm.response.json()).to.have.property('department');\r",
+											"        pm.expect(pm.response.json()).to.have.property('customer');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response ticket's status is closed\", function(){\r",
+											"        pm.expect(pm.response.json().status).to.eql(CLOSED);\r",
+											"    })\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "add-feedback",
+					"item": [
+						{
+							"name": "add-feedback-new-ticket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"status code is 201\", function(){\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response has message\", function(){\r",
+											"    pm.expect(pm.response.json()).to.be.an(\"object\")\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\")\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stars\": 4,\r\n    \"description\": \"Great great work...\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/feedback",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"feedback"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-feedback-new-ticket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function(){\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response has required fields\", function(){\r",
+											"        pm.expect(pm.response.json()).to.haveOwnProperty(\"stars\");\r",
+											"        pm.expect(pm.response.json()).to.haveOwnProperty(\"description\");\r",
+											"        pm.expect(pm.response.json()).to.haveOwnProperty(\"ticket_id\");\r",
+											"        pm.expect(pm.response.json()).to.haveOwnProperty(\"created_on\");\r",
+											"    });\r",
+											"} else {\r",
+											"    pm.expect.fail(\"Status is not 200\");\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/feedback",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"feedback"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "add-message-from-mgr",
+					"item": [
+						{
+							"name": "add-message-from-manager",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function(){\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    }); \r",
+											"\r",
+											"    pm.test('response has message fields', function(){\r",
+											"        pm.expect(pm.response.json()).to.haveOwnProperty('message');\r",
+											"    });\r",
+											"} else {\r",
+											"    pm.expect.fail(\"Status is 201\")\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"message_from_manager\": \"Good Job.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"message"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-message-from-manager",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"status is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response is object\", function(){\r",
+											"    pm.expect(pm.response.json()).to.be.an(\"object\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response has required fields\", function(){\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty(\"created_at\");\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty(\"ticket_id\");\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"message"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"item": [
+						{
+							"name": "create-ticket-fail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status is 401\", function(){\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is object\", function(){\r",
+											"    pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty(\"code\");\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty(\"status\");\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"d_id\": \"1\",\r\n    \"description\": \"There was problem with pc {{$randomAlphaNumeric}}\",\r\n    \"title\": \"Need Help.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/logout",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "tickets",
+			"item": [
+				{
+					"name": "new ticket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"d_id\": \"2\",\r\n    \"description\": \"There is a problem with your PC.\",\r\n    \"title\": \"Need Help ASAP PC.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/tickets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ticket detailed view",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/tickets/:ticket_id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tickets",
+								":ticket_id"
+							],
+							"variable": [
+								{
+									"key": "ticket_id",
+									"value": "{{new-ticket-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-tickets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response is array\", function () {\r",
+									"     pm.expect(pm.response.json()).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"const tickets = pm.response.json()\r",
+									"const pageSize = parseInt(pm.collectionVariables.get('page_size'));\r",
+									"const newTicketId = pm.collectionVariables.get('new-ticket-id');\r",
+									"\r",
+									"// Verify the length of the response data\r",
+									"pm.test(\"The response data length must be less than equal to page size\", function () {\r",
+									"   \r",
+									"    pm.expect(tickets.length).to.be.lessThan(pageSize+1);\r",
+									"\r",
+									"    tickets.forEach((ticket)=>{\r",
+									"      pm.expect(ticket).to.have.property('created_on');\r",
+									"      pm.expect(ticket).to.have.property('description');\r",
+									"      pm.expect(ticket).to.have.property('status');\r",
+									"      pm.expect(ticket).to.have.property('ticket_id');\r",
+									"      pm.expect(ticket).to.have.property('title');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"const newTicket = tickets.find(ticket=>ticket.ticket_id===newTicketId)\r",
+									"pm.test(\"tickets contain new-ticket-id\", function(){\r",
+									"    pm.expect(newTicket).to.exist;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('page_size', 2)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/tickets?page=1&page_size={{page_size}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tickets"
+							],
+							"query": [
+								{
+									"key": "ticket_status",
+									"value": "raised",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "{{page_size}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "negative-path",
+			"item": [
+				{
+					"name": "No-JWT-Provided",
+					"item": [
+						{
+							"name": "create-ticket-no-jwt",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"d_id\": \"1\",\r\n    \"description\": \"There is a problem with your PC.\",\r\n    \"title\": \"Need Help ASAP PC.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-ticket-no-jwt",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ticket-resolve-no-jwt",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"message_from_helpdesk\": \"Our IT team will get back to you soon.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/resolve",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"resolve"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ticket-close-no-jwt",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"message_from_helpdesk\": \"Hope, Your issue got resolved.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/close",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"close"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ticket-feedback-no-jwt",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stars\": 4,\r\n    \"description\": \"Hey, really liked your quick response.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/feedback",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"feedback"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-feedback-no-jwt",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/feedback",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"feedback"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-tickets-no-jwt",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/tickets",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-message-from-mgr-no-jwt",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"message"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-message-from-mgr-no-jwt",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"message_from_manager\": \"Hey, good joob kelly\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/tickets/:ticket_id/message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tickets",
+										":ticket_id",
+										"message"
+									],
+									"variable": [
+										{
+											"key": "ticket_id",
+											"value": "{{new-ticket-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"response has required fields\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('object');",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.code).to.exist.and.to.be.a('number').and.to.eql(401);",
+									"    pm.expect(response.status).to.exist.and.to.be.a('string');",
+									"    pm.expect(response.message).to.exist.and.to.be.a('string');",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "403 Forbidden",
+					"item": [
+						{
+							"name": "customer",
+							"item": [
+								{
+									"name": "update-message-by-customer",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"message_from_manager\": \"Good job kelly 🙂\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/tickets/:ticketId/message",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets",
+												":ticketId",
+												"message"
+											],
+											"variable": [
+												{
+													"key": "ticketId",
+													"value": "Np6HU"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get-message-by-customer",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseURL}}/tickets/:ticketId/message",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets",
+												":ticketId",
+												"message"
+											],
+											"variable": [
+												{
+													"key": "ticketId",
+													"value": "Np6HU"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "resolve-tickets-by-customer",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"message_from_helpdesk\": \"Our IT team is on its way to solve the issue.\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/tickets/:ticket_id/resolve",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets",
+												":ticket_id",
+												"resolve"
+											],
+											"variable": [
+												{
+													"key": "ticket_id",
+													"value": "{{new-ticket-id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "close-ticket-by-customer",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"message_from_helpdesk\": \"Hope your issue got solved.\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/tickets/:ticket_id/close",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets",
+												":ticket_id",
+												"close"
+											],
+											"variable": [
+												{
+													"key": "ticket_id",
+													"value": "{{new-ticket-id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "access-forbidden-ticket-by-new-customer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseURL}}/tickets/:ticket_id",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets",
+												":ticket_id"
+											],
+											"variable": [
+												{
+													"key": "ticket_id",
+													"value": "{{new-ticket-id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "access-forbidden-feedback-by-new-customer",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseURL}}/tickets/:ticket_id/feedback",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets",
+												":ticket_id",
+												"feedback"
+											],
+											"variable": [
+												{
+													"key": "ticket_id",
+													"value": "{{new-ticket-id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "employee-and-manager",
+							"item": [
+								{
+									"name": "create-new-ticket-by-helpdesk",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"d_id\": \"1\",\r\n    \"description\": \"There was problem with pc {{$randomAlphaNumeric}}\",\r\n    \"title\": \"Need Help.\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/tickets",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "access-forbidden-ticket-by-helpdesk",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseURL}}/tickets/:ticket_id",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"tickets",
+												":ticket_id"
+											],
+											"variable": [
+												{
+													"key": "ticket_id",
+													"value": "{{new-ticket-id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"status is 403\", function(){",
+									"    pm.response.to.have.status(403)",
+									"});",
+									"",
+									"pm.test(\"response has required fields\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('object');",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.code).to.exist.and.to.be.a('number').and.to.eql(403);",
+									"    pm.expect(response.status).to.exist.and.to.be.a('string');",
+									"    pm.expect(response.message).to.exist.and.to.be.a('string');",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "conflict",
+					"item": [
+						{
+							"name": "signup-conflict",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"response status is 409\", function(){\r",
+											"    pm.response.to.have.status(409);\r",
+											"})\r",
+											"\r",
+											"pm.test(\"response is object\", function () {\r",
+											"    pm.expect(pm.response.json()).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"pm.test('response has required fields', function () {\r",
+											"    pm.expect(response).to.have.property('code');\r",
+											"    pm.expect(response).to.have.property('message');\r",
+											"    pm.expect(response).to.have.property('status');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abc@gmail.com\",\r\n    \"password\": \"Abcdef@2\",\r\n    \"full_name\": \"Mr.ABC\",\r\n    \"phn_num\": \"4678932824\",\r\n    \"address\": \"Abc-street, XYZ city\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/signup",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "signup",
+					"item": [
+						{
+							"name": "signup-customer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 201){\r",
+											"    pm.test(\"response is object\", function(){\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"response has success message\", function(){\r",
+											"        pm.expect(pm.response.json().message).to.exist.and.to.be.an('string');\r",
+											"    });\r",
+											"    \r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const newEmail = pm.variables.replaceIn(\"{{$randomEmail}}\");\r",
+											"const newUsername = pm.variables.replaceIn(\"{{$randomUserName}}\");\r",
+											"\r",
+											"pm.collectionVariables.set(\"newEmail\", newEmail);\r",
+											"pm.collectionVariables.set(\"newUsername\", newUsername);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{newEmail}}\",\r\n    \"password\": \"Abcdef@2\",\r\n    \"full_name\": \"{{newUsername}}\",\r\n    \"phn_num\": \"4678932824\",\r\n    \"address\": \"Abc-street, XYZ city\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/signup",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "login-new-customer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function(){\r",
+											"        pm.expect(pm.response.json()).to.an('object');\r",
+											"    });\r",
+											"    pm.test(\"response has access token\", function(){\r",
+											"        pm.expect(pm.response.json().token).exist.and.to.be.a('string');\r",
+											"        pm.collectionVariables.set('token', pm.response.json().token);\r",
+											"    })\r",
+											"} else{\r",
+											"    pm.expect.fail(\"Status is 200\");\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{newEmail}}\",\r\n    \"password\": \"Abcdef@2\",\r\n    \"role\": \"customer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login-helpdesk",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function () {\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"    pm.test(\"reponse has access token\", function () {\r",
+											"        var responseJSON = pm.response.json();\r",
+											"        pm.expect(responseJSON).to.be.an('object');\r",
+											"        pm.expect(responseJSON.token).to.exist.and.to.be.a('string');\r",
+											"        pm.collectionVariables.set('token', responseJSON.token);\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"kelly@helpdesk.com\",\r\n    \"password\": \"Abcdef@2\",\r\n    \"role\": \"employee\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login-different-helpdesk",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function(){\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"        pm.expect(pm.response.json().token).to.exist.and.to.be.an('string');\r",
+											"        pm.collectionVariables.set('token', pm.response.json().token);\r",
+											"    });\r",
+											"} else {\r",
+											"    pm.expect.fail(\"status is 200\")\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"jim@helpdesk.com\",\r\n    \"password\": \"Abcdef@2\",\r\n    \"role\": \"employee\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login-manager",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response has access token\", function(){\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"        pm.expect(pm.response.json().token).to.exist.and.to.be.a('string');\r",
+											"        pm.collectionVariables.set('token', pm.response.json().token);\r",
+											"    });\r",
+											"} else {\r",
+											"    pm.expect.fail(\"Status is 200\");\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"micheal@manager.com\",\r\n    \"password\": \"Abcdef@2\",\r\n    \"role\": \"employee\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login-customer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if(pm.response.code == 200){\r",
+											"    pm.test(\"response is object\", function () {\r",
+											"        pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    });\r",
+											"    pm.test(\"reponse has access token\", function () {\r",
+											"        var responseJSON = pm.response.json();\r",
+											"        pm.expect(responseJSON).to.be.an('object');\r",
+											"        pm.expect(responseJSON.token).to.exist.and.to.be.a('string');\r",
+											"        pm.collectionVariables.set('token', responseJSON.token);\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abc@gmail.com\",\r\n    \"password\": \"Abcdef@2\",\r\n    \"role\": \"customer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"postman.setNextRequest(\"dummy-request\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if(pm.iterationData.get('itrerationTitle')){",
+					"    postman.setNextRequest(getNextRequest());",
+					"",
+					"    function getNextRequest() {",
+					"        let routes;",
+					"",
+					"        if (Array.isArray(pm.collectionVariables.get(\"remainingRoutes\")) === true){",
+					"            routes = pm.collectionVariables.get(\"remainingRoutes\");",
+					"        } else {",
+					"            routes = pm.iterationData.get(\"routes\");",
+					"        }",
+					"",
+					"        const nextRequest = routes.shift();",
+					"",
+					"        pm.collectionVariables.set(\"remainingRoutes\", routes);",
+					"        ",
+					"        if (nextRequest === undefined) {",
+					"            pm.collectionVariables.unset(\"remainingRoutes\");",
+					"            return null;",
+					"        }",
+					"        return nextRequest;",
+					"    }",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://127.0.0.1:5000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwODM0MTExMiwianRpIjoiYmRhMmUwYjktNjk2My00OGMxLWFkYzItN2RhZDlkZjA4M2ZkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkhHOHN3IiwibmJmIjoxNzA4MzQxMTEyLCJjc3JmIjoiYTFhNWJmZTUtYjFlMi00YjFhLWJlMmYtZjI2NDExZWQ5NThmIiwiZXhwIjoxNzA4MzQyMDEyLCJyb2xlIjoibnBjIn0.UTn9h6LAGToW1Xtdf9H0JyFnNAK6BfRie8K2IlfPMts"
+		},
+		{
+			"key": "new-ticket-id",
+			"value": "4qzRY",
+			"type": "string"
+		},
+		{
+			"key": "newEmail",
+			"value": "Freda_Wehner14@gmail.com"
+		},
+		{
+			"key": "newUsername",
+			"value": "Evans41"
+		},
+		{
+			"key": "forbidden-ticket-id",
+			"value": "6VAdW",
+			"type": "string"
+		},
+		{
+			"key": "page_size",
+			"value": 2
+		}
+	]
+}

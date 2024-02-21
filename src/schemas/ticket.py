@@ -49,7 +49,7 @@ class DepartmentSchema(BaseSchema):
 class TicketRaisingSchema(BaseSchema):
     """Schema representing the format needed for raising ticket."""
     d_id = fields.Str(required=True, validate=validate.Length(min=1, max=2))
-    title = fields.Str(required=True, validate=validate.Length(min=2, max=10))
+    title = fields.Str(required=True, validate=validate.Length(min=2, max=20))
     description = fields.Str(required=True)
 
 
