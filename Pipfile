@@ -4,13 +4,26 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-shortuuid = "*"
-pyyaml = "*"
-pytest = "*"
-maskpass = "*"
+shortuuid = "~=1.0.11"
+pyyaml = "~=6.0.1"
+pytest = "~=7.4.4"
+maskpass = "~=0.3.7"
 pytest-mock = "*"
+flask = "~=3.0.1"
+flask-smorest = "*"
+marshmallow = "~=3.20.2"
+flask-jwt-extended = "*"
+python-dotenv = "~=1.0.0"
+pymysql = "*"
+gunicorn = "*"
 
 [dev-packages]
+flask = "~=3.0.1"
+shortuuid = "~=1.0.11"
+pyyaml = "~=6.0.1"
+python-dotenv = "~=1.0.0"
+marshmallow = "~=3.20.2"
+pymysql = "~=1.1.0"
 
 [requires]
 python_version = "3.11"

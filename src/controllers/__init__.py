@@ -1,0 +1,5 @@
+from src.controllers.message.message_controller import MessageController
+from src.controllers.feedback.feedback_controller import FeedbackController
+from src.controllers.ticket.new_ticket_controller import NewTicketController
+from src.controllers.ticket.ticket_controller import TicketController
+from src.controllers.ticket.ticket_operation_controller import TicketOperationController
