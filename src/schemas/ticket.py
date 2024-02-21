@@ -25,7 +25,7 @@ class UnionField(fields.Field):
 
 class UserSchema(BaseSchema):
     """Schema representing public information of the user"""
-    full_name = fields.Str(required=True)
+    full_name = fields.Str(required=True, validate=validate.Length(min=2, max=10))
     email = fields.Str(required=True)
     phn_num = fields.Str(required=True)
 
@@ -48,8 +48,8 @@ class DepartmentSchema(BaseSchema):
 
 class TicketRaisingSchema(BaseSchema):
     """Schema representing the format needed for raising ticket."""
-    d_id = fields.Str(required=True)
-    title = fields.Str(required=True)
+    d_id = fields.Str(required=True, validate=validate.Length(min=1, max=2))
+    title = fields.Str(required=True, validate=validate.Length(min=2, max=10))
     description = fields.Str(required=True)
 
 

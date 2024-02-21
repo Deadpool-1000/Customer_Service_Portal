@@ -11,3 +11,4 @@ class BaseSchema(Schema):
     ):
         current_app.logger.error(error.messages)
         abort(422, message=error.args)
+        
