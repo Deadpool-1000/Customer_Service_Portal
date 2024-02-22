@@ -73,3 +73,9 @@ INSERT_MESSAGE_FROM_MANAGER: "INSERT INTO message_from_manager VALUES(%s, %s, %s
 GET_MESSAGE_FROM_MANAGER: "SELECT message, created_at, t_id FROM message_from_manager WHERE t_id=%(t_id)s"
 UPDATE_MESSAGE_FROM_MANAGER: "UPDATE message_from_manager SET message=%(message)s, created_at=%(created_at)s WHERE t_id=%(t_id)s"
 GET_TICKET_JOIN_MESSAGE: "SELECT * FROM tickets t NATURAL JOIN message_from_manager WHERE t.t_id = %(t_id)s"
+
+#token
+CREATE_TABLE_TOKEN: "CREATE TABLE blocklist (jti VARCHAR(36) PRIMARY KEY, exp timestamp)"
+REVOKED_TOKEN_INSERT: "INSERT INTO blocklist VALUES(%s, %s)"
+GET_TOKEN_BY_JTI: "SELECT * FROM blocklist WHERE jti=%(jti)s"
+CALL_CLEAR_BLOCKLIST_PROCEDURE: "CALL remove_expired_tokens"

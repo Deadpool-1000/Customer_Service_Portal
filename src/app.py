@@ -3,8 +3,6 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager
 from flask_smorest import Api
-
-from src.handlers.authentication.logout.BLOCKLIST import BLOCKLIST
 from src.utils.utils import RequestFormatter, generate_new_request_id
 
 
@@ -14,6 +12,7 @@ def create_app():
     load_dotenv()
     app = Flask(__name__)
 
+    register_before_request_handler(app)
     configure_logging(app)
 
     # Load swagger, flask app and custom configurations
@@ -24,17 +23,15 @@ def create_app():
     api = Api(app)
     jwt = JWTManager(app)
 
-    # Register custom jwt error handlers
-    register_jwt_error_handlers(app, jwt)
-
     # Register blueprints for various resource
     with app.app_context():
         from src.resources import user_blueprint
         from src.resources import ticket_blueprint
         from src.resources import feedback_blueprint
         from src.resources import message_blueprint
+        from src.utils.jwt_helper import is_jwt_in_blocklist
         register_blueprints(api, user_blueprint, ticket_blueprint, feedback_blueprint, message_blueprint)
-        register_before_request_handler(app)
+        register_jwt_error_handlers(app, jwt, is_jwt_in_blocklist)
 
     @app.route("/status", methods=["GET"])
     def status():
@@ -51,11 +48,11 @@ def register_blueprints(api, *blueprints):
         api.register_blueprint(blueprint)
 
 
-def register_jwt_error_handlers(app, jwt):
+def register_jwt_error_handlers(app, jwt, is_jwt_in_blocklist):
     @jwt.token_in_blocklist_loader
     def check_token_in_blocklist(jwt_header, jwt_payload):
         """Called every time a JWT token is received and validates if the token has been revoked"""
-        return jwt_payload['jti'] in BLOCKLIST
+        return is_jwt_in_blocklist(jwt_payload['jti'])
 
     @jwt.revoked_token_loader
     def revoked_token_loader(jwt_header, jwt_payload):
@@ -64,17 +61,24 @@ def register_jwt_error_handlers(app, jwt):
         return jsonify({
             'code': 401,
             'status': 'Unauthorized',
-            'message': app.config['REVOKED_TOKEN_MESSAGE']
+            'message': app.config['INVALID_TOKEN_MESSAGE']
         }), 401
 
     @jwt.unauthorized_loader
     def no_jwt_token_loader(reason):
-        print(reason)
         return jsonify({
             'code': 401,
             'status': 'Unauthorized',
             'message': app.config['NO_JWT_TOKEN_MESSAGE']
         }), 401
+
+    @jwt.expired_token_loader
+    def expired_token_loader(jwt_header, jwt_payload):
+        return jsonify({
+            'code': 401,
+            'status': 'Unauthorized',
+            'message': app.config['INVALID_TOKEN_MESSAGE']
+        })
 
 
 def configure_logging(app):
