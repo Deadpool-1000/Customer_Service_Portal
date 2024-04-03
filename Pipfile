@@ -16,6 +16,7 @@ flask-jwt-extended = "*"
 python-dotenv = "~=1.0.0"
 pymysql = "*"
 gunicorn = "*"
+flask-cors = "*"
 
 [dev-packages]
 flask = "~=3.0.1"

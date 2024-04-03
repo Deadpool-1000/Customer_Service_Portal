@@ -25,3 +25,6 @@ class EmployeeDAO(BaseDAO):
         })
         logger.debug(f"Department details for employee {e_id} fetched.")
         return self.cur.fetchone()
+
+    def all_employees(self):
+        pass

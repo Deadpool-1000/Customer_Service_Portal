@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager
 from flask_smorest import Api
 from src.utils.utils import RequestFormatter, generate_new_request_id
+from flask_cors import CORS
 
 
 # Application Factory
@@ -11,6 +12,7 @@ def create_app():
     """Application factory pattern"""
     load_dotenv()
     app = Flask(__name__)
+    CORS(app)
 
     register_before_request_handler(app)
     configure_logging(app)
