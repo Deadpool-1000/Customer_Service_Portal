@@ -40,3 +40,22 @@ class AuthDAO(BaseDAO):
             'jti': jti
         })
         return self.cur.fetchone()
+
+    def get_user_profile(self, user_id, role):
+        profile = {}
+        if role == current_app.config['HELPDESK'] or role == current_app.config['MANAGER']:
+            self.cur.execute(current_app.config['GET_EMPLOYEE_PROFILE'], {
+                'user_id': user_id
+            })
+            profile = self.cur.fetchone()
+            profile['role'] = 'EMPLOYEE' if role == current_app.config['HELPDESK'] else 'MANAGER'
+        elif role == current_app.config['CUSTOMER']:
+            self.cur.execute(current_app.config['GET_CUSTOMER_PROFILE'], {
+                'user_id': user_id
+            })
+            profile = self.cur.fetchone()
+            profile['role'] = 'CUSTOMER'
+        else:
+            print("Something is wrong")
+
+        return profile

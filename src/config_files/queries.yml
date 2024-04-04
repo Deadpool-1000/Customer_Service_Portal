@@ -79,3 +79,11 @@ CREATE_TABLE_TOKEN: "CREATE TABLE blocklist (jti VARCHAR(36) PRIMARY KEY, exp ti
 REVOKED_TOKEN_INSERT: "INSERT INTO blocklist VALUES(%s, %s)"
 GET_TOKEN_BY_JTI: "SELECT * FROM blocklist WHERE jti=%(jti)s"
 CALL_CLEAR_BLOCKLIST_PROCEDURE: "CALL remove_expired_tokens"
+
+#User profile
+GET_CUSTOMER_PROFILE: "SELECT d.c_id, d.full_name, d.phn_num, d.address, a.email FROM 
+csm_.cust_details d
+NATURAL JOIN csm_.cust_auth a WHERE d.c_id=%(user_id)s;"
+GET_EMPLOYEE_PROFILE: "SELECT d.e_id, d.full_name, d.phn_num, d.address, a.email, b.dept_name FROM 
+csm_.emp_details d NATURAL JOIN csm_.dept_details b
+NATURAL JOIN csm_.emp_auth a WHERE d.e_id=%(user_id)s;"

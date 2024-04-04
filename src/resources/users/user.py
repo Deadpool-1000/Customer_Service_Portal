@@ -1,14 +1,16 @@
 from flask import current_app
 from flask.views import MethodView
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import get_jwt, jwt_required, get_jwt_identity
 from flask_smorest import Blueprint
 
 from src.controllers.authentication.login.login_controller import LoginController
 from src.controllers.authentication.logout.logout_controller import LogoutController
 from src.controllers.authentication.signup.customer_signup_controller import CustomerSignupController
+from src.controllers.authentication.user_controller import UserController
 from src.schemas.error import CustomErrorSchema
 from src.schemas.user import UserSignupSchema, AuthSchemaRole, SuccessSchema, TokenSchema
 from src.utils.rbac.rbac import access_required
+
 
 blp = Blueprint('Users', 'users', description='Operation on users')
 
@@ -114,3 +116,13 @@ class Logout(MethodView):
         token = get_jwt()
         success_message = LogoutController.logout(token)
         return success_message, 200
+
+
+@blp.route('/profile')
+class Profile(MethodView):
+    @jwt_required()
+    def get(self):
+        role = get_jwt()['role']
+        user_id = get_jwt_identity()
+        return UserController.get_profile(user_id=user_id, role=role)
+
