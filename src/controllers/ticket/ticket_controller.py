@@ -70,7 +70,10 @@ class TicketController:
                     'email': ticket['cust_email'],
                     'phn_num': ticket['cust_phn_num']
                 },
-                'message_from_helpdesk': DEFAULT_HELPDESK_MESSAGE
+                'message_from_helpdesk': {
+                    'message': DEFAULT_HELPDESK_MESSAGE,
+                    'created_at': str(ticket['created_on'])
+                }
             }
 
     @classmethod

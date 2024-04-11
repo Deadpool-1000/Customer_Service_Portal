@@ -12,10 +12,11 @@ def create_app():
     """Application factory pattern"""
     load_dotenv()
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     register_before_request_handler(app)
     configure_logging(app)
+    register_404_handler(app)
 
     # Load swagger, flask app and custom configurations
     app.config.from_object('config.Config')
@@ -114,3 +115,13 @@ def register_before_request_handler(app):
         """Adds request id to the request object for logging"""
         request_id = generate_new_request_id()
         request.request_id = request_id
+
+
+def register_404_handler(app):
+    @app.handle_exception(404)
+    def handle_404_error(err):
+        return {
+            'status': 'Not Found',
+            'code': 404,
+            'message': 'Resource not found.'
+        }, 404
