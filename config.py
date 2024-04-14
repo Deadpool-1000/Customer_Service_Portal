@@ -22,3 +22,4 @@ class Config:
         'description': 'Authorization: Bearer <access_token>',
         'required': 'true'
     }
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=30)

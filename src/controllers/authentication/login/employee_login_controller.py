@@ -16,9 +16,7 @@ class EmployeeLoginController:
             employee_auth_details = EmployeeLoginHandler.login_employee(email, password)
             token = EmployeeLoginHandler.generate_token(employee_auth_details)
             logger.info(f"Employee with email {email} logged in.")
-            return {
-                'token': token
-            }
+            return token
 
         except ApplicationError as ae:
             abort(ae.code, message=ae.message)

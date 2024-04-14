@@ -17,9 +17,7 @@ class CustomerLoginController:
             c_id = CustomerLoginHandler.login_customer(email, password)
             token = CustomerLoginHandler.generate_token(cust_id=c_id)
             logger.info(f"Customer {c_id} logged in.")
-            return {
-                'token': token
-            }
+            return token
 
         except ApplicationError as ae:
             return abort(ae.code, message=ae.message)

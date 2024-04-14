@@ -87,3 +87,5 @@ NATURAL JOIN csm_.cust_auth a WHERE d.c_id=%(user_id)s;"
 GET_EMPLOYEE_PROFILE: "SELECT d.e_id, d.full_name, d.phn_num, d.address, a.email, b.dept_name FROM 
 csm_.emp_details d NATURAL JOIN csm_.dept_details b
 NATURAL JOIN csm_.emp_auth a WHERE d.e_id=%(user_id)s;"
+UPDATE_CUSTOMER_DETAIL: "UPDATE csm_.cust_details d SET d.address=%(address)s, d.full_name=%(full_name)s , d.phn_num=%(phn_num)s WHERE d.c_id=%(c_id)s;"
+UPDATE_CUSTOMER_EMAIL: "UPDATE csm_.cust_auth a SET a.email=%(email)s WHERE a.c_id=%(c_id)s;"

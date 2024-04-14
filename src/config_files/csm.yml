@@ -8,6 +8,9 @@ CUSTOMER: npc
 
 CUSTOMER_: customer
 EMPLOYEE_: employee
+HELPDESK_: HELPDESK
+CUSTOMER__: CUSTOMER
+MANAGER_: MANAGER
 
 IN_PROGRESS: "in_progress"
 RAISED: "raised"
@@ -73,7 +76,8 @@ FETCH_MESSAGE_ERROR_MESSAGE: "There was some problem getting your message."
 PWD_REGEXP: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
 INVALID_EMAIL_ERROR_MESSAGE: "Not a valid email address."
 WEAK_PASSWORD_ERROR_MESSAGE: "Weak password. Ensure that password is at least 8 characters long, contains one capital letter, and one special character."
-
+PHN_NUM_REGEXP: "^\\+[1-9]{2}[0-9]{10}$"
+INVALID_PHN_NUM_ERROR_MESSAGE: "Your phone number must be of pattern: Country code followed by your phone number (eg.+9199020292xx)"
 
 #status codes
 HTTP_201_CREATED: 201
@@ -86,3 +90,9 @@ NO_JWT_TOKEN_MESSAGE: "Please provide a valid bearer token in JWT Authorization 
 INVALID_ROLE_ERROR_MESSAGE: "Invalid Role provided. Only values allowed are 'customer' and 'employee'"
 LOGOUT_ERROR_MESSAGE: "There was some problem logging you out."
 INVALID_TOKEN_MESSAGE: "Your token is invalid. Please log in again."
+
+PROFILE_FETCH_ERROR_MESSAGE: "There was some problem fetching your profile. Please try again later."
+PROFILE_UPDATE_ERROR_MESSAGE: "There was some problem updating your profile. Please try again later."
+PROFILE_UPDATE_SUCCESS_MESSAGE: "Profile Updated Successfully."
+CUSTOMER_ID_MISMATCH: "Customer Id doesnt match yours. Please make sure you are sending the correct data."
+

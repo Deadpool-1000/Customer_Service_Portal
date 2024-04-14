@@ -1,8 +1,12 @@
+import os
+
 import yaml
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager
 from flask_smorest import Api
+from werkzeug.exceptions import HTTPException
+
 from src.utils.utils import RequestFormatter, generate_new_request_id
 from flask_cors import CORS
 
@@ -17,6 +21,7 @@ def create_app():
     register_before_request_handler(app)
     configure_logging(app)
     register_404_handler(app)
+    register_all_error_handler(app)
 
     # Load swagger, flask app and custom configurations
     app.config.from_object('config.Config')
@@ -94,7 +99,7 @@ def configure_logging(app):
     app.logger.removeHandler(default_handler)
 
     # Create a file handler object
-    papertrail_log = SysLogHandler(address=('logs5.papertrailapp.com', 40933))
+    papertrail_log = SysLogHandler(address=(os.getenv('PAPERTRAIL_HOST', ''), int(os.getenv('PAPERTRAIL_PORT', 1))))
 
     # Set the logging level of the file handler object so that it logs INFO and up
     papertrail_log.setLevel(logging.DEBUG)
@@ -118,10 +123,20 @@ def register_before_request_handler(app):
 
 
 def register_404_handler(app):
-    @app.handle_exception(404)
+    @app.errorhandler(404)
     def handle_404_error(err):
         return {
             'status': 'Not Found',
             'code': 404,
             'message': 'Resource not found.'
         }, 404
+
+
+def register_all_error_handler(app):
+    @app.errorhandler(Exception)
+    def handle_exception(e):
+        return {
+            'status': 'Internal Server Error',
+            'code': 500,
+            'message': 'There was some problem while processing your request. Try again later.'
+        }

@@ -36,26 +36,40 @@ class AuthDAO(BaseDAO):
         self.cur.execute(current_app.config['CALL_CLEAR_BLOCKLIST_PROCEDURE'])
 
     def get_token_by_jti(self, jti):
-        self.cur.execute(current_app.config['GET_TOKEN_BY_JTI'],{
+        """Checks expired tokens in database"""
+        self.cur.execute(current_app.config['GET_TOKEN_BY_JTI'], {
             'jti': jti
         })
         return self.cur.fetchone()
 
     def get_user_profile(self, user_id, role):
+        """Fetch profile from database"""
         profile = {}
         if role == current_app.config['HELPDESK'] or role == current_app.config['MANAGER']:
             self.cur.execute(current_app.config['GET_EMPLOYEE_PROFILE'], {
                 'user_id': user_id
             })
             profile = self.cur.fetchone()
-            profile['role'] = 'EMPLOYEE' if role == current_app.config['HELPDESK'] else 'MANAGER'
+            profile['role'] = current_app.config['HELPDESK_'] if role == current_app.config['HELPDESK'] else current_app.config['MANAGER_']
         elif role == current_app.config['CUSTOMER']:
             self.cur.execute(current_app.config['GET_CUSTOMER_PROFILE'], {
                 'user_id': user_id
             })
             profile = self.cur.fetchone()
-            profile['role'] = 'CUSTOMER'
-        else:
-            print("Something is wrong")
+            profile['role'] = current_app.config['CUSTOMER__']
 
         return profile
+
+    def put_customer_profile(self, new_user_data):
+        """Update user Profile"""
+        self.cur.execute(current_app.config['UPDATE_CUSTOMER_DETAIL'], {
+            'address': new_user_data['address'],
+            'phn_num': new_user_data['phn_num'],
+            'full_name': new_user_data['full_name'],
+            'c_id': new_user_data['c_id']
+        })
+        self.cur.execute(current_app.config['UPDATE_CUSTOMER_EMAIL'], {
+            'email': new_user_data['email'],
+            'c_id': new_user_data['c_id']
+        })
+

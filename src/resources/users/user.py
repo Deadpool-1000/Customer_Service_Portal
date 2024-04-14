@@ -6,9 +6,9 @@ from flask_smorest import Blueprint
 from src.controllers.authentication.login.login_controller import LoginController
 from src.controllers.authentication.logout.logout_controller import LogoutController
 from src.controllers.authentication.signup.customer_signup_controller import CustomerSignupController
-from src.controllers.authentication.user_controller import UserController
+from src.controllers.user.user_controller import UserController
 from src.schemas.error import CustomErrorSchema
-from src.schemas.user import UserSignupSchema, AuthSchemaRole, SuccessSchema, TokenSchema
+from src.schemas.user import UserSignupSchema, AuthSchemaRole, SuccessSchema, TokenSchema, ProfileSchema
 from src.utils.rbac.rbac import access_required
 
 
@@ -56,30 +56,18 @@ SIGNUP_SUCCESS_EXAMPLE = {
     'message': 'Signup Successful.'
 }
 
-"""
-@blp.route('/login/customer')
-class LoginCustomer(MethodView):
-    @blp.alt_response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=LOGIN_UNAUTHORIZED_EXAMPLE, description=INCORRECT_CREDENTIALS_DESCRIPTION)
-    @blp.response(HTTP_200_OK, TokenSchema, example=TOKEN_EXAMPLE)
-    @blp.arguments(AuthSchema)
-    def post(self, cust_auth_data):
-        """"""Login as customer""""""
-        current_app.logger.debug("POST /login/customer")
-        token = CustomerLoginController.login(cust_auth_data)
-        return token
+PROFILE_EXAMPLE = {
+    "address": "Abc-street, XYZ city",
+    "c_id": "qo3Mh",
+    "email": "Myron32@gmail.com",
+    "full_name": "Maximilian95",
+    "phn_num": "4678932824",
+    "role": "CUSTOMER"
+}
 
-
-@blp.route('/login/employee')
-class LoginEmployee(MethodView):
-    @blp.alt_response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=LOGIN_UNAUTHORIZED_EXAMPLE, description=INCORRECT_CREDENTIALS_DESCRIPTION)
-    @blp.response(HTTP_200_OK, TokenSchema, example=TOKEN_EXAMPLE)
-    @blp.arguments(AuthSchema)
-    def post(self, emp_data):
-        """"""Login as employee""""""
-        current_app.logger.debug("POST /login/employee")
-        token = EmployeeLoginController.login(emp_data)
-        return token
-"""
+PROFILE_UPDATE_EXAMPLE = {
+    "message": "Profile Updated Successfully."
+}
 
 
 @blp.route('/login')
@@ -120,9 +108,21 @@ class Logout(MethodView):
 
 @blp.route('/profile')
 class Profile(MethodView):
+    @blp.alt_response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=UNAUTHORIZED_EXAMPLE, description=NO_JWT_PROVIDED_DESCRIPTION)
+    @blp.response(HTTP_200_OK, schema=ProfileSchema, example=PROFILE_EXAMPLE)
     @jwt_required()
     def get(self):
+        """Get profile"""
         role = get_jwt()['role']
         user_id = get_jwt_identity()
         return UserController.get_profile(user_id=user_id, role=role)
+
+    @blp.alt_response(HTTP_401_UNAUTHORIZED, schema=CustomErrorSchema, example=UNAUTHORIZED_EXAMPLE, description=NO_JWT_PROVIDED_DESCRIPTION)
+    @blp.response(HTTP_200_OK, schema=SuccessSchema, example=PROFILE_UPDATE_EXAMPLE)
+    @blp.arguments(ProfileSchema)
+    @access_required([current_app.config['CUSTOMER']])
+    def put(self, new_user_data):
+        """Update profile for customer"""
+        user_id = get_jwt_identity()
+        return UserController.put_customer_profile(user_id, new_user_data)
 
