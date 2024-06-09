@@ -47,14 +47,14 @@ def print_tickets_brief(tickets):
 def tickets_menu(tickets, main_prompt, functionalities_prompt, continue_prompt, functionalities=None):
     if functionalities is None:
         functionalities = {}
-
     while True:
         print(main_prompt)
+        
         ticket_view_generator = view_list_generator(tickets)
         did_quit = False
 
-        for tickets in ticket_view_generator:
-            print_tickets_brief(tickets)
+        for tickets_items in ticket_view_generator:
+            print_tickets_brief(tickets_items)
             user_choice = simple_input(functionalities_prompt, [*functionalities.keys(), 'n', 'q'])
             if user_choice == 'n':
                 continue
@@ -70,6 +70,5 @@ def tickets_menu(tickets, main_prompt, functionalities_prompt, continue_prompt, 
         user_choice = simple_input(continue_prompt, ['y', 'n'])
         if user_choice == 'y':
             system('cls')
-            continue
         else:
             break

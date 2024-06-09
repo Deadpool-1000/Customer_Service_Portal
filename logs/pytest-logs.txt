@@ -1,25 +1,25 @@
-INFO     main.auth_dao:authdao.py:38 Email already exists, please try a different email
-INFO     main.customer_dao:customerdao.py:22 Invalid CustomerID Provided
-INFO     main.employee_dao:employeedao.py:25 Invalid employee id encountered
-INFO     main.employee_dao:employeedao.py:33 Invalid department id encountered
-INFO     main.login:login.py:31 Employee with e_id:1, name:test1 logged in
-ERROR    main.login:login.py:35 [Employee]:  with email:test_wrong@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:39  with email:test_wrong@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:43  with email:test_wrong@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:47 Employee login: 
-INFO     main.login:login.py:62 Employee with e_id:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='2151063190288'>, name:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='2151063190288'> logged in
-INFO     main.login:login.py:62 Employee with e_id:3, name:test3 logged in
-ERROR    main.login:login.py:65 [Customer]:  with email:wrong_email@gmail.com and password:wrong_pass
-ERROR    main.login:login.py:69 Customer login: sqlite3 error 
-INFO     main.signup:signup.py:25 New Customer signup with name:test_full_name and email:test_email@test.com
-ERROR    main.signup:signup.py:37 Email Already exists: test_email@test.com
-ERROR    main.signup:signup.py:43 Customer login: 
-INFO     main.main_menu:main_menu.py:51 Employee e_id:1 and designation:helpdesk logged in
-INFO     main.main_menu:main_menu.py:51 Employee e_id:1 and designation:manager logged in
-INFO     main.main_menu:main_menu.py:51 Employee e_id:1 and designation:helpdesk logged in
-INFO     main.customer_ticket_section:customer_ticket_section.py:131 Feedback generated for ticket_id:111 by 1
-INFO     main.help_section:helpdesk_ticket_section.py:116 ticket_id:1 is closed by 1
-INFO     main.help_section:helpdesk_ticket_section.py:133 ticket_id:1 is resolved by 1
-DEBUG    main.help_section:helpdesk_ticket_section.py:140 Closing ticket with t_id 1
-INFO     main.manager_ticket:manager_ticket_section.py:48 Manager viewed all tickets in the organization
-INFO     main.customer_fake:customer.py:38 Customer:1 is trying to raise a ticket
+2024-06-10 01:24:36 INFO Email already exists, please try a different email
+2024-06-10 01:24:36 INFO Invalid CustomerID Provided
+2024-06-10 01:24:36 INFO Invalid employee id encountered
+2024-06-10 01:24:36 INFO Invalid department id encountered
+2024-06-10 01:24:36 INFO Employee with e_id:1, name:test1 logged in
+2024-06-10 01:24:36 ERROR [Employee]:  with email:test_wrong@gmail.com and password:wrong_pass
+2024-06-10 01:24:36 ERROR  with email:test_wrong@gmail.com and password:wrong_pass
+2024-06-10 01:24:36 ERROR  with email:test_wrong@gmail.com and password:wrong_pass
+2024-06-10 01:24:36 ERROR Employee login: 
+2024-06-10 01:24:36 INFO Employee with e_id:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='1928381653136'>, name:<MagicMock name='mock().get_customer_details_by_id().__getitem__()' id='1928381653136'> logged in
+2024-06-10 01:24:36 INFO Employee with e_id:3, name:test3 logged in
+2024-06-10 01:24:36 ERROR [Customer]:  with email:wrong_email@gmail.com and password:wrong_pass
+2024-06-10 01:24:36 ERROR Customer login: sqlite3 error 
+2024-06-10 01:24:36 INFO New Customer signup with name:test_full_name and email:test_email@test.com
+2024-06-10 01:24:36 ERROR Email Already exists: test_email@test.com
+2024-06-10 01:24:37 ERROR Customer login: 
+2024-06-10 01:24:37 INFO Employee e_id:1 and designation:helpdesk logged in
+2024-06-10 01:24:38 INFO Employee e_id:1 and designation:manager logged in
+2024-06-10 01:24:39 INFO Employee e_id:1 and designation:helpdesk logged in
+2024-06-10 01:24:39 INFO Feedback generated for ticket_id:111 by 1
+2024-06-10 01:24:42 INFO ticket_id:1 is closed by 1
+2024-06-10 01:24:42 INFO ticket_id:1 is resolved by 1
+2024-06-10 01:24:42 DEBUG Closing ticket with t_id 1
+2024-06-10 01:24:42 INFO Manager viewed all tickets in the organization
+2024-06-10 01:24:42 INFO Customer:1 is trying to raise a ticket

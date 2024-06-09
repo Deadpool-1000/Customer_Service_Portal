@@ -13,6 +13,7 @@ END_OF_TICKETS : "---------------------------That's all the tickets we have-----
 ALL_TICKETS_PROMPT : |
   Press:
   'n': next page
+  'd': detail view of a ticket
   'q': back
   Your choice:
 

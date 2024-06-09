@@ -172,3 +172,22 @@
 01-41-2023 16:41:59 INFO     [login.py:31] Employee with e_id:Nmmm8, name:Kelly Kapoor logged in
 01-41-2023 16:41:59 INFO     [main_menu.py:51] Employee e_id:Nmmm8 and designation:helpdesk logged in
 01-42-2023 16:42:23 INFO     [main.py:28] App ended
+10-36-2024 00:36:50 INFO     [main.py:25] App started
+10-37-2024 00:37:18 ERROR    [login.py:35] [Employee]: Invalid Username or password with email:micheal_manager@gmail.com and password:Abcdef@2
+10-37-2024 00:37:45 ERROR    [login.py:35] [Employee]: Invalid Username or password with email:micheal_manager@gmail.com and password:Abcdef@2
+10-38-2024 00:38:26 INFO     [login.py:31] Employee with e_id:AfqTX, name:Micheal Scott logged in
+10-38-2024 00:38:26 INFO     [main_menu.py:51] Employee e_id:AfqTX and designation:manager logged in
+10-42-2024 00:42:16 INFO     [main.py:25] App started
+10-42-2024 00:42:29 INFO     [login.py:31] Employee with e_id:AfqTX, name:Micheal Scott logged in
+10-42-2024 00:42:29 INFO     [main_menu.py:51] Employee e_id:AfqTX and designation:manager logged in
+10-44-2024 00:44:03 INFO     [main.py:25] App started
+10-44-2024 00:44:22 INFO     [login.py:31] Employee with e_id:AfqTX, name:Micheal Scott logged in
+10-44-2024 00:44:22 INFO     [main_menu.py:51] Employee e_id:AfqTX and designation:manager logged in
+10-53-2024 00:53:01 INFO     [main.py:25] App started
+10-53-2024 00:53:17 ERROR    [login.py:35] [Employee]: Invalid Username or password with email:micheal_scott@manager.com and password:Abcdef@2
+10-53-2024 00:53:32 INFO     [login.py:31] Employee with e_id:AfqTX, name:Micheal Scott logged in
+10-53-2024 00:53:32 INFO     [main_menu.py:51] Employee e_id:AfqTX and designation:manager logged in
+10-56-2024 00:56:41 INFO     [main.py:25] App started
+10-56-2024 00:56:59 INFO     [login.py:31] Employee with e_id:AfqTX, name:Micheal Scott logged in
+10-56-2024 00:56:59 INFO     [main_menu.py:51] Employee e_id:AfqTX and designation:manager logged in
+10-57-2024 00:57:19 INFO     [manager_ticket_section.py:48] Manager viewed all tickets in the organization

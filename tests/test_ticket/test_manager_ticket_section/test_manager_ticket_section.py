@@ -18,7 +18,7 @@ def mock_db_conn(mocker):
 @pytest.fixture
 def mock_ticket_dao(mocker, mock_db_conn):
     mock_t_dao_cls = mocker.MagicMock()
-    mocker.patch('src.ticket.manager_section.manager_ticket_section', mock_t_dao_cls)
+    mocker.patch('src.ticket.manager_section.manager_ticket_section.TicketDAO', mock_t_dao_cls)
     return mock_t_dao_cls()
 
 

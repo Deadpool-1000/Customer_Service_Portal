@@ -58,12 +58,7 @@ class ManagerTicketSection:
             return
 
         found_ticket = list(filter(lambda x: x.t_id == t_id, all_tickets))
-        print_managers_view(found_ticket[0])
+        print_managers_view(found_ticket)
 
-        if found_ticket[0].status == ManagerTicketConfig.CLOSED:
-            pass
-
-        else:
-            # In case of closed ticket there is only one option to go back
-            _ = simple_input(ManagerTicketConfig.GO_BACK_PROMPT, allowed=['q'])
-            return
+        # In case of closed ticket there is only one option to go back
+        _ = simple_input(ManagerTicketConfig.GO_BACK_PROMPT, allowed=['q'])
